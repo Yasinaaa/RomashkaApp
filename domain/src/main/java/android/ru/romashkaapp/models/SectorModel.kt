@@ -5,6 +5,7 @@ package android.ru.romashkaapp.models
  * Copyright (c) 2018 Infomatica. All rights reserved.
  */
 class SectorModel {
+
     var id: Int = 0
     lateinit var name: String
     var freeSeats: Int = 0

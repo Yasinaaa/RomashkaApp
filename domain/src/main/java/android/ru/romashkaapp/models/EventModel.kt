@@ -5,6 +5,7 @@ package android.ru.romashkaapp.models
  * Copyright (c) 2018 Infomatica. All rights reserved.
  */
 class EventModel {
+
     var id: Int = 0
     lateinit var startDate: String
     lateinit var endDate: String
