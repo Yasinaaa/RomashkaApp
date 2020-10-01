@@ -1,13 +1,14 @@
 package ru.android.romashkaapp
 
 import android.app.Activity
-import android.content.*
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.HttpUrl
 
@@ -43,11 +44,15 @@ class MainActivity : AppCompatActivity() {
      */
     val API_SCOPE = "https://www.googleapis.com/auth/drive"
 
+    private var viewModel: MainViewModel? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         imageView.setImageDrawable(getDrawable(R.drawable.ic_plan))
 
+        val factory: ViewModelProvider.Factory = NewInstanceFactory()
+        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
         startAuth()
 
 //        wb.setWebViewClient(MyBrowser())
@@ -82,18 +87,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startAuth(){
-        val authorizeUrl: HttpUrl =
-            HttpUrl.
-            parse("https://kamalteatr.ru/tickets/site/yasinevich")!!.newBuilder() //
-            .addQueryParameter("client_id", CLIENT_ID)
-            .addQueryParameter("scope", API_SCOPE)
-            .addQueryParameter("redirect_uri", REDIRECT_URI)
-            .addQueryParameter("response_type", CODE)
-            .build()
-        val i = Intent(Intent.ACTION_VIEW, Uri.parse(authorizeUrl.url().toString()))
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-        i.setPackage("com.android.chrome");
-        startActivityForResult(i, 865)
+//        val authorizeUrl: HttpUrl =
+//            HttpUrl.
+//            parse("https://kamalteatr.ru/tickets/site/yasinevich")!!.newBuilder() //
+//            .addQueryParameter("client_id", CLIENT_ID)
+//            .addQueryParameter("scope", API_SCOPE)
+//            .addQueryParameter("redirect_uri", REDIRECT_URI)
+//            .addQueryParameter("response_type", CODE)
+//            .build()
+//        val i = Intent(Intent.ACTION_VIEW, Uri.parse(authorizeUrl.url().toString()))
+//        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+//        i.setPackage("com.android.chrome");
+//        startActivityForResult(i, 865)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

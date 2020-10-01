@@ -11,7 +11,8 @@ import retrofit2.http.*
  */
 interface API {
 
-    @GET("/api/v1/users/{user_id}")
+    ///api/v1
+    @GET("/users/{user_id}")
     fun getUser(@Path("user_id") userId: Int): Observable<UserModel>
 
     @PATCH("/api/v1/users/{user_id}")
