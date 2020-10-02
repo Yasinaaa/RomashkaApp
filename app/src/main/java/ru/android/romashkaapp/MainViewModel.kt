@@ -5,6 +5,7 @@ import android.ru.romashkaapp.data.net.repository.ApiRepository
 import android.ru.romashkaapp.models.UserModel
 import android.ru.romashkaapp.usecases.UserUseCase
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import okhttp3.OkHttpClient
@@ -21,6 +22,7 @@ import java.util.concurrent.TimeUnit
 class MainViewModel: ViewModel() {
 
     private var usecase: UserUseCase? = null
+    val picture = MutableLiveData<String>()
 
     fun api(): API {
         val interceptor = HttpLoggingInterceptor()
@@ -68,6 +70,7 @@ class MainViewModel: ViewModel() {
         override fun onNext(response: UserModel) {
             super.onNext(response)
             Log.d("ffd", response.email)
+            picture.value = response.photo
         }
     }
 }

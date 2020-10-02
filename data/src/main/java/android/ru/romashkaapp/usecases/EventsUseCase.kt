@@ -2,7 +2,8 @@ package android.ru.romashkaapp.usecases
 
 import android.annotation.SuppressLint
 import android.ru.romashkaapp.data.net.repository.ApiRepository
-import android.ru.romashkaapp.models.UserModel
+import android.ru.romashkaapp.models.EventModel
+import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -17,21 +18,22 @@ import javax.inject.Inject
  * Copyright (c) 2018 Infomatica. All rights reserved.
  */
 @SuppressLint("CheckResult")
-class UserUseCase(
+class EventsUseCase(
     private val mRepository: ApiRepository
 ): ApiUseCase () {
 
-//    private var disposable = Disposables.empty()
-
-    fun <S> getUser(useCaseDisposable: S) where S : Observer<in UserModel>?, S : Disposable {
-         mRepository.getUser(5)
-            .subscribeOn(Schedulers.io())
+    fun<T> get(ob: Observable<T>, useCaseDisposable: Observer<in T>){
+        ob.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)
     }
 
-    fun <S> editUser(userId: Int, user: UserModel, useCaseDisposable: S) where S : Observer<ResponseBody>?, S : Disposable {
-        mRepository.editUser(userId, user)
+    fun <S> getEvents(useCaseDisposable: S) where S : Observer<in MutableList<EventModel>>?, S : Disposable {
+//        get(mRepository.getEvents(), useCaseDisposable)
+    }
+
+    fun <S> getEvent(eventId: Int, useCaseDisposable: S) where S : Observer<EventModel>?, S : Disposable {
+        mRepository.getEvent(eventId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)

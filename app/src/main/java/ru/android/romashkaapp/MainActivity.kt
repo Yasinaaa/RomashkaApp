@@ -2,15 +2,16 @@ package ru.android.romashkaapp
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
+import android.util.Base64
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
-import okhttp3.HttpUrl
 
 
 class MainActivity : AppCompatActivity() {
@@ -49,11 +50,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        imageView.setImageDrawable(getDrawable(R.drawable.ic_plan))
+//        imageView.setImageDrawable(getDrawable(R.drawable.ic_plan))
 
         val factory: ViewModelProvider.Factory = NewInstanceFactory()
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
         startAuth()
+
+        viewModel!!.picture.observe(this, Observer {
+            val imageByteArray: ByteArray = Base64.decode(it, Base64.DEFAULT)
+            Glide.with(applicationContext)
+                .load(imageByteArray)
+                .into(iv)
+        })
 
 //        wb.setWebViewClient(MyBrowser())
 //        wb.getSettings().setLoadsImagesAutomatically(true)
