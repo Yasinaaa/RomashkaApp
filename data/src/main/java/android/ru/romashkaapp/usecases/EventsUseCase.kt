@@ -29,7 +29,10 @@ class EventsUseCase(
     }
 
     fun <S> getEvents(useCaseDisposable: S) where S : Observer<in MutableList<EventModel>>?, S : Disposable {
-//        get(mRepository.getEvents(), useCaseDisposable)
+        mRepository.getEvents()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(useCaseDisposable)
     }
 
     fun <S> getEvent(eventId: Int, useCaseDisposable: S) where S : Observer<EventModel>?, S : Disposable {
