@@ -21,8 +21,6 @@ class UserUseCase(
     private val mRepository: ApiRepository
 ): ApiUseCase () {
 
-//    private var disposable = Disposables.empty()
-
     fun <S> getUser(useCaseDisposable: S) where S : Observer<in UserModel>?, S : Disposable {
          mRepository.getUser(5)
             .subscribeOn(Schedulers.io())

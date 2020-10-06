@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.Fullscreen">
         <activity
-            android:name="ru.android.romashkaapp.MainActivity"
+            android:name="ru.android.romashkaapp.main.MainActivity"
             android:launchMode="singleInstance"
             android:exported="true">
             <intent-filter>

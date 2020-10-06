@@ -7,11 +7,7 @@ import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.disposables.Disposables
 import io.reactivex.schedulers.Schedulers
-import okhttp3.ResponseBody
-import javax.inject.Inject
-
 
 /**
  * Created by yasina on 01.10.2020.

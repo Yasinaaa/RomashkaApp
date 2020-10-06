@@ -1,4 +1,4 @@
-package ru.android.romashkaapp;
+package ru.android.romashkaapp.zoom;
 
 import android.content.Context;
 import android.util.AttributeSet;

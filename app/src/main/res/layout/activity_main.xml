@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ru.android.romashkaapp.MainActivity">
+    tools:context="ru.android.romashkaapp.main.MainActivity">
 
     <ImageView
         android:id="@+id/iv"
@@ -32,7 +32,7 @@
 <!--        app:zoomage_maxScale="8">-->
 
 <!--            </com.jsibbold.zoomage.ZoomageView>-->
-<!--<ru.android.romashkaapp.ZoomLayout-->
+<!--<ru.android.romashkaapp.zoom.ZoomLayout-->
 <!--            android:id="@+id/myZoomageView"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="match_parent">-->
@@ -42,7 +42,7 @@
 <!--        android:layout_height="wrap_content"-->
 <!--        app:vector="@drawable/ic_plan"-->
 <!--        tools:ignore="MissingConstraints" />-->
-<!--    </ru.android.romashkaapp.ZoomLayout>-->
+<!--    </ru.android.romashkaapp.zoom.ZoomLayout>-->
 <!--    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView-->
 <!--        android:id="@+id/imageView"-->
 <!--        android:layout_width="match_parent"-->

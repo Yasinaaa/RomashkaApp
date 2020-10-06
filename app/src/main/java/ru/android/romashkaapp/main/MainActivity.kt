@@ -1,4 +1,4 @@
-package ru.android.romashkaapp
+package ru.android.romashkaapp.main
 
 import android.app.Activity
 import android.content.Intent
@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
+import ru.android.romashkaapp.R
 
 
 class MainActivity : AppCompatActivity() {
