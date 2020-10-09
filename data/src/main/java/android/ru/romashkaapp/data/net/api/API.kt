@@ -12,11 +12,14 @@ import retrofit2.http.*
 interface API {
 
     ///api/v1
-    @GET("/users/{user_id}")
-    fun getUser(@Path("user_id") userId: Int): Observable<UserModel>
+    @GET("/users")
+    fun getUsers(): Observable<MutableList<UserModel>>
 
-    @PATCH("/api/v1/users/{user_id}")
-    fun editUser(@Path("user_id") userId: Int, @Body user: UserModel): Observable<ResponseBody>
+    @GET("/users/{user_id}")
+    fun getUser(@Path("user_id") userId: Long): Observable<UserModel>
+
+    @PATCH("/users/{user_id}")
+    fun editUser(@Path("user_id") userId: Long, @Body user: UserModel): Observable<ResponseBody>
 
     @GET("/api/v1/events")
     fun getEvents(): Observable<MutableList<EventModel>>
@@ -51,21 +54,39 @@ interface API {
     @GET("/pay/pay/{id}")
     fun payOrder(@Path("id") orderId: Int): Observable<ResponseBody>
 
-    @GET("/api/v1/units")
+    @GET("/units")
     fun getUnits(): Observable<MutableList<UnitModel>>
 
-    @GET("/api/v1/halls")
+    @GET("/units/{unit_id}")
+    fun getUnit(@Path("unit_id") id: Int): Observable<UnitModel>
+
+    @GET("/halls")
     fun getHalls(): Observable<MutableList<HallModel>>
 
-    @GET("/api/v1/cities")
+    @GET("/halls/{hall_id}")
+    fun getHall(@Path("hall_id") id: Int): Observable<HallModel>
+
+    @GET("/cities")
     fun getCities(): Observable<MutableList<CityModel>>
 
-    @GET("/api/v1/categories")
+    @GET("/cities/{city_id}")
+    fun getCity(@Path("city_id") id: Int): Observable<CityModel>
+
+    @GET("/categories")
     fun getCategories(): Observable<MutableList<CategoryModel>>
 
-    @GET("/api/v1/categories")
+    @GET("/categories/{category_id}")
+    fun getCategory(@Path("category_id") categoryId: Int): Observable<CategoryModel>
+
+    @GET("/noms")
+    fun getNoms(): Observable<MutableList<NomModel>>
+
+    @GET("/noms/{nom_id}")
+    fun getNom(@Path("nom_id") nomId: Int): Observable<NomModel>
+
+    @GET("/actions")
     fun getActions(): Observable<MutableList<ActionModel>>
 
-    @GET("/api/v1/noms")
-    fun getNoms(): Observable<MutableList<NomModel>>
+    @GET("/actions/{action_id}")
+    fun getAction(@Path("action_id") actionId: Int): Observable<ActionModel>
 }

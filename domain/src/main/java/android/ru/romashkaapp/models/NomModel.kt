@@ -7,9 +7,9 @@ package android.ru.romashkaapp.models
 class NomModel {
 
     var id: Int = 0
-    lateinit var name: String
-    lateinit var photo: String
-    var actions: MutableList<Int>? = null
+    var name: String? = null
+    var action_ids: MutableList<Int>? = null
+    var thumbnail: String? = null
     var description: String? = null
-
+    var last: String? = null
 }

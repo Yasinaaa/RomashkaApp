@@ -5,8 +5,6 @@ import android.ru.romashkaapp.models.*
 import android.ru.romashkaapp.repository.Repository
 import io.reactivex.Observable
 import okhttp3.ResponseBody
-import javax.inject.Inject
-import javax.inject.Singleton
 
 
 /**
@@ -15,12 +13,16 @@ import javax.inject.Singleton
  */
 //@Singleton
 class ApiRepository constructor(private val mAPI: API) : Repository {
+
+    override fun getUsers(): Observable<MutableList<UserModel>> {
+        return mAPI.getUsers()
+    }
     
-    override fun getUser(userId: Int): Observable<UserModel> {
+    override fun getUser(userId: Long): Observable<UserModel> {
         return mAPI.getUser(userId)
     }
 
-    override fun editUser(userId: Int, user: UserModel): Observable<ResponseBody> {
+    override fun editUser(userId: Long, user: UserModel): Observable<ResponseBody> {
         return mAPI.editUser(userId, user)
     }
 
@@ -76,23 +78,47 @@ class ApiRepository constructor(private val mAPI: API) : Repository {
         return mAPI.getUnits()
     }
 
+    override fun getUnit(id: Int): Observable<UnitModel> {
+        return mAPI.getUnit(id)
+    }
+
     override fun getHalls(): Observable<MutableList<HallModel>> {
         return mAPI.getHalls()
+    }
+
+    override fun getHall(id: Int): Observable<HallModel> {
+        return mAPI.getHall(id)
     }
 
     override fun getCities(): Observable<MutableList<CityModel>> {
         return mAPI.getCities()
     }
 
+    override fun getCity(id: Int): Observable<CityModel> {
+        return mAPI.getCity(id)
+    }
+
     override fun getCategories(): Observable<MutableList<CategoryModel>> {
         return mAPI.getCategories()
+    }
+
+    override fun getCategory(categoryId: Int): Observable<CategoryModel> {
+        return mAPI.getCategory(categoryId)
     }
 
     override fun getActions(): Observable<MutableList<ActionModel>> {
         return mAPI.getActions()
     }
 
+    override fun getAction(id: Int): Observable<ActionModel> {
+        return mAPI.getAction(id)
+    }
+
     override fun getNoms(): Observable<MutableList<NomModel>> {
         return mAPI.getNoms()
+    }
+
+    override fun getNom(nomId: Int): Observable<NomModel> {
+        return mAPI.getNom(nomId)
     }
 }

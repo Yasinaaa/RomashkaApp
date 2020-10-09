@@ -7,6 +7,7 @@ package android.ru.romashkaapp.models
 class ActionModel {
 
     var id: Int = 0
-    lateinit var name: String
+    var name: String? = null
     var category_id: Int = 0
+    var last: String? = null
 }
