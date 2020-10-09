@@ -7,10 +7,9 @@ package android.ru.romashkaapp.models
 class UnitModel {
 
     var id: Int = 0
-    lateinit var name: String
-    lateinit var address: String
+    var name: String? = null
     var city_id: Int = 0
-    var is_active: Boolean? = null
-    lateinit var photo: String
+    var address: String? = null
+    var last: String? = null
 
 }

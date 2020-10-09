@@ -7,7 +7,8 @@ package android.ru.romashkaapp.models
 class HallModel {
 
     var id: Int = 0
-    lateinit var name: String
+    var name: String? = null
     var unity_id: Int = 0
+    var last: String? = null
 
 }

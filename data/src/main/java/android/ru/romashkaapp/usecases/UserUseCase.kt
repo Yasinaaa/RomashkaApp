@@ -21,6 +21,13 @@ class UserUseCase(
     private val mRepository: ApiRepository
 ): ApiUseCase () {
 
+    fun <S> getUsers(useCaseDisposable: S) where S : Observer<in MutableList<UserModel>>?, S : Disposable {
+        mRepository.getUsers()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(useCaseDisposable)
+    }
+
     fun <S> getUser(useCaseDisposable: S) where S : Observer<in UserModel>?, S : Disposable {
          mRepository.getUser(5)
             .subscribeOn(Schedulers.io())
@@ -28,7 +35,7 @@ class UserUseCase(
             .subscribeWith(useCaseDisposable)
     }
 
-    fun <S> editUser(userId: Int, user: UserModel, useCaseDisposable: S) where S : Observer<ResponseBody>?, S : Disposable {
+    fun <S> editUser(userId: Long, user: UserModel, useCaseDisposable: S) where S : Observer<ResponseBody>?, S : Disposable {
         mRepository.editUser(userId, user)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

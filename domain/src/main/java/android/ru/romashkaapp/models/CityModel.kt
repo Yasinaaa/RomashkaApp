@@ -7,9 +7,7 @@ package android.ru.romashkaapp.models
 class CityModel {
 
     var id: Int = 0
-    lateinit var name: String
-    lateinit var address: String
-    var city_id: Int = 0
-    var is_active: Boolean? = null
-
+    var name: String? = null
+    var active: Boolean? = null
+    var last: String? = null
 }

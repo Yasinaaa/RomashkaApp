@@ -6,6 +6,7 @@ package android.ru.romashkaapp.models
  */
 class UserModel {
 
+    var id: Long = 0
     var first: String? = null
     var second: String? = null
     var middle: String? = null

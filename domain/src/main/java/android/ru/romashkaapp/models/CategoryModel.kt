@@ -7,6 +7,7 @@ package android.ru.romashkaapp.models
 class CategoryModel {
 
     var id: Int = 0
-    lateinit var name: String
+    var name: String? = null
+    var last: String? = null
 
 }

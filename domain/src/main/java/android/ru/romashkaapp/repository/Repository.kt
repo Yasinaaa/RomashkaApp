@@ -9,9 +9,10 @@ import android.ru.romashkaapp.models.*
  * Copyright (c) 2018 Infomatica. All rights reserved.
  */
 interface Repository {
-    
-    fun getUser(userId: Int): Observable<UserModel>
-    fun editUser(userId: Int, user: UserModel): Observable<ResponseBody>
+
+    fun getUsers(): Observable<MutableList<UserModel>>
+    fun getUser(userId: Long): Observable<UserModel>
+    fun editUser(userId: Long, user: UserModel): Observable<ResponseBody>
     fun getEvents(): Observable<MutableList<EventModel>>
     fun getEvent(eventId: Int): Observable<EventModel>
     fun getSector(eventId: Int,  sectorId: Int): Observable<SectorModel>
@@ -24,9 +25,15 @@ interface Repository {
     fun deleteSeatFromCart(userId: Int, orderId: Int, cartId: Int): Observable<ResponseBody>
     fun payOrder(orderId: Int): Observable<ResponseBody>
     fun getUnits(): Observable<MutableList<UnitModel>>
+    fun getUnit(id: Int): Observable<UnitModel>
     fun getHalls(): Observable<MutableList<HallModel>>
+    fun getHall(id: Int): Observable<HallModel>
     fun getCities(): Observable<MutableList<CityModel>>
+    fun getCity(id: Int): Observable<CityModel>
     fun getCategories(): Observable<MutableList<CategoryModel>>
+    fun getCategory(categoryId: Int): Observable<CategoryModel>
     fun getActions(): Observable<MutableList<ActionModel>>
+    fun getAction(actionId: Int): Observable<ActionModel>
     fun getNoms(): Observable<MutableList<NomModel>>
+    fun getNom(nomId: Int): Observable<NomModel>
 }

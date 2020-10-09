@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         viewModel!!.picture.observe(this, Observer {
             val imageByteArray: ByteArray = Base64.decode(it, Base64.DEFAULT)
             Glide.with(applicationContext)
+                .asGif()
                 .load(imageByteArray)
                 .into(iv)
         })
