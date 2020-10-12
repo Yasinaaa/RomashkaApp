@@ -64,7 +64,7 @@ class MainViewModel: ViewModel() {
 //        usecase!!.getUsers(AllUsersSubscriber())
 
         dictionaryUseCase = DictionaryUseCase(repository)
-        dictionaryUseCase!!.getCategories(CategoriesSubscriber())
+        dictionaryUseCase!!.getCategories(last = null, limit = "100", CategoriesSubscriber())
     }
 
     private inner class UserSubscriber(): BaseSubscriber<UserModel>() {
@@ -175,7 +175,7 @@ class MainViewModel: ViewModel() {
             super.onNext(response)
             Log.d("ffd", "ActionSubscriber")
 
-            dictionaryUseCase!!.getNoms(NomsSubscriber())
+            dictionaryUseCase!!.getNoms(last = response.last, limit = "100", NomsSubscriber())
         }
     }
 
@@ -203,7 +203,7 @@ class MainViewModel: ViewModel() {
             super.onNext(response)
             Log.d("ffd", "CitiesSubscriber")
 
-            dictionaryUseCase!!.getCities(CitiesSubscriber())
+            dictionaryUseCase!!.getCities(last = response.last, limit = "100", CitiesSubscriber())
         }
     }
 
@@ -231,7 +231,7 @@ class MainViewModel: ViewModel() {
             super.onNext(response)
             Log.d("ffd", "CitySubscriber")
 
-            dictionaryUseCase!!.getUnits(UnitsSubscriber())
+            dictionaryUseCase!!.getUnits(last = response.last, limit = "100", UnitsSubscriber())
         }
     }
 
@@ -259,7 +259,7 @@ class MainViewModel: ViewModel() {
             super.onNext(response)
             Log.d("ffd", "UnitSubscriber")
 
-            dictionaryUseCase!!.getHalls(HallsSubscriber())
+            dictionaryUseCase!!.getHalls(last = response.last, limit = "100", HallsSubscriber())
         }
     }
 

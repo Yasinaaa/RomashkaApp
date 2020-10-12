@@ -1,28 +1,21 @@
 package android.ru.romashkaapp.models
 
 /**
- * Created by yasina on 25.06.2020.
- * Copyright (c) 2018 Infomatica. All rights reserved.
+ * Created by yasina on 12.10.2020.
+ * Copyright (c) 2020 Infomatica. All rights reserved.
  */
 class SectorModel {
 
     var id: Int = 0
-    lateinit var name: String
-    var freeSeats: Int = 0
-    var allSeats: Int = 0
-    var priceMin: Int = 0
-    var priceMax: Int = 0
-    var sectorsCount: Int = 0
-    var sectors: MutableList<Sectors>? = null
+    var name: String? = null
+    var free_seats: Int = 0
+    var all_seats: Int = 0
+    var min_price: String? = null
+    var max_price: String? = null
+    var price: String? = null
+    var sector_ids: MutableList<Int> = mutableListOf()
+    var last: String? = null
+    var last_seats: String? = null
+    var last_area: String? = null
 
-    class Sectors{
-        var id: Int = 0
-        lateinit var name: String
-        var freeSeats: Int = 0
-        var allSeats: Int = 0
-        var priceMin: Int = 0
-        var priceMax: Int = 0
-        var sectorsCount: Int = 0
-        var sectors: MutableList<Sectors>? = null
-    }
 }

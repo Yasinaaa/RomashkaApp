@@ -18,8 +18,8 @@ class DictionaryUseCase(
     private val mRepository: ApiRepository
 ): ApiUseCase () {
 
-    fun <S> getCategories(useCaseDisposable: S) where S : Observer<in MutableList<CategoryModel>>?, S : Disposable {
-        mRepository.getCategories()
+    fun <S> getCategories(last: String?, limit: String?, useCaseDisposable: S) where S : Observer<in MutableList<CategoryModel>>?, S : Disposable {
+        mRepository.getCategories(last, limit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)
@@ -46,8 +46,8 @@ class DictionaryUseCase(
             .subscribeWith(useCaseDisposable)
     }
 
-    fun <S> getNoms(useCaseDisposable: S) where S : Observer<in MutableList<NomModel>>?, S : Disposable {
-        mRepository.getNoms()
+    fun <S> getNoms(last: String?, limit: String?, useCaseDisposable: S) where S : Observer<in MutableList<NomModel>>?, S : Disposable {
+        mRepository.getNoms(last, limit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)
@@ -60,8 +60,8 @@ class DictionaryUseCase(
             .subscribeWith(useCaseDisposable)
     }
 
-    fun <S> getCities(useCaseDisposable: S) where S : Observer<in MutableList<CityModel>>?, S : Disposable {
-        mRepository.getCities()
+    fun <S> getCities(last: String?, limit: String?, useCaseDisposable: S) where S : Observer<in MutableList<CityModel>>?, S : Disposable {
+        mRepository.getCities(last, limit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)
@@ -74,8 +74,8 @@ class DictionaryUseCase(
             .subscribeWith(useCaseDisposable)
     }
 
-    fun <S> getUnits(useCaseDisposable: S) where S : Observer<in MutableList<UnitModel>>?, S : Disposable {
-        mRepository.getUnits()
+    fun <S> getUnits(last: String?, limit: String?, useCaseDisposable: S) where S : Observer<in MutableList<UnitModel>>?, S : Disposable {
+        mRepository.getUnits(last, limit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)
@@ -88,8 +88,8 @@ class DictionaryUseCase(
             .subscribeWith(useCaseDisposable)
     }
 
-    fun <S> getHalls(useCaseDisposable: S) where S : Observer<in MutableList<HallModel>>?, S : Disposable {
-        mRepository.getHalls()
+    fun <S> getHalls(last: String?, limit: String?, useCaseDisposable: S) where S : Observer<in MutableList<HallModel>>?, S : Disposable {
+        mRepository.getHalls(last, limit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)

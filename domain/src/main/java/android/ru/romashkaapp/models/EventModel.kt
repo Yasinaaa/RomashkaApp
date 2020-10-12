@@ -1,5 +1,7 @@
 package android.ru.romashkaapp.models
 
+import android.ru.romashkaapp.models.enums.EventType
+
 /**
  * Created by yasina on 25.06.2020.
  * Copyright (c) 2018 Infomatica. All rights reserved.

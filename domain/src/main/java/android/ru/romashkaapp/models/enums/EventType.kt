@@ -1,8 +1,8 @@
-package android.ru.romashkaapp.models
+package android.ru.romashkaapp.models.enums
 
 /**
- * Created by yasina on 09.10.2020.
- * Copyright (c) 2018 Infomatica. All rights reserved.
+ * Created by yasina on 12.10.2020.
+ * Copyright (c) 2020 Infomatica. All rights reserved.
  */
 enum class EventType(var data: Int) {
     VAGRANT(1),

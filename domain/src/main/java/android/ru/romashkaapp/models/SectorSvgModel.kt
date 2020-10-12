@@ -6,6 +6,6 @@ package android.ru.romashkaapp.models
  */
 class SectorSvgModel {
 
-    lateinit var svg: String
+    var svg: String? = null
 
 }

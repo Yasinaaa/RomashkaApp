@@ -40,19 +40,34 @@ interface API {
 
     //todo
     @GET("/events/{event_id}/subscriptions")
-    fun getEventSubscriptions(@Path("event_id") eventId: Int): Observable<EventModel>
+    fun getEventSubscriptions(@Path("event_id") eventId: Int): Observable<MutableList<EventModel>>
 
-//    @GET("/api/v1/events/{event_id}/sectors/{sector_id}")
-//    fun getSector(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int): Observable<SectorModel>
-//
-//    @GET("/api/v1/events/{event_id}/{sector_id}/places")
-//    fun getSectorPlaces(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int): Observable<SeatModel>
-//
-//    @GET("/api/v1/events/{event_id}/{sector_id}/plan")
-//    fun getSectorSvg(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int): Observable<SectorSvgModel>
-//
-//    @GET("/api/v1/users/{user_id}/orders")
-//    fun getUserOrders(@Path("user_id") userId: Int): Observable<MutableList<OrderModel>>
+    @GET("/events/{event_id}/area/sectors/{sector_id}")
+    fun getEventSector(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int,
+                       @Query("last_gt") last: String?,
+                       @Query("last_seats_gt") lastSeatsGt: String?,
+                       @Query("last_area_gt") lastAreaGt: String?): Observable<SectorModel>
+
+    @GET("/events/{event_id}/area/sectors/{sector_id}/zones")
+    fun getEventSectorZones(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int,
+                       @Query("limit") limit: Int): Observable<MutableList<ZoneModel>>
+
+    @GET("/events/{event_id}/area/sectors/{sector_id}/seats")
+    fun getEventSectorSeats(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int,
+                            @Query("limit") limit: Int): Observable<MutableList<SeatModel>>
+
+    @GET("/events/{event_id}/area/sectors/{sector_id}/points")
+    fun getEventSectorPoints(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int,
+                            @Query("limit") limit: Int): Observable<MutableList<PointModel>>
+
+    @GET("/events/{event_id}/area/sectors/{sector_id}/image")
+    fun getEventSectorImage(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int): Observable<MutableList<SectorImageModel>>
+
+    @GET("/events/{event_id}/area/sectors/{sector_id}/svag")
+    fun getEventSectorSvg(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int): Observable<MutableList<SectorSvgModel>>
+
+    @GET("/orders")
+    fun getUserOrders(@Path("status") status: Int): Observable<MutableList<OrderModel>>
 //
 //    @GET("/api/v1/users/{user_id}/orders/{order_id}")
 //    fun getUserOrder(@Path("user_id") userId: Int, @Path("order_id") orderId: Int): Observable<OrderModel>
