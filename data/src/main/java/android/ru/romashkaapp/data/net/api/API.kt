@@ -61,13 +61,13 @@ interface API {
                             @Query("limit") limit: Int): Observable<MutableList<PointModel>>
 
     @GET("/events/{event_id}/area/sectors/{sector_id}/image")
-    fun getEventSectorImage(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int): Observable<MutableList<SectorImageModel>>
+    fun getEventSectorImage(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int): Observable<SectorImageModel>
 
-    @GET("/events/{event_id}/area/sectors/{sector_id}/svag")
-    fun getEventSectorSvg(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int): Observable<MutableList<SectorSvgModel>>
+    @GET("/events/{event_id}/area/sectors/{sector_id}/svg")
+    fun getEventSectorSvg(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int): Observable<SectorSvgModel>
 
     @GET("/orders")
-    fun getUserOrders(@Path("status") status: Int): Observable<MutableList<OrderModel>>
+    fun getUserOrders(@Query("status") status: Int): Observable<MutableList<OrderModel>>
 //
 //    @GET("/api/v1/users/{user_id}/orders/{order_id}")
 //    fun getUserOrder(@Path("user_id") userId: Int, @Path("order_id") orderId: Int): Observable<OrderModel>

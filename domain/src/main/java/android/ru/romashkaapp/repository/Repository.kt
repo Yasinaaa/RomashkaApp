@@ -48,8 +48,8 @@ interface Repository {
     fun getEventSectorZones(eventId: Int,sectorId: Int, limit: Int): Observable<MutableList<ZoneModel>>
     fun getEventSectorSeats(eventId: Int,sectorId: Int, limit: Int): Observable<MutableList<SeatModel>>
     fun getEventSectorPoints(eventId: Int,sectorId: Int, limit: Int): Observable<MutableList<PointModel>>
-    fun getEventSectorImage(eventId: Int,sectorId: Int): Observable<MutableList<SectorImageModel>>
-    fun getEventSectorSvg(eventId: Int,sectorId: Int): Observable<MutableList<SectorSvgModel>>
+    fun getEventSectorImage(eventId: Int,sectorId: Int): Observable<SectorImageModel>
+    fun getEventSectorSvg(eventId: Int,sectorId: Int): Observable<SectorSvgModel>
     fun getUserOrders(status: Int): Observable<MutableList<OrderModel>>
     fun getServices(last: String?, limit: String?, active: Boolean?,unitId: Int?): Observable<MutableList<ServiceModel>>
     fun getService(serviceId: Int): Observable<ServiceModel>

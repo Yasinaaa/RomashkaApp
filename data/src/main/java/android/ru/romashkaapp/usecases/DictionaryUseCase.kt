@@ -101,4 +101,21 @@ class DictionaryUseCase(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)
     }
+
+    fun <S> getServices(last: String?,
+                        limit: String?,
+                        active: Boolean?,
+                        unitId: Int?, useCaseDisposable: S) where S : Observer<in MutableList<ServiceModel>>?, S : Disposable {
+        mRepository.getServices(last, limit, active, unitId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(useCaseDisposable)
+    }
+
+    fun <S> getService(serviceId: Int, useCaseDisposable: S) where S : Observer<in ServiceModel>?, S : Disposable {
+        mRepository.getService(serviceId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(useCaseDisposable)
+    }
 }

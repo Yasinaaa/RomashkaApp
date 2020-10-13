@@ -170,14 +170,14 @@ class ApiRepository constructor(private val mAPI: API) : Repository {
     override fun getEventSectorImage(
         eventId: Int,
         sectorId: Int
-    ): Observable<MutableList<SectorImageModel>> {
+    ): Observable<SectorImageModel> {
         return mAPI.getEventSectorImage(eventId, sectorId)
     }
 
     override fun getEventSectorSvg(
         eventId: Int,
         sectorId: Int
-    ): Observable<MutableList<SectorSvgModel>> {
+    ): Observable<SectorSvgModel> {
         return mAPI.getEventSectorSvg(eventId, sectorId)
     }
 

@@ -2,7 +2,7 @@ package android.ru.romashkaapp.usecases
 
 import android.annotation.SuppressLint
 import android.ru.romashkaapp.data.net.repository.ApiRepository
-import android.ru.romashkaapp.models.EventModel
+import android.ru.romashkaapp.models.*
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -39,6 +39,67 @@ class EventsUseCase(
 
     fun <S> getEvent(eventId: Int, useCaseDisposable: S) where S : Observer<EventModel>?, S : Disposable {
         mRepository.getEvent(eventId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(useCaseDisposable)
+    }
+
+    fun <S> getEventSubscriptions(eventId: Int, useCaseDisposable: S) where S : Observer<MutableList<EventModel>>?, S : Disposable {
+        mRepository.getEventSubscriptions(eventId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(useCaseDisposable)
+    }
+
+    fun <S> getEventSector(eventId: Int,
+                           sectorId: Int,
+                           last: String?,
+                           lastSeatsGt: String?,
+                           lastAreaGt: String?, useCaseDisposable: S) where S : Observer<SectorModel>?, S : Disposable {
+        mRepository.getEventSector(eventId, sectorId, last, lastSeatsGt, lastAreaGt)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(useCaseDisposable)
+    }
+
+    fun <S> getEventSectorZones(eventId: Int,
+                                sectorId: Int,
+                                limit: Int, useCaseDisposable: S) where S : Observer<MutableList<ZoneModel>>?, S : Disposable {
+        mRepository.getEventSectorZones(eventId, sectorId, limit)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(useCaseDisposable)
+    }
+
+    fun <S> getEventSectorSeats(eventId: Int,
+                                sectorId: Int,
+                                limit: Int, useCaseDisposable: S) where S : Observer<MutableList<SeatModel>>?, S : Disposable {
+        mRepository.getEventSectorSeats(eventId, sectorId, limit)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(useCaseDisposable)
+    }
+
+    fun <S> getEventSectorPoints(eventId: Int,
+                                sectorId: Int,
+                                limit: Int, useCaseDisposable: S) where S : Observer<MutableList<PointModel>>?, S : Disposable {
+        mRepository.getEventSectorPoints(eventId, sectorId, limit)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(useCaseDisposable)
+    }
+
+    fun <S> getEventSectorImage(eventId: Int,
+                                 sectorId: Int, useCaseDisposable: S) where S : Observer<SectorImageModel>?, S : Disposable {
+        mRepository.getEventSectorImage(eventId, sectorId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(useCaseDisposable)
+    }
+
+    fun <S> getEventSectorSvg(eventId: Int,
+                              sectorId: Int, useCaseDisposable: S) where S : Observer<SectorSvgModel>?, S : Disposable {
+        mRepository.getEventSectorSvg(eventId, sectorId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)

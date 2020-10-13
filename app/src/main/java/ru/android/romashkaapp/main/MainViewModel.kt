@@ -4,6 +4,8 @@ import android.ru.romashkaapp.data.net.api.API
 import android.ru.romashkaapp.data.net.repository.ApiRepository
 import android.ru.romashkaapp.models.*
 import android.ru.romashkaapp.usecases.DictionaryUseCase
+import android.ru.romashkaapp.usecases.EventsUseCase
+import android.ru.romashkaapp.usecases.OrderUseCase
 import android.ru.romashkaapp.usecases.UserUseCase
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -27,9 +29,11 @@ class MainViewModel: ViewModel() {
 
     private var usecase: UserUseCase? = null
     private var dictionaryUseCase: DictionaryUseCase? = null
+    private var eventUseCase: EventsUseCase? = null
+    private var orderUseCase: OrderUseCase? = null
     val picture = MutableLiveData<String>()
 
-    fun api(): API {
+    private fun api(): API {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
         val client = OkHttpClient.Builder()
@@ -63,6 +67,8 @@ class MainViewModel: ViewModel() {
 //        usecase!!.getUser(UserSubscriber())
 //        usecase!!.getUsers(AllUsersSubscriber())
 
+        eventUseCase = EventsUseCase(repository)
+        orderUseCase = OrderUseCase(repository)
         dictionaryUseCase = DictionaryUseCase(repository)
         dictionaryUseCase!!.getCategories(last = null, limit = "100", CategoriesSubscriber())
     }
@@ -287,7 +293,191 @@ class MainViewModel: ViewModel() {
             super.onNext(response)
             Log.d("ffd", "HallSubscriber")
 
-//            dictionaryUseCase!!.getNoms(CategorySubscriber())
+            dictionaryUseCase!!.getServices(last = response.last, limit = "100",
+                active = true, unitId = response.unity_id,
+                ServicesSubscriber())
+        }
+    }
+
+    private inner class ServicesSubscriber: BaseSubscriber<MutableList<ServiceModel>>() {
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: MutableList<ServiceModel>) {
+            super.onNext(response)
+            Log.d("ffd", "ServicesSubscriber")
+
+            dictionaryUseCase!!.getService(response[0].id, ServiceSubscriber())
+        }
+    }
+
+    private inner class ServiceSubscriber: BaseSubscriber<ServiceModel>() {
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: ServiceModel) {
+            super.onNext(response)
+            Log.d("ffd", "ServiceSubscriber")
+
+            eventUseCase!!.getEvents(last = response.last, limit = "100",
+                active = true, unitId = response.unit_id, hallId = null, nomId = null,
+                actionId = null, categoryId = null, sdateGt = null, sdateLs = null,
+                edateGt = null, edateLs = null, type = null,
+                EventsSubscriber())
+        }
+    }
+
+    private inner class EventsSubscriber: BaseSubscriber<MutableList<EventModel>>() {
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: MutableList<EventModel>) {
+            super.onNext(response)
+            Log.d("ffd", "EventsSubscriber")
+
+            eventUseCase!!.getEvent(
+                response[0].id,
+                EventSubscriber())
+        }
+    }
+
+    private inner class EventSubscriber: BaseSubscriber<EventModel>() {
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: EventModel) {
+            super.onNext(response)
+            Log.d("ffd", "EventSubscriber")
+
+            eventUseCase!!.getEventSubscriptions(
+                response.id,
+                EventSubscriptionsSubscriber())
+        }
+    }
+
+    private inner class EventSubscriptionsSubscriber: BaseSubscriber<MutableList<EventModel>>() {
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: MutableList<EventModel>) {
+            super.onNext(response)
+            Log.d("ffd", "EventSubscriptionsSubscriber")
+
+            eventUseCase!!.getEventSector(
+                eventId = response[0].id,
+                sectorId = 1,
+                last= "100",
+                lastSeatsGt = "100",
+                lastAreaGt = "100",
+                EventSectorZonesSubscriber())
+        }
+    }
+
+    private inner class EventSectorZonesSubscriber: BaseSubscriber<SectorModel>() {
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: SectorModel) {
+            super.onNext(response)
+            Log.d("ffd", "EventSectorZonesSubscriber")
+
+            eventUseCase!!.getEventSectorSeats(
+                eventId = response.id,
+                sectorId = 1,
+                limit = 100,
+                EventSectorSeatsSubscriber())
+        }
+    }
+
+    private inner class EventSectorSeatsSubscriber: BaseSubscriber<MutableList<SeatModel>>() {
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: MutableList<SeatModel>) {
+            super.onNext(response)
+            Log.d("ffd", "EventSectorSeatsSubscriber")
+
+            eventUseCase!!.getEventSectorPoints(
+                eventId = 12,
+                sectorId = 1,
+                limit = 100,
+                EventSectorPointsSubscriber())
+        }
+    }
+
+    private inner class EventSectorPointsSubscriber: BaseSubscriber<MutableList<PointModel>>() {
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: MutableList<PointModel>) {
+            super.onNext(response)
+            Log.d("ffd", "EventSectorPointsSubscriber")
+
+            eventUseCase!!.getEventSectorImage(
+                eventId = 12,
+                sectorId = 1,
+                EventSectorImageSubscriber())
+        }
+    }
+
+    private inner class EventSectorImageSubscriber: BaseSubscriber<SectorImageModel>() {
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: SectorImageModel) {
+            super.onNext(response)
+            Log.d("ffd", "EventSectorImageSubscriber")
+
+            eventUseCase!!.getEventSectorSvg(
+                eventId = 12,
+                sectorId = 1,
+                EventSectorSvgSubscriber())
+        }
+    }
+
+    private inner class EventSectorSvgSubscriber: BaseSubscriber<SectorSvgModel>() {
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: SectorSvgModel) {
+            super.onNext(response)
+            Log.d("ffd", "EventSectorSvgSubscriber")
+
+            orderUseCase!!.getOrders(
+                status = 1,
+                OrdersSubscriber())
+        }
+    }
+
+    private inner class OrdersSubscriber: BaseSubscriber<MutableList<OrderModel>>() {
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: MutableList<OrderModel>) {
+            super.onNext(response)
+            Log.d("ffd", "OrdersSubscriber")
         }
     }
 }
