@@ -1,16 +1,15 @@
 package ru.android.romashkaapp.main
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Base64
+import android.util.Log
+import android.webkit.JavascriptInterface
+import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.NewInstanceFactory
-import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.android.romashkaapp.R
 
@@ -48,22 +47,23 @@ class MainActivity : AppCompatActivity() {
 
     private var viewModel: MainViewModel? = null
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 //        imageView.setImageDrawable(getDrawable(R.drawable.ic_plan))
 
-        val factory: ViewModelProvider.Factory = NewInstanceFactory()
-        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
-        startAuth()
-
-        viewModel!!.picture.observe(this, Observer {
-            val imageByteArray: ByteArray = Base64.decode(it, Base64.DEFAULT)
-            Glide.with(applicationContext)
-                .asGif()
-                .load(imageByteArray)
-                .into(iv)
-        })
+//        val factory: ViewModelProvider.Factory = NewInstanceFactory()
+//        viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
+//        startAuth()
+//
+//        viewModel!!.picture.observe(this, Observer {
+//            val imageByteArray: ByteArray = Base64.decode(it, Base64.DEFAULT)
+//            Glide.with(applicationContext)
+//                .asGif()
+//                .load(imageByteArray)
+//                .into(iv)
+//        })
 
 //        wb.setWebViewClient(MyBrowser())
 //        wb.getSettings().setLoadsImagesAutomatically(true)
@@ -79,6 +79,49 @@ class MainActivity : AppCompatActivity() {
 //                }
 //            })
 //        imageView.setOnTouchListener { _, motionEvent -> gestureDetector.onTouchEvent(motionEvent) }
+//        loadJs()
+
+//        val webViewClient = object : WebViewClient() {
+//            override fun onPageFinished(view: WebView, url: String) {
+//                super.onPageFinished(view, url);
+//            }
+//        }
+//
+//        webview.webViewClient = webViewClient
+        webview.settings.javaScriptEnabled = true
+        webview.settings.userAgentString = "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)"
+        webview.addJavascriptInterface(AndroidJSInterface(), "HTMLOUT")
+        webview.webChromeClient = MyChromeClient()
+
+        webview.loadUrl("https://demo-games.infomatika.ru/ru/site/htmlsina")
+        webview.requestFocus()
+
+        button.setOnClickListener{webview.loadUrl(
+            "javascript:(function(){"+
+                    "l=document.getElementById('namefromjs');"+
+                    "e=document.createEvent('HTMLEvents');"+
+                    "e.initEvent('click',true,true);"+
+                    "l.dispatchEvent(e);"+
+                    "})()"
+        )}
+        buttonClick.setOnClickListener { webview.loadUrl("javascript:(function(){document.getElementById('buttonClick').click();})()") }
+    }
+
+    class AndroidJSInterface {
+
+        @JavascriptInterface
+        fun onClicked(sectorId: String) {
+            Log.d("TAG", "Help button clicked")
+        }
+        @SuppressWarnings("unused")
+        fun showHTML(html: String?) {
+            Log.d("TAG", "Help button clicked")
+        }
+    }
+
+    internal class MyChromeClient : WebChromeClient()
+
+    private fun loadJs(webView: WebView) {
 
     }
 

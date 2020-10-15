@@ -70,7 +70,7 @@ class MainViewModel: ViewModel() {
         eventUseCase = EventsUseCase(repository)
         orderUseCase = OrderUseCase(repository)
         dictionaryUseCase = DictionaryUseCase(repository)
-        dictionaryUseCase!!.getCategories(last = null, limit = "100", CategoriesSubscriber())
+//        dictionaryUseCase!!.getCategories(last = null, limit = "100", CategoriesSubscriber())
     }
 
     private inner class UserSubscriber(): BaseSubscriber<UserModel>() {
