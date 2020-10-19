@@ -1,5 +1,11 @@
 package ru.android.romashkaapp.main
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.os.Environment
+import android.os.SystemClock
 import android.ru.romashkaapp.data.net.api.API
 import android.ru.romashkaapp.data.net.repository.ApiRepository
 import android.ru.romashkaapp.models.*
@@ -8,6 +14,8 @@ import android.ru.romashkaapp.usecases.EventsUseCase
 import android.ru.romashkaapp.usecases.OrderUseCase
 import android.ru.romashkaapp.usecases.UserUseCase
 import android.util.Log
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -19,6 +27,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import ru.android.romashkaapp.BaseSubscriber
 import ru.android.romashkaapp.BuildConfig
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStreamWriter
+import java.io.PrintWriter
 import java.util.concurrent.TimeUnit
 
 /**
@@ -71,6 +83,29 @@ class MainViewModel: ViewModel() {
         orderUseCase = OrderUseCase(repository)
         dictionaryUseCase = DictionaryUseCase(repository)
 //        dictionaryUseCase!!.getCategories(last = null, limit = "100", CategoriesSubscriber())
+
+    }
+
+    fun saveSvgToLocal(context: Context){
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(context, "please grant write file permission and trya gain", Toast.LENGTH_SHORT).show()
+        } else {
+//            val dir = File(Environment.getExternalStorageDirectory(), "dataset")
+//            val file = File(dir, "sector_${SystemClock.currentThreadTimeMillis()}.svg")
+//            try {
+//                // response is the data written to file
+//                PrintWriter(file).use { out -> out.println("gdsgds") }
+//            } catch (e: Exception) {
+//                // handle the exception
+//            }
+            val path = context.getExternalFilesDir(null)
+            val letDirectory = File(path, "LET")
+            letDirectory.mkdirs()
+            val file = File(letDirectory, "Records.svg")
+            FileOutputStream(file).use {
+                it.write("record goes here".encodeToByteArray())
+            }
+        }
     }
 
     private inner class UserSubscriber(): BaseSubscriber<UserModel>() {
