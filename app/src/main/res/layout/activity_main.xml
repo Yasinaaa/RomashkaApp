@@ -1,61 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ru.android.romashkaapp.main.MainActivity">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    app:navGraph="@navigation/mobile_navigation">
 
-   <WebView
-       android:id="@+id/webview"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent" />
-<!--    <ImageView-->
-<!--        android:id="@+id/iv"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/mobile_navigation" />
 
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
--->
-
-<!--    <com.jsibbold.zoomage.ZoomageView-->
-<!--        android:id="@+id/myZoomageView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:zoomage_restrictBounds="false"-->
-<!--        app:zoomage_animateOnReset="true"-->
-<!--        app:zoomage_autoResetMode="UNDER"-->
-<!--        app:zoomage_autoCenter="true"-->
-<!--        app:zoomage_zoomable="true"-->
-<!--        app:zoomage_translatable="true"-->
-<!--        app:zoomage_minScale="0.6"-->
-<!--        app:zoomage_maxScale="8">-->
-
-<!--            </com.jsibbold.zoomage.ZoomageView>-->
-<!--<ru.android.romashkaapp.zoom.ZoomLayout-->
-<!--            android:id="@+id/myZoomageView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent">-->
-<!--    <com.richpath.RichPathView-->
-<!--        android:id="@+id/rpv"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:vector="@drawable/ic_plan"-->
-<!--        tools:ignore="MissingConstraints" />-->
-<!--    </ru.android.romashkaapp.zoom.ZoomLayout>-->
-<!--    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView-->
-<!--        android:id="@+id/imageView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"/>-->
-<!--    <com.otaliastudios.zoom.ZoomImageView-->
-<!--        android:id="@+id/imageView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        tools:ignore="MissingConstraints">-->
-
-<!--    </com.otaliastudios.zoom.ZoomImageView>-->
- </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

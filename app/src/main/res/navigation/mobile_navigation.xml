@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_boarding">
+
+    <fragment
+        android:id="@+id/nav_boarding"
+        android:name="ru.android.romashkaapp.boarding.BoardingFragment"
+        tools:layout="@layout/fragment_onboarding">
+
+    </fragment>
+
+<!--    <fragment-->
+<!--        android:id="@+id/nav_init_add_turnstile"-->
+<!--        android:name="ru.android.smartturnstile.ui.init_add_turnstile.InitAddTurnstileFragment"-->
+<!--        android:label="@string/remote_control_with_space"-->
+<!--        tools:layout="@layout/fragment_init_add_turnstile">-->
+<!--        <action-->
+<!--            android:id="@+id/action_init_add_turnstile_to_main"-->
+<!--            app:destination="@id/nav_main"-->
+<!--            app:popUpTo="@id/nav_main"-->
+<!--            app:launchSingleTop="true"-->
+<!--            app:popUpToInclusive="true"/>-->
+<!--        <action-->
+<!--            android:id="@+id/action_init_add_turnstile_to_turnstile_settings"-->
+<!--            app:destination="@id/nav_turnstile_settings"-->
+<!--            app:popUpTo="@id/nav_turnstile_settings"-->
+<!--            app:launchSingleTop="true"-->
+<!--            app:popUpToInclusive="false"/>-->
+<!--        <argument-->
+<!--            android:name="type"-->
+<!--            app:argType="string"-->
+<!--            android:defaultValue="empty" />-->
+<!--    </fragment>-->
+<!--    -->
+<!--    <fragment-->
+<!--        android:id="@+id/nav_main"-->
+<!--        android:name="ru.android.smartturnstile.ui.main.MainFragment"-->
+<!--        android:label="@string/remote_control_with_space"-->
+<!--        tools:layout="@layout/fragment_main">-->
+<!--        <action-->
+<!--            android:id="@+id/action_main_to_init_add_turnstile"-->
+<!--            app:destination="@id/nav_init_add_turnstile"-->
+<!--            app:popUpTo="@id/nav_init_add_turnstile"-->
+<!--            app:launchSingleTop="true"-->
+<!--            app:popUpToInclusive="false"/>-->
+<!--    </fragment>-->
+
+
+<!--    <fragment-->
+<!--        android:id="@+id/nav_turnstile_settings"-->
+<!--        android:name="ru.android.smartturnstile.ui.turnstile_settings.TurnstileSettingsFragment"-->
+<!--        android:label="@string/turnstile_settings"-->
+<!--        tools:layout="@layout/fragment_turnstile_settings" />-->
+
+</navigation>

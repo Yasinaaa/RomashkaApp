@@ -14,9 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:installLocation="preferExternal"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar.Fullscreen">
+        android:theme="@style/AppTheme">
         <activity
-            android:name="ru.android.romashkaapp.main.MainActivity"
+            android:name="ru.android.romashkaapp.main.MainActivity"/>
+        <activity android:name=".StartActivity"
             android:launchMode="singleInstance"
             android:exported="true">
             <intent-filter>
