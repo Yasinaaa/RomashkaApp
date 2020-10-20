@@ -15,8 +15,6 @@
         android:supportsRtl="true"
         android:installLocation="preferExternal"
         android:theme="@style/AppTheme">
-        <activity
-            android:name="ru.android.romashkaapp.main.MainActivity"/>
         <activity android:name=".StartActivity"
             android:launchMode="singleInstance"
             android:exported="true">
