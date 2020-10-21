@@ -1,6 +1,7 @@
 package ru.android.romashkaapp.main
 
 import android.Manifest
+import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -14,6 +15,7 @@ import android.ru.romashkaapp.usecases.EventsUseCase
 import android.ru.romashkaapp.usecases.OrderUseCase
 import android.ru.romashkaapp.usecases.UserUseCase
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.MutableLiveData
@@ -27,6 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import ru.android.romashkaapp.BaseSubscriber
 import ru.android.romashkaapp.BuildConfig
+import ru.android.romashkaapp.base.BaseViewModel
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
@@ -37,7 +40,11 @@ import java.util.concurrent.TimeUnit
  * Created by yasina on 01.10.2020.
  * Copyright (c) 2018 Infomatica. All rights reserved.
  */
-class MainViewModel: ViewModel() {
+class MainViewModel(application: Application) : BaseViewModel(application), View.OnClickListener{
+
+    override fun onClick(view: View?) {
+        TODO("Not yet implemented")
+    }
 
     private var usecase: UserUseCase? = null
     private var dictionaryUseCase: DictionaryUseCase? = null

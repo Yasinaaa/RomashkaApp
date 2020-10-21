@@ -3,12 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_boarding">
+    app:startDestination="@+id/nav_stadium">
 
     <fragment
         android:id="@+id/nav_boarding"
         android:name="ru.android.romashkaapp.boarding.BoardingFragment"
         tools:layout="@layout/fragment_onboarding">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_main"
+        android:name="ru.android.romashkaapp.main.MainFragment"
+        tools:layout="@layout/fragment_main">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_stadium"
+        android:name="ru.android.romashkaapp.stadium.StadiumFragment"
+        tools:layout="@layout/fragment_stadium">
 
     </fragment>
 

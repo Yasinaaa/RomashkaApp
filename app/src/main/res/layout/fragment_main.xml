@@ -28,8 +28,7 @@
                 app:titleTextColor="#0060AE"
                 android:elevation="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints"/>
+                app:layout_constraintStart_toStartOf="parent"/>
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -64,6 +63,7 @@
             android:id="@+id/cl_main_game_card"
             android:layout_marginTop="24dp"
             android:background="@android:color/white"
+            android:onClick="@{view->viewModel.onClick(view)}"
             app:layout_constraintEnd_toEndOf="@+id/tv_title"
             app:layout_constraintStart_toStartOf="@+id/tv_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_title">

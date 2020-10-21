@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingConstraints">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="ru.android.romashkaapp.stadium.StadiumViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F2F2F2"
+        tools:context=".ru.android.romashkaapp.stadium.StadiumFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/cl_toolbar"
+            android:background="@drawable/cell_shape_toolbar_white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/ib_back"
+                android:background="@drawable/ic_arrow_back"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_logo1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_launcher_background"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_logo2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_launcher_background"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/guideline2"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintGuide_percent="0.48" />
+
+            <ImageButton
+                android:layout_width="18dp"
+                android:layout_height="20dp"
+                android:id="@+id/ib_settings"
+                android:background="@drawable/ic_settings"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="19dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_event_title1"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="textEnd"
+                android:text="Инфоматика"
+                android:fontFamily="@font/roboto"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintStart_toEndOf="@+id/ib_back"
+                app:layout_constraintEnd_toStartOf="@+id/tv_event_slash"
+                app:layout_constraintTop_toBottomOf="@+id/civ_logo1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_event_slash"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:text="-"
+                android:fontFamily="@font/roboto"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/civ_logo1"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_event_title2"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="textStart"
+                android:text="Владивосток"
+                android:fontFamily="@font/roboto"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="5dp"
+                app:layout_constraintStart_toEndOf="@+id/tv_event_slash"
+                app:layout_constraintEnd_toStartOf="@+id/ib_settings"
+                app:layout_constraintTop_toBottomOf="@+id/civ_logo1"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_event_city1"
+                android:textSize="14sp"
+                android:textColor="@color/button_next_color"
+                android:textAlignment="center"
+                android:text="Казань"
+                android:fontFamily="@font/roboto"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_event_title1"
+                app:layout_constraintEnd_toStartOf="@+id/tv_event_slash"
+                app:layout_constraintTop_toBottomOf="@+id/tv_event_title1"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_event_city2"
+                android:textSize="14sp"
+                android:textColor="@color/button_next_color"
+                android:textAlignment="center"
+                android:text="Владивосток"
+                android:fontFamily="@font/roboto"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_event_title2"
+                app:layout_constraintStart_toEndOf="@+id/tv_event_slash"
+                app:layout_constraintTop_toBottomOf="@+id/tv_event_title2"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/iv_expand"
+                android:src="@drawable/ic_expand_more"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_event_city1"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_event_date"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="viewStart"
+                android:text="17 ОКТЯБРЯ  ЧТ 18:00"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_event_city1"
+                android:drawablePadding="10dp"
+                app:drawableRightCompat="@drawable/ic_calendar" />
+
+            <TextView
+                android:visibility="gone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_event_place"
+                android:textSize="14sp"
+                android:textColor="@color/button_next_color"
+                android:textAlignment="center"
+                android:text="Казань Арена, г. Казань"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/ib_settings"
+                app:layout_constraintStart_toEndOf="@+id/ib_back"
+                app:layout_constraintTop_toBottomOf="@+id/tv_event_date"/>
+
+            <TextView
+                android:visibility="gone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_event_title"
+                android:textSize="14sp"
+                android:textColor="@color/button_next_color"
+                android:textAlignment="center"
+                android:text="Тинькофф Российская Премьер-Лига"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/ib_settings"
+                app:layout_constraintStart_toEndOf="@+id/ib_back"
+                app:layout_constraintTop_toBottomOf="@+id/tv_event_place"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_tickets"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:textAlignment="textEnd"
+            android:text="@string/tickets"
+            android:fontFamily="@font/roboto"
+            android:layout_marginTop="23dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/cl_toolbar"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:id="@+id/ib_filter"
+            android:background="@drawable/ic_filter"
+            android:layout_marginTop="23dp"
+            android:layout_marginStart="13dp"
+            app:layout_constraintStart_toEndOf="@+id/tv_tickets"
+            app:layout_constraintTop_toBottomOf="@+id/cl_toolbar"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_tickets"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_in_full_screen"
+            android:text="@string/in_full_screen"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:fontFamily="@font/roboto_medium"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingStart="17dp"
+            android:paddingEnd="17dp"
+            android:layout_marginBottom="36dp"
+            android:textAllCaps="true"
+            android:textAlignment="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@android:color/white"
+            app:layout_constraintTop_toBottomOf="@+id/cl_toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{view->viewModel.onClick(view)}"/>
+
+        <WebView
+            android:id="@+id/wv_stadium"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/btn_in_full_screen"
+            app:layout_constraintBottom_toTopOf="@+id/btn_plus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_plus"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/ic_increase"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{view->viewModel.zoomIn()}"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_minus"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_reduce"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_plus"
+            android:onClick="@{view->viewModel.zoomOut()}"/>
+
+        <View
+            android:id="@+id/mcv_layout_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@android:color/white"
+            app:layout_constraintStart_toStartOf="@+id/btn_layout"
+            app:layout_constraintEnd_toEndOf="@+id/btn_list"
+            app:layout_constraintTop_toTopOf="@+id/btn_layout"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_layout"/>
+
+        <TextView
+            android:visibility="visible"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_layout"
+            android:text="@string/layout"
+            android:textAllCaps="true"
+            android:textSize="14sp"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@android:color/black"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:visibility="visible"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_list"
+            android:text="@string/list"
+            android:textAllCaps="true"
+            android:textSize="14sp"
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/button_next_color"
+            android:paddingEnd="8dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_layout" />
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

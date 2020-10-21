@@ -3,5 +3,9 @@
 
     <string name="skip">Пропустить</string>
     <string name="next">Далее</string>
+    <string name="tickets">Билеты</string>
+    <string name="in_full_screen">На весь экран</string>
+    <string name="layout">План</string>
+    <string name="list">Список</string>
 
 </resources>
