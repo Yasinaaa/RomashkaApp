@@ -7,5 +7,7 @@
     <string name="in_full_screen">На весь экран</string>
     <string name="layout">План</string>
     <string name="list">Список</string>
-
+    <string name="filters">Фильтры</string>
+    <string name="prices">Цены</string>
+    <string name="close">Закрыть</string>
 </resources>

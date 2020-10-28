@@ -17,9 +17,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.fragment_stadium.*
+import kotlinx.android.synthetic.main.fragment_stadium2.*
 import ru.android.romashkaapp.R
-import ru.android.romashkaapp.databinding.FragmentStadiumBinding
+import ru.android.romashkaapp.databinding.FragmentStadium2Binding
 
 /**
  * Created by yasina on 15.10.2020.
@@ -27,7 +27,7 @@ import ru.android.romashkaapp.databinding.FragmentStadiumBinding
  */
 class StadiumFragment : Fragment(){
 
-    lateinit var binding: FragmentStadiumBinding
+    lateinit var binding: FragmentStadium2Binding
     private val viewModel: StadiumViewModel by viewModels()
 
     object AndroidJSInterface {
@@ -42,7 +42,7 @@ class StadiumFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stadium, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stadium2, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.executePendingBindings()
@@ -83,7 +83,7 @@ class StadiumFragment : Fragment(){
     private fun loadJs(webView: WebView) {
         webView.loadUrl(
             """javascript:(function f() {
-                    var sectors = document.querySelectorAll('g[free][view_id]');
+                    var sectors = document.querySelectorAll('g');
                     for (const sector of sectors) {
                       var sectorId = sector.getAttribute('sector_id');
                       sector.setAttribute('onclick', 'Android.onClicked(' + sectorId + ')');

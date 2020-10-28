@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_stadium">
+    app:startDestination="@+id/nav_sector_seats">
 
     <fragment
         android:id="@+id/nav_boarding"
@@ -23,6 +23,13 @@
         android:id="@+id/nav_stadium"
         android:name="ru.android.romashkaapp.stadium.StadiumFragment"
         tools:layout="@layout/fragment_stadium">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_sector_seats"
+        android:name="ru.android.romashkaapp.sector_seat.SectorSeatFragment"
+        tools:layout="@layout/fragment_sector2">
 
     </fragment>
 
