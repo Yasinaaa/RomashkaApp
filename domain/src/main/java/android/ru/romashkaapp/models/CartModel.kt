@@ -2,7 +2,7 @@ package android.ru.romashkaapp.models
 
 /**
  * Created by yasina on 26.06.2020.
- * Copyright (c) 202020 Infomatica. All rights reserved.
+ * Copyright (c) 2020 Infomatica. All rights reserved.
  */
 class CartModel {
 
