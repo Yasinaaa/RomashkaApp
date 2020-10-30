@@ -11,4 +11,28 @@
     <string name="prices">Цены</string>
     <string name="close">Закрыть</string>
     <string name="unavailable">недоступно</string>
+
+    <string name="boarding_1_title">Смотрите расписание матчей</string>
+    <string name="boarding_1_text">Вы попали куда нужно!</string>
+    <string name="boarding_2_title">Покупайте билеты на матчи</string>
+    <string name="boarding_2_text">Удобно и быстро!</string>
+    <string name="boarding_3_title">Добавляйте матчи в календарь</string>
+    <string name="boarding_3_text">Чтобы не пропустить матч!</string>
+    <string name="boarding_4_title">Все билеты в приложении</string>
+    <string name="boarding_4_text">Сканируйте QR-код и проходите!</string>
+    <string name="last_boarding_btn_title">Вперед, за билетами!</string>
+
+    <string-array name="boarding_titles">
+        <item>@string/boarding_1_title</item>
+        <item>@string/boarding_2_title</item>
+        <item>@string/boarding_3_title</item>
+        <item>@string/boarding_4_title</item>
+    </string-array>
+    <string-array name="boarding_texts">
+        <item>@string/boarding_1_text</item>
+        <item>@string/boarding_2_text</item>
+        <item>@string/boarding_3_text</item>
+        <item>@string/boarding_4_text</item>
+    </string-array>
+
 </resources>
