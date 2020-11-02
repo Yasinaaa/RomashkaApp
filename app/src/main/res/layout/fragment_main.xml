@@ -12,96 +12,25 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#E2E2E2"
         tools:context=".ru.android.romashkaapp.main.MainFragment">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar_layout"
+        <fragment
+            android:id="@+id/nav_main_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"/>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/white"
-                app:contentInsetStart="26dp"
-                app:titleTextColor="#0060AE"
-                android:elevation="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:id="@+id/iv_image"
-            android:background="@color/button_next_color"
-            app:layout_constraintTop_toBottomOf="@+id/app_bar_layout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <TextView
-            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_title"
-            android:textSize="20sp"
-            android:textColor="@android:color/black"
-            android:textAlignment="viewStart"
-            android:text="Главная игра этого сезона"
-            android:fontFamily="@font/roboto_bold"
-            android:layout_marginTop="124dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/cl_main_game_card"
-            android:layout_marginTop="24dp"
-            android:background="@android:color/white"
-            android:onClick="@{view->viewModel.onClick(view)}"
-            app:layout_constraintEnd_toEndOf="@+id/tv_title"
-            app:layout_constraintStart_toStartOf="@+id/tv_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_event_date"
-                android:textSize="14sp"
-                android:textColor="@android:color/black"
-                android:textAlignment="viewStart"
-                android:text="17 ОКТЯБРЯ  ЧТ 18:00"
-                android:fontFamily="@font/roboto_bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:drawablePadding="10dp"
-                app:drawableRightCompat="@drawable/ic_calendar" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/tv_event_title"
-                android:textSize="14sp"
-                android:textColor="@color/button_next_color"
-                android:textAlignment="viewStart"
-                android:text="Тинькофф Российская Премьер-Лига"
-                android:fontFamily="@font/roboto_bold"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_event_date"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            app:menu="@menu/bottom_navigation_menu"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

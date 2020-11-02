@@ -35,4 +35,12 @@
         <item>@string/boarding_4_text</item>
     </string-array>
 
+    <string name="matches">Матчи</string>
+    <string name="view_all_matches">Посмотреть все матчи</string>
+    <string name="services">Услуги</string>
+    <string name="play_bill">Афиша</string>
+    <string name="basket">Корзина</string>
+    <string name="account">Аккаунт</string>
+    <string name="calendar">Календарь</string>
+
 </resources>

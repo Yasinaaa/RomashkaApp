@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="android.ru.romashkaapp.models.EventModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cl_main_game_card"
+        android:paddingBottom="18dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rectangle_white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_event_date"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:textAlignment="viewStart"
+            android:text="17 ОКТЯБРЯ  ЧТ 18:00"
+            android:fontFamily="@font/roboto_bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:drawablePadding="10dp"
+            app:drawableRightCompat="@drawable/ic_calendar" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_event_championship_title"
+            android:textSize="14sp"
+            android:textColor="@color/button_next_color"
+            android:textAlignment="viewStart"
+            android:text="Тинькофф Российская Премьер-Лига"
+            android:fontFamily="@font/roboto"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_event_date"/>
+
+        <include layout="@layout/two_circle_images"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_event_title1"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:textAlignment="textStart"
+            android:text="Инфоматика"
+            android:lineSpacingExtra="0dp"
+            android:fontFamily="@font/roboto_medium"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/civ_logo2"
+            app:layout_constraintTop_toTopOf="@+id/civ_logo1" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_event_title2"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:textAlignment="textStart"
+            android:lineSpacingExtra="0dp"
+            android:text="Лион"
+            android:fontFamily="@font/roboto_medium"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/civ_logo2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_event_title1"
+            app:layout_constraintBottom_toBottomOf="@+id/civ_logo2"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

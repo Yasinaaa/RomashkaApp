@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.android.romashkaapp.R
 import ru.android.romashkaapp.base.BaseViewModel
 
 /**
@@ -16,7 +17,7 @@ class BoardingViewModel(application: Application) : BaseViewModel(application), 
     val nextClick = MutableLiveData<Boolean>()
 
     override fun onClick(view: View?) {
-        nextClick.value = true
+        nextClick.value = view!!.id != R.id.btn_skip
     }
 
 

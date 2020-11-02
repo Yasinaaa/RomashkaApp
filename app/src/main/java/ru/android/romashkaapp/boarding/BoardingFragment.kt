@@ -112,18 +112,26 @@ class BoardingFragment : Fragment(){
         dots_indicator.setViewPager2(view_pager)
 
         boardingViewModel.nextClick.observe(viewLifecycleOwner, {
-            if(mb_next.text == getString(R.string.last_boarding_btn_title)){
-                findNavController().navigate(
-                    R.id.nav_main,
-                    null,
-                    NavOptions.Builder().setPopUpTo(
-                        R.id.nav_boarding,
-                        true
-                    ).build()
-                )
+            if (it) {
+                if (mb_next.text == getString(R.string.last_boarding_btn_title)) {
+                    startMainView()
+                } else {
+                    view_pager.currentItem = view_pager.currentItem + 1
+                }
             }else{
-                view_pager.currentItem = view_pager.currentItem + 1
+                startMainView()
             }
         })
+    }
+
+    private fun startMainView(){
+        findNavController().navigate(
+            R.id.nav_main,
+            null,
+            NavOptions.Builder().setPopUpTo(
+                R.id.nav_boarding,
+                true
+            ).build()
+        )
     }
 }

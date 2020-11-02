@@ -18,6 +18,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -29,7 +30,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import ru.android.romashkaapp.BaseSubscriber
 import ru.android.romashkaapp.BuildConfig
+import ru.android.romashkaapp.afisha.AfishaFragment
 import ru.android.romashkaapp.base.BaseViewModel
+import ru.android.romashkaapp.matches.MatchesFragment
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
@@ -51,6 +54,7 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
     private var eventUseCase: EventsUseCase? = null
     private var orderUseCase: OrderUseCase? = null
     val picture = MutableLiveData<String>()
+    val createFragment = MutableLiveData<Fragment>()
 
     private fun api(): API {
         val interceptor = HttpLoggingInterceptor()
@@ -91,6 +95,15 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
         dictionaryUseCase = DictionaryUseCase(repository)
 //        dictionaryUseCase!!.getCategories(last = null, limit = "100", CategoriesSubscriber())
 
+        var fragment = AfishaFragment()
+        fragment.setViewModel(this)
+        createFragment.value = fragment
+    }
+
+    fun setMatchesFragment(){
+        var fragment = MatchesFragment()
+        fragment.setViewModel(this)
+        createFragment.value = fragment
     }
 
     fun saveSvgToLocal(context: Context){
