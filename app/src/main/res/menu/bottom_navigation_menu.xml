@@ -11,6 +11,11 @@
         android:icon="@drawable/ic_circle"
         android:title="@string/basket"/>
     <item
+        android:id="@+id/my_tickets"
+        android:enabled="true"
+        android:icon="@drawable/ic_circle"
+        android:title="@string/my_tickets"/>
+    <item
         android:id="@+id/account"
         android:enabled="true"
         android:icon="@drawable/ic_circle"

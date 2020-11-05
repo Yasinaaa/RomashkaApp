@@ -90,7 +90,7 @@ class StadiumFragment : Fragment(){
         wv_stadium.settings.loadWithOverviewMode = true
         wv_stadium.settings.useWideViewPort = true
 
-        wv_stadium.loadUrl("file:///android_asset/www/kazan_arena.svg")
+        wv_stadium.loadUrl("file:///android_asset/www/untitled.html") //kazan_arena.svg
 
         binding.viewModel?.zoomView!!.observe(viewLifecycleOwner, Observer {
            if(it){
