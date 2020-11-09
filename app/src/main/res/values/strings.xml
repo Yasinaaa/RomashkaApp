@@ -42,5 +42,23 @@
     <string name="basket">Корзина</string>
     <string name="account">Аккаунт</string>
     <string name="calendar">Календарь</string>
+    <string name="my_tickets">Мои билеты</string>
+
+    <string name="entrance">Вход</string>
+    <string name="email">Эл. почта</string>
+    <string name="password">Пароль</string>
+    <string name="sign_in">Войти</string>
+    <string name="forget_password">Забыли пароль?</string>
+    <string name="sign_up">Зарегистрироваться</string>
+
+    <string name="clean">Очистить</string>
+    <string name="tickets_expires_in">Билеты доступны в корзине</string>
+    <string name="order">Заказ</string>
+    <string name="i_have_a_promocode">У меня есть промокод</string>
+    <string name="to_pay">К оплате</string>
+    <string name="pay">Оплатить</string>
+    <string name="go_to_pay">Перейти к оплате</string>
+    <string name="commission">Комиссия</string>
+    <string name="discount_by_promocode">Скидка по промокоду</string>
 
 </resources>

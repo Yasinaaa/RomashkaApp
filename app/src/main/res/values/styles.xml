@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/button_next_color</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">#F2F2F2</item>
     </style>
     <style name="Theme.AppCompat.Light.NoActionBar.Fullscreen" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
