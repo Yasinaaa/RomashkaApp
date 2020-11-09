@@ -23,6 +23,7 @@
                 android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:id="@+id/cl_toolbar"
+                android:elevation="10dp"
                 android:background="@android:color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

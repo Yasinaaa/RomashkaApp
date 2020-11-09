@@ -5,8 +5,7 @@
     android:padding="20dp"
     android:background="?attr/selectableItemBackground"
     xmlns:tools="http://schemas.android.com/tools">
-
-
+    
     <TextView
         android:id="@+id/itemEventText"
         android:layout_width="match_parent"

@@ -33,6 +33,7 @@ import ru.android.romashkaapp.BuildConfig
 import ru.android.romashkaapp.afisha.AfishaFragment
 import ru.android.romashkaapp.base.BaseViewModel
 import ru.android.romashkaapp.matches.MatchesFragment
+import ru.android.romashkaapp.sector_seat.SectorSeatFragment
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStreamWriter
@@ -103,6 +104,12 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
     fun setMatchesFragment(){
         var fragment = MatchesFragment()
         fragment.setViewModel(this)
+        createFragment.value = fragment
+    }
+
+    fun setSectorFragment(){
+        var fragment = SectorSeatFragment()
+//        fragment.setViewModel(this)
         createFragment.value = fragment
     }
 

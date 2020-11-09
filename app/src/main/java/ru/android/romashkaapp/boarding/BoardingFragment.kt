@@ -25,6 +25,7 @@ import ru.android.romashkaapp.boarding.item.ItemBoardingFragment
 import ru.android.romashkaapp.boarding.item.ItemBoardingFragment.Companion.BOARDING_PAGE_TEXT
 import ru.android.romashkaapp.boarding.item.ItemBoardingFragment.Companion.BOARDING_PAGE_TITLE
 import ru.android.romashkaapp.databinding.FragmentOnboardingBinding
+import ru.android.romashkaapp.utils.toDp
 
 
 /**
@@ -61,14 +62,10 @@ class BoardingFragment : Fragment(){
                 constraintSet.clone(cl)
                 constraintSet.clear(R.id.mb_next, ConstraintSet.START)
                 constraintSet.applyTo(cl)
-                setMargins(16.toDp(), 24.toDp())
+                setMargins(16.toDp(requireContext()), 24.toDp(requireContext()))
             }
         }
     }
-
-    fun Int.toDp():Int = TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), requireContext().resources.displayMetrics
-    ).toInt()
 
     private fun setMargins(leftMargin: Int, rightMargin: Int){
         val newLayoutParams = mb_next.layoutParams as ConstraintLayout.LayoutParams

@@ -35,7 +35,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
-
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -112,37 +111,7 @@
                 app:layout_constraintStart_toEndOf="@+id/ib_back"
                 app:layout_constraintTop_toBottomOf="@+id/tv_event_place"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/mb_filters"
-            app:icon="@drawable/ic_filters"
-            app:iconTint="#E5F1FF"
-            app:iconTintMode="multiply"
-            app:iconGravity="textEnd"
-            app:iconPadding="7dp"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-            app:strokeWidth="2dp"
-            app:cornerRadius="8dp"
-            app:strokeColor="@android:color/white"
-            android:text="@string/filters"
-            android:fontFamily="@font/roboto_medium"
-            android:textColor="#0C233D"
-            android:textSize="14sp"
-            android:letterSpacing="0"
-            android:paddingTop="7dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="7dp"
-            android:textAllCaps="false"
-            android:backgroundTint="@android:color/white"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_toolbar"
-            android:onClick="@{(view)->viewModel.onClick(view)}"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="wrap_content"
@@ -162,7 +131,7 @@
             android:textColor="#0C233D"
             android:textSize="14sp"
             android:paddingTop="9dp"
-            android:paddingStart="8dp"
+            android:paddingStart="16dp"
             android:paddingEnd="8dp"
             android:paddingBottom="9dp"
             android:textAllCaps="false"
@@ -171,7 +140,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginStart="8dp"
             android:minWidth="0dp"
-            app:layout_constraintStart_toEndOf="@+id/mb_filters"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_toolbar"
             android:onClick="@{(view)->viewModel.onClick(view)}"/>
 
@@ -181,7 +150,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="15dp"
-            app:layout_constraintTop_toBottomOf="@+id/mb_filters"
+            app:layout_constraintTop_toBottomOf="@+id/mb_prices"
             app:layout_constraintBottom_toTopOf="@+id/btn_plus"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
@@ -191,21 +160,21 @@
             android:layout_height="wrap_content"
             android:id="@+id/btn_plus"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/ic_increase"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_minus"
+            app:layout_constraintBottom_toTopOf="@+id/btn_minus"
+            app:layout_constraintEnd_toEndOf="parent"
             android:onClick="@{view->viewModel.zoomIn()}"/>
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_minus"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginBottom="80dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/ic_reduce"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:onClick="@{view->viewModel.zoomOut()}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
