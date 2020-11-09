@@ -7,13 +7,13 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="ru.android.romashkaapp.afisha.AfishaViewModel" />
+            type="ru.android.romashkaapp.matches.MatchesViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#E2E2E2"
-        tools:context=".ru.android.romashkaapp.afisha.AfishaFragment">
+        tools:context=".ru.android.romashkaapp.matches.MatchesFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
@@ -44,7 +44,7 @@
                 android:textAlignment="viewEnd"
                 android:text="@string/matches"
                 android:fontFamily="@font/roboto_medium"
-                android:layout_marginTop="17dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginStart="20dp"
                 android:padding="0dp"
                 app:layout_constraintStart_toEndOf="@+id/ib_back"
@@ -68,7 +68,7 @@
                 android:textAlignment="viewStart"
                 android:text="@string/calendar"
                 android:fontFamily="@font/roboto_medium"
-                android:layout_marginTop="17dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="16dp"
                 android:padding="0dp"
@@ -77,12 +77,12 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageButton
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="18dp"
+                android:layout_height="12dp"
                 android:id="@+id/ib_info"
                 android:background="@drawable/ic_matches_filter"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="18dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="22dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 

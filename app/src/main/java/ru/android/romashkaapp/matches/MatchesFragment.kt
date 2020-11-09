@@ -1,8 +1,18 @@
 package ru.android.romashkaapp.matches
 
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_matches.*
+import ru.android.romashkaapp.R
+import ru.android.romashkaapp.databinding.FragmentMatchesBinding
 import ru.android.romashkaapp.main.MainViewModel
+import ru.android.romashkaapp.matches.adapters.MatchesAndCalendarAdapter
 
 /**
  * Created by yasina on 15.10.2020.
@@ -10,10 +20,37 @@ import ru.android.romashkaapp.main.MainViewModel
  */
 class MatchesFragment : Fragment(){
 
+    lateinit var binding: FragmentMatchesBinding
+    private val viewModel: MatchesViewModel by viewModels()
+    private val matchesAdapter = MatchesAndCalendarAdapter()
     private lateinit var mainViewModel: MainViewModel
 
     fun setViewModel(viewModel: MainViewModel){
         this.mainViewModel = viewModel
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_matches, container, false)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+        binding.executePendingBindings()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            rv_matches.adapter = matchesAdapter
+            rv_matches.layoutManager = LinearLayoutManager(context)
+        }
+
+        viewModel.matchesList.observe(viewLifecycleOwner, {
+            matchesAdapter.updateList(it)
+        })
     }
 
 }
