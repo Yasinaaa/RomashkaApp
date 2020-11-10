@@ -21,6 +21,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/cl_toolbar"
             android:background="@drawable/cell_shape_toolbar_white"
+            android:paddingBottom="16dp"
+            android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -39,11 +41,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_event_title"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textColor="@android:color/black"
                 android:textAlignment="textStart"
                 android:text="Инфоматика-Владивосток"
-                android:fontFamily="@font/roboto"
+                android:fontFamily="@font/roboto_bold"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="10dp"
@@ -55,26 +57,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/iv_expand"
-                android:src="@drawable/ic_expand_more"
-                android:layout_marginTop="13dp"
+                android:background="@drawable/ic_expand_more"
+                android:layout_marginTop="25dp"
                 android:layout_marginBottom="16dp"
                 android:layout_marginEnd="24dp"
+                android:onClick="@{view->viewModel.toolbarView()}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_event_date"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textColor="@android:color/black"
                 android:textAlignment="viewStart"
                 android:text="17 ОКТЯБРЯ  ЧТ 18:00"
                 android:fontFamily="@font/roboto_bold"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="10dp"
-                android:paddingBottom="10dp"
                 app:layout_constraintStart_toEndOf="@+id/ib_back"
                 app:layout_constraintStart_toStartOf="@+id/tv_event_title"
                 app:layout_constraintTop_toBottomOf="@+id/tv_event_title"/>
@@ -83,14 +84,16 @@
                 android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_event_place"
+                android:id="@+id/tv_event_type"
                 android:textSize="14sp"
                 android:textColor="@color/button_next_color"
-                android:textAlignment="center"
-                android:text="Казань Арена, г. Казань"
-                android:fontFamily="@font/roboto_bold"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/ib_settings"
+                android:textAlignment="textStart"
+                android:text="Тинькофф Российская Премьер-Лига"
+                android:fontFamily="@font/roboto"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/iv_expand"
                 app:layout_constraintStart_toEndOf="@+id/ib_back"
                 app:layout_constraintTop_toBottomOf="@+id/tv_event_date"/>
 
@@ -98,17 +101,43 @@
                 android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_event_type"
+                android:id="@+id/tv_event_place"
                 android:textSize="14sp"
                 android:textColor="@color/button_next_color"
-                android:textAlignment="center"
-                android:text="Тинькофф Российская Премьер-Лига"
-                android:fontFamily="@font/roboto_bold"
+                android:textAlignment="textStart"
+                android:text="Казань Арена, г. Казань"
+                android:fontFamily="@font/roboto"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toStartOf="@+id/ib_settings"
+                app:layout_constraintEnd_toStartOf="@+id/iv_expand"
                 app:layout_constraintStart_toEndOf="@+id/ib_back"
+                app:layout_constraintTop_toBottomOf="@+id/tv_event_type"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:visibility="gone"
+                android:id="@+id/civ_logo1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="#E2E2E2"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@android:color/white"
+                android:layout_marginTop="22dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@+id/ib_back"
+                app:layout_constraintTop_toBottomOf="@+id/tv_event_place"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:visibility="gone"
+                android:id="@+id/civ_logo2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="#E2E2E2"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@android:color/white"
+                android:layout_marginTop="22dp"
+                android:layout_marginStart="40dp"
+                app:layout_constraintStart_toStartOf="@+id/tv_event_date"
                 app:layout_constraintTop_toBottomOf="@+id/tv_event_place"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -148,34 +177,46 @@
             android:id="@+id/wv_stadium"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="130dp"
             android:layout_marginBottom="15dp"
-            app:layout_constraintTop_toBottomOf="@+id/mb_prices"
-            app:layout_constraintBottom_toTopOf="@+id/btn_plus"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <ImageButton
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_plus"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/ic_increase"
-            app:layout_constraintBottom_toTopOf="@+id/btn_minus"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:onClick="@{view->viewModel.zoomIn()}"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_minus"
+            android:id="@+id/ll_plus_minus"
+            android:background="@drawable/rectangle_white"
+            android:orientation="vertical"
+            android:elevation="10dp"
             android:layout_marginBottom="80dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/ic_reduce"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:onClick="@{view->viewModel.zoomOut()}"/>
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_plus"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="33dp"
+                android:background="@drawable/ic_plus"
+                android:onClick="@{view->viewModel.zoomIn()}"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_minus"
+                android:background="@drawable/ic_minus"
+                android:layout_marginBottom="19dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:onClick="@{view->viewModel.zoomOut()}"/>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

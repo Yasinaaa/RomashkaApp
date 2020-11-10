@@ -12,7 +12,17 @@ import retrofit2.http.*
 interface API {
 
     ///api/v1
-    @GET("/users")
+    @Headers("Content-Type: application/json")
+//    @GET("/oauth2/rest/token")
+    @HTTP(method = "GET", path = "/oauth2/rest/token", hasBody = true)
+    fun getAppToken(@Body appToken: AppToken?): Observable<ResponseBody>
+
+    @Headers("Content-Type: application/json")
+    @GET("/oauth2/rest/token")
+    fun getClientToken(@Query("client_id") clientId: String?, @Query("client_secret") clientSecret: String?,
+                 @Query("grant_type") grantType: String?, @Query("username") username: String?, @Query("password") password: String?): Observable<ResponseBody>
+
+    @GET("/v1/users")
     fun getUsers(): Observable<MutableList<UserModel>>
 
     @GET("/users/{user_id}")

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingConstraints"
+    android:background="@android:color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_title"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:textAlignment="textStart"
+        android:text="@string/choose_price_title"
+        android:fontFamily="@font/roboto_bold"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_prices"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        app:layout_constraintBottom_toTopOf="@+id/btn_clean"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ib_close"
+        android:src="@drawable/ic_close"
+        android:background="@android:color/white"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="29dp"
+        android:layout_marginStart="21dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_clean"
+        style="?android:attr/buttonBarButtonStyle"
+        android:text="@string/clean"
+        android:textAllCaps="true"
+        android:textSize="14sp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="#8193B0"
+        android:paddingStart="24dp"
+        android:paddingEnd="18dp"
+        android:paddingTop="31dp"
+        android:paddingBottom="27dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_apply"/>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_apply"
+        style="?android:attr/buttonBarButtonStyle"
+        android:text="@string/apply"
+        android:textAllCaps="true"
+        android:textSize="14sp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="#8193B0"
+        android:paddingStart="24dp"
+        android:paddingEnd="18dp"
+        android:paddingTop="31dp"
+        android:paddingBottom="27dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

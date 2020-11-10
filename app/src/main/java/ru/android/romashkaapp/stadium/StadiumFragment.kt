@@ -7,6 +7,8 @@ import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
@@ -92,13 +94,30 @@ class StadiumFragment : Fragment(){
 
         wv_stadium.loadUrl("file:///android_asset/www/kazan_arena.svg") //kazan_arena.svg
 
-        binding.viewModel?.zoomView!!.observe(viewLifecycleOwner, Observer {
+        binding.viewModel?.zoomView!!.observe(viewLifecycleOwner, {
            if(it){
                wv_stadium.zoomIn()
            }else{
                wv_stadium.zoomOut()
            }
         })
+
+        binding.viewModel?.toolbarView!!.observe(viewLifecycleOwner, {
+            if(it){
+                setToolbarView(VISIBLE)
+                iv_expand.setBackgroundResource(R.drawable.ic_expand_less)
+            }else{
+                setToolbarView(GONE)
+                iv_expand.setBackgroundResource(R.drawable.ic_expand_more)
+            }
+        })
+    }
+
+    private fun setToolbarView(v: Int){
+        tv_event_type.visibility = v
+        tv_event_place.visibility = v
+        civ_logo1.visibility = v
+        civ_logo2.visibility = v
     }
 
     private fun loadJs(webView: WebView) {

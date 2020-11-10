@@ -191,7 +191,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_plus"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/ic_increase"
+                android:background="@drawable/ic_plus"
                 app:layout_constraintBottom_toTopOf="@+id/btn_minus"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:onClick="@{view->viewModel.zoomIn()}"/>
@@ -202,7 +202,7 @@
                 android:id="@+id/btn_minus"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="23dp"
-                android:background="@drawable/ic_reduce"
+                android:background="@drawable/ic_minus"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:onClick="@{view->viewModel.zoomOut()}"/>

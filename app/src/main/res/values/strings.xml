@@ -93,5 +93,8 @@
         <item>@string/november</item>
         <item>@string/december</item>
     </string-array>
+    <string name="choose_price_title">Выберите цену, чтобы увидеть места
+        на плане с выбранной ценой</string>
+    <string name="apply">Применить</string>
 
 </resources>

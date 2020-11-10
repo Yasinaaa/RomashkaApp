@@ -77,7 +77,8 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
             .retryOnConnectionFailure(true)
             .build()
         return Retrofit.Builder()
-            .baseUrl("https://private-a905e4-artemshvedenko.apiary-mock.com")
+            .baseUrl("http://192.168.2.49:23400")
+//            .baseUrl("https://private-a905e4-artemshvedenko.apiary-mock.com")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(ScalarsConverterFactory.create())
@@ -87,7 +88,11 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
 
     init{
         val repository = ApiRepository(api())
-//        usecase = UserUseCase(repository)
+        usecase = UserUseCase(repository)
+        usecase!!.getAppToken(clientId = "testclient", clientSecret = "testpass", grantType = "client_credentials", AppTokenSubscriber())
+//        usecase!!.getClientToken(clientId = "testclient", clientSecret = "testpass", grantType = "client_credentials",
+//            password = "Ls5112233", username = "aa@gmail.com", useCaseDisposable = ClientTokenSubscriber()
+//        )
 //        usecase!!.getUser(UserSubscriber())
 //        usecase!!.getUsers(AllUsersSubscriber())
 
@@ -132,6 +137,39 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
             FileOutputStream(file).use {
                 it.write("record goes here".encodeToByteArray())
             }
+        }
+    }
+
+    private inner class AppTokenSubscriber(): BaseSubscriber<ResponseBody>() {
+        override fun onComplete() {
+            super.onComplete()
+            usecase!!.getClientToken(clientId = "testclient", clientSecret = "testpass", grantType = "client_credentials",
+                password = "Ls5112233", username = "aa@gmail.com", useCaseDisposable = ClientTokenSubscriber()
+            )
+        }
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: ResponseBody) {
+            super.onNext(response)
+            Log.d("ffd", "ss=$response")
+        }
+    }
+
+    private inner class ClientTokenSubscriber(): BaseSubscriber<ResponseBody>() {
+        override fun onComplete() {
+            super.onComplete()
+        }
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: ResponseBody) {
+            super.onNext(response)
+            Log.d("ffd", "ss=$response")
         }
     }
 

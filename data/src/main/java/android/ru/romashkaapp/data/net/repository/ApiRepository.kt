@@ -15,6 +15,22 @@ import retrofit2.http.Query
 //@Singleton
 class ApiRepository constructor(private val mAPI: API) : Repository {
 
+    override fun getAppToken(
+        appToken: AppToken?
+    ): Observable<ResponseBody> {
+        return mAPI.getAppToken(appToken)
+    }
+
+    override fun getClientToken(
+        clientId: String?,
+        clientSecret: String?,
+        grantType: String?,
+        username: String?,
+        password: String?
+    ): Observable<ResponseBody> {
+        return mAPI.getClientToken(clientId, clientSecret, grantType, username, password)
+    }
+
     override fun getUsers(): Observable<MutableList<UserModel>> {
         return mAPI.getUsers()
     }

@@ -3,6 +3,7 @@ package android.ru.romashkaapp.repository
 import okhttp3.ResponseBody
 import io.reactivex.Observable
 import android.ru.romashkaapp.models.*
+import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
@@ -10,6 +11,9 @@ import retrofit2.http.Query
  * Copyright (c) 2018 Infomatica. All rights reserved.
  */
 interface Repository {
+
+    fun getAppToken(appToken: AppToken?): Observable<ResponseBody>
+    fun getClientToken(clientId: String?, clientSecret: String?, grantType: String?, username: String?, password: String?): Observable<ResponseBody>
 
     fun getUsers(): Observable<MutableList<UserModel>>
     fun getUser(userId: Long): Observable<UserModel>

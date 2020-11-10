@@ -12,6 +12,7 @@ import ru.android.romashkaapp.base.BaseViewModel
 class StadiumViewModel(application: Application) : BaseViewModel(application), View.OnClickListener{
 
     val zoomView = MutableLiveData<Boolean>()
+    val toolbarView = MutableLiveData<Boolean>()
 
     fun zoomIn(){
         zoomView.value = true
@@ -19,6 +20,10 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
 
     fun zoomOut(){
         zoomView.value = false
+    }
+
+    fun toolbarView(){
+        toolbarView.value = toolbarView.value != true
     }
 
     override fun onClick(view: View?) {
