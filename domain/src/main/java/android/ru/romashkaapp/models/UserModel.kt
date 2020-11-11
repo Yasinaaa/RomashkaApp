@@ -12,5 +12,8 @@ class UserModel {
     var middle: String? = null
     var phone: String? = null
     var email: String? = null
+    var date: DateModel? = null
     var photo: String? = null
+    var extra: ExtraModel? = null
+
 }

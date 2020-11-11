@@ -8,7 +8,7 @@ class NomModel {
 
     var id: Int = 0
     var name: String? = null
-    var action_ids: MutableList<Int>? = null
+    var action_ids: MutableList<ActionModel?>? = mutableListOf()
     var thumbnail: String? = null
     var description: String? = null
     var last: String? = null

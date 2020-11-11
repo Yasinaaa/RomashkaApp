@@ -3,7 +3,7 @@ package ru.android.romashkaapp.stadium
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
+import android.ru.romashkaapp.models.EventModel
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,20 +13,22 @@ import android.view.ViewGroup
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.core.os.bundleOf
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import kotlinx.android.synthetic.main.fragment_stadium2.*
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.databinding.FragmentStadium2Binding
-import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.fragment_matches.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import ru.android.romashkaapp.stadium.adapters.PricesAdapter
 
 /**
  * Created by yasina on 15.10.2020.
@@ -110,6 +112,22 @@ class StadiumFragment : Fragment(){
                 setToolbarView(GONE)
                 iv_expand.setBackgroundResource(R.drawable.ic_expand_more)
             }
+        })
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        val layoutView = layoutInflater.inflate(R.layout.dialog_prices, null)
+        builder.setView(layoutView)
+        val dial = builder.create()
+
+        val rvPrices = layoutView!!.findViewById(R.id.rv_prices) as RecyclerView
+        rvPrices.layoutManager = LinearLayoutManager(context)
+
+        val pricesAdapter = PricesAdapter(viewModel.getListener())
+        rvPrices.adapter = pricesAdapter
+
+        binding.viewModel?.priceClick!!.observe(viewLifecycleOwner, {
+            pricesAdapter.updateList(arrayListOf(EventModel(), EventModel(), EventModel(), EventModel(), EventModel()))
+            dial.show()
         })
     }
 

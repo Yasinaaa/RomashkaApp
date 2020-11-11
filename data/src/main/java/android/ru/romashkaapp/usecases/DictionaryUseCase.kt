@@ -18,8 +18,8 @@ class DictionaryUseCase(
     private val mRepository: ApiRepository
 ): ApiUseCase () {
 
-    fun <S> getCategories(last: String?, limit: String?, useCaseDisposable: S) where S : Observer<in MutableList<CategoryModel>>?, S : Disposable {
-        mRepository.getCategories(last, limit)
+    fun <S> getCategories(accessToken: String, last: String?, limit: String?, useCaseDisposable: S) where S : Observer<in MutableList<CategoryModel>>?, S : Disposable {
+        mRepository.getCategories(accessToken, last, limit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)
@@ -32,8 +32,8 @@ class DictionaryUseCase(
             .subscribeWith(useCaseDisposable)
     }
 
-    fun <S> getActions(useCaseDisposable: S) where S : Observer<in MutableList<ActionModel>>?, S : Disposable {
-        mRepository.getActions()
+    fun <S> getActions(accessToken: String, useCaseDisposable: S) where S : Observer<in MutableList<ActionModel>>?, S : Disposable {
+        mRepository.getActions(accessToken)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)
@@ -46,8 +46,8 @@ class DictionaryUseCase(
             .subscribeWith(useCaseDisposable)
     }
 
-    fun <S> getNoms(last: String?, limit: String?, useCaseDisposable: S) where S : Observer<in MutableList<NomModel>>?, S : Disposable {
-        mRepository.getNoms(last, limit)
+    fun <S> getNoms(accessToken: String, last: String?, limit: String?, useCaseDisposable: S) where S : Observer<in MutableList<NomModel>>?, S : Disposable {
+        mRepository.getNoms(accessToken, last, limit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)

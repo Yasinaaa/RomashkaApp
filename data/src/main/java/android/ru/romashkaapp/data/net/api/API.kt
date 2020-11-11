@@ -13,17 +13,15 @@ interface API {
 
     ///api/v1
     @Headers("Content-Type: application/json")
-//    @GET("/oauth2/rest/token")
-    @HTTP(method = "GET", path = "/oauth2/rest/token", hasBody = true)
-    fun getAppToken(@Body appToken: AppToken?): Observable<ResponseBody>
+    @POST("/oauth2/token")
+    fun getAppToken(@Body appToken: AppToken): Observable<AppTokenResponse>
 
     @Headers("Content-Type: application/json")
-    @GET("/oauth2/rest/token")
-    fun getClientToken(@Query("client_id") clientId: String?, @Query("client_secret") clientSecret: String?,
-                 @Query("grant_type") grantType: String?, @Query("username") username: String?, @Query("password") password: String?): Observable<ResponseBody>
+    @POST("/oauth2/token")
+    fun getClientToken(@Body clientToken: ClientToken): Observable<ClientTokenResponse>
 
     @GET("/v1/users")
-    fun getUsers(): Observable<MutableList<UserModel>>
+    fun getUsers(@Query("accessToken") accessToken: String): Observable<MutableList<UserModel>>
 
     @GET("/users/{user_id}")
     fun getUser(@Path("user_id") userId: Long): Observable<UserModel>
@@ -112,20 +110,20 @@ interface API {
     @GET("/cities/{city_id}")
     fun getCity(@Path("city_id") id: Int): Observable<CityModel>
 
-    @GET("/categories")
-    fun getCategories(@Query("last_gt") last: String?, @Query("limit") limit: String?): Observable<MutableList<CategoryModel>>
+    @GET("/v1/categories")
+    fun getCategories(@Query("accessToken") accessToken: String, @Query("last_gt") last: String?, @Query("limit") limit: String?): Observable<MutableList<CategoryModel>>
 
     @GET("/categories/{category_id}")
     fun getCategory(@Path("category_id") categoryId: Int): Observable<CategoryModel>
 
-    @GET("/noms")
-    fun getNoms(@Query("last_gt") last: String?, @Query("limit") limit: String?): Observable<MutableList<NomModel>>
+    @GET("/v1/noms")
+    fun getNoms(@Query("accessToken") accessToken: String, @Query("last_gt") last: String?, @Query("limit") limit: String?): Observable<MutableList<NomModel>>
 
     @GET("/noms/{nom_id}")
     fun getNom(@Path("nom_id") nomId: Int): Observable<NomModel>
 
-    @GET("/actions")
-    fun getActions(): Observable<MutableList<ActionModel>>
+    @GET("/v1/actions")
+    fun getActions(@Query("accessToken") accessToken: String): Observable<MutableList<ActionModel>>
 
     @GET("/actions/{action_id}")
     fun getAction(@Path("action_id") actionId: Int): Observable<ActionModel>

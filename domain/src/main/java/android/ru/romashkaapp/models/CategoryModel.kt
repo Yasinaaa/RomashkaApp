@@ -9,5 +9,5 @@ class CategoryModel {
     var id: Int = 0
     var name: String? = null
     var last: String? = null
-
+    var is_active: Int? = null
 }

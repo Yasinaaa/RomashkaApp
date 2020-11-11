@@ -12,10 +12,10 @@ import retrofit2.http.Query
  */
 interface Repository {
 
-    fun getAppToken(appToken: AppToken?): Observable<ResponseBody>
-    fun getClientToken(clientId: String?, clientSecret: String?, grantType: String?, username: String?, password: String?): Observable<ResponseBody>
+    fun getAppToken(appToken: AppToken?): Observable<AppTokenResponse>
+    fun getClientToken(clientToken: ClientToken): Observable<ClientTokenResponse>
 
-    fun getUsers(): Observable<MutableList<UserModel>>
+    fun getUsers(accessToken: String): Observable<MutableList<UserModel>>
     fun getUser(userId: Long): Observable<UserModel>
     fun editUser(userId: Long, user: UserModel): Observable<ResponseBody>
     fun getEvents(last: String?, limit: String?,
@@ -40,11 +40,11 @@ interface Repository {
     fun getHall(id: Int): Observable<HallModel>
     fun getCities(last: String?, limit: String?): Observable<MutableList<CityModel>>
     fun getCity(id: Int): Observable<CityModel>
-    fun getCategories(last: String?, limit: String?): Observable<MutableList<CategoryModel>>
+    fun getCategories(accessToken: String, last: String?, limit: String?): Observable<MutableList<CategoryModel>>
     fun getCategory(categoryId: Int): Observable<CategoryModel>
-    fun getActions(): Observable<MutableList<ActionModel>>
+    fun getActions(accessToken: String): Observable<MutableList<ActionModel>>
     fun getAction(actionId: Int): Observable<ActionModel>
-    fun getNoms(last: String?, limit: String?): Observable<MutableList<NomModel>>
+    fun getNoms(accessToken: String, last: String?, limit: String?): Observable<MutableList<NomModel>>
     fun getNom(nomId: Int): Observable<NomModel>
     
     fun getEventSubscriptions(eventId: Int): Observable<MutableList<EventModel>>

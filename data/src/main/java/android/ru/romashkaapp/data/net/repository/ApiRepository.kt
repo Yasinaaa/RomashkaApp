@@ -17,22 +17,18 @@ class ApiRepository constructor(private val mAPI: API) : Repository {
 
     override fun getAppToken(
         appToken: AppToken?
-    ): Observable<ResponseBody> {
-        return mAPI.getAppToken(appToken)
+    ): Observable<AppTokenResponse> {
+        return mAPI.getAppToken(appToken!!)
     }
 
     override fun getClientToken(
-        clientId: String?,
-        clientSecret: String?,
-        grantType: String?,
-        username: String?,
-        password: String?
-    ): Observable<ResponseBody> {
-        return mAPI.getClientToken(clientId, clientSecret, grantType, username, password)
+        clientToken: ClientToken
+    ): Observable<ClientTokenResponse> {
+        return mAPI.getClientToken(clientToken)
     }
 
-    override fun getUsers(): Observable<MutableList<UserModel>> {
-        return mAPI.getUsers()
+    override fun getUsers(accessToken: String): Observable<MutableList<UserModel>> {
+        return mAPI.getUsers(accessToken)
     }
     
     override fun getUser(userId: Long): Observable<UserModel> {
@@ -121,24 +117,24 @@ class ApiRepository constructor(private val mAPI: API) : Repository {
         return mAPI.getCity(id)
     }
 
-    override fun getCategories(last: String?, limit: String?): Observable<MutableList<CategoryModel>> {
-        return mAPI.getCategories(last, limit)
+    override fun getCategories(accessToken: String, last: String?, limit: String?): Observable<MutableList<CategoryModel>> {
+        return mAPI.getCategories(accessToken, last, limit)
     }
 
     override fun getCategory(categoryId: Int): Observable<CategoryModel> {
         return mAPI.getCategory(categoryId)
     }
 
-    override fun getActions(): Observable<MutableList<ActionModel>> {
-        return mAPI.getActions()
+    override fun getActions(accessToken: String): Observable<MutableList<ActionModel>> {
+        return mAPI.getActions(accessToken)
     }
 
     override fun getAction(id: Int): Observable<ActionModel> {
         return mAPI.getAction(id)
     }
 
-    override fun getNoms(last: String?, limit: String?): Observable<MutableList<NomModel>> {
-        return mAPI.getNoms(last, limit)
+    override fun getNoms(accessToken: String, last: String?, limit: String?): Observable<MutableList<NomModel>> {
+        return mAPI.getNoms(accessToken, null, null)
     }
 
     override fun getNom(nomId: Int): Observable<NomModel> {

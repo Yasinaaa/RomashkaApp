@@ -8,6 +8,7 @@ class ActionModel {
 
     var id: Int = 0
     var name: String? = null
+    var is_active: Int = 0
     var category_id: Int = 0
     var last: String? = null
 }

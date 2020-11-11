@@ -2,8 +2,7 @@ package android.ru.romashkaapp.usecases
 
 import android.annotation.SuppressLint
 import android.ru.romashkaapp.data.net.repository.ApiRepository
-import android.ru.romashkaapp.models.AppToken
-import android.ru.romashkaapp.models.UserModel
+import android.ru.romashkaapp.models.*
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -24,7 +23,7 @@ class UserUseCase(
 
     fun <S> getAppToken(clientId: String?,
                         clientSecret: String?,
-                        grantType: String?, useCaseDisposable: S) where S : Observer<in ResponseBody>?, S : Disposable {
+                        grantType: String?, useCaseDisposable: S) where S : Observer<in AppTokenResponse>?, S : Disposable {
         mRepository.getAppToken(AppToken(clientId, clientSecret, grantType))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -33,15 +32,15 @@ class UserUseCase(
 
     fun <S> getClientToken(clientId: String?,
                         clientSecret: String?,
-                        grantType: String?, username: String?, password: String?, useCaseDisposable: S) where S : Observer<in ResponseBody>?, S : Disposable {
-        mRepository.getClientToken(clientId, clientSecret, grantType, username, password)
+                        grantType: String?, username: String?, password: String?, useCaseDisposable: S) where S : Observer<in ClientTokenResponse>?, S : Disposable {
+        mRepository.getClientToken(ClientToken(clientId, clientSecret, grantType, username, password))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)
     }
 
-    fun <S> getUsers(useCaseDisposable: S) where S : Observer<in MutableList<UserModel>>?, S : Disposable {
-        mRepository.getUsers()
+    fun <S> getUsers(accessToken: String, useCaseDisposable: S) where S : Observer<in MutableList<UserModel>>?, S : Disposable {
+        mRepository.getUsers(accessToken)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)

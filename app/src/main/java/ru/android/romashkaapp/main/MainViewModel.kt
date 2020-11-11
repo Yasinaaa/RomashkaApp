@@ -57,6 +57,8 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
     val picture = MutableLiveData<String>()
     val createFragment = MutableLiveData<Fragment>()
 
+    var accessToken: String? = null
+
     private fun api(): API {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
@@ -77,7 +79,7 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
             .retryOnConnectionFailure(true)
             .build()
         return Retrofit.Builder()
-            .baseUrl("http://192.168.2.49:23400")
+            .baseUrl("http://192.168.2.49:33100")
 //            .baseUrl("https://private-a905e4-artemshvedenko.apiary-mock.com")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -94,12 +96,10 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
 //            password = "Ls5112233", username = "aa@gmail.com", useCaseDisposable = ClientTokenSubscriber()
 //        )
 //        usecase!!.getUser(UserSubscriber())
-//        usecase!!.getUsers(AllUsersSubscriber())
 
         eventUseCase = EventsUseCase(repository)
         orderUseCase = OrderUseCase(repository)
         dictionaryUseCase = DictionaryUseCase(repository)
-//        dictionaryUseCase!!.getCategories(last = null, limit = "100", CategoriesSubscriber())
 
         var fragment = AfishaFragment()
         fragment.setViewModel(this)
@@ -140,10 +140,10 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
         }
     }
 
-    private inner class AppTokenSubscriber(): BaseSubscriber<ResponseBody>() {
+    private inner class AppTokenSubscriber: BaseSubscriber<AppTokenResponse>() {
         override fun onComplete() {
             super.onComplete()
-            usecase!!.getClientToken(clientId = "testclient", clientSecret = "testpass", grantType = "client_credentials",
+            usecase!!.getClientToken(clientId = "testclient", clientSecret = "testpass", grantType = "password",
                 password = "Ls5112233", username = "aa@gmail.com", useCaseDisposable = ClientTokenSubscriber()
             )
         }
@@ -152,13 +152,13 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
             super.onError(e)
         }
 
-        override fun onNext(response: ResponseBody) {
+        override fun onNext(response: AppTokenResponse) {
             super.onNext(response)
-            Log.d("ffd", "ss=$response")
+            Log.d("ffd", "ss=${response.access_token}")
         }
     }
 
-    private inner class ClientTokenSubscriber(): BaseSubscriber<ResponseBody>() {
+    private inner class ClientTokenSubscriber: BaseSubscriber<ClientTokenResponse>() {
         override fun onComplete() {
             super.onComplete()
         }
@@ -167,9 +167,11 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
             super.onError(e)
         }
 
-        override fun onNext(response: ResponseBody) {
+        override fun onNext(response: ClientTokenResponse) {
             super.onNext(response)
             Log.d("ffd", "ss=$response")
+            usecase!!.getUsers(response.access_token!!, AllUsersSubscriber())
+            accessToken = response.access_token
         }
     }
 
@@ -223,10 +225,12 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
         override fun onNext(response: MutableList<UserModel>) {
             super.onNext(response)
             Log.d("ffd", "fd")
+            dictionaryUseCase!!.getNoms(accessToken=accessToken!!, last = "100", limit = "100", NomsSubscriber())
+//            dictionaryUseCase!!.getCategories(accessToken!!, last = null, limit = "100", CategoriesSubscriber())
         }
     }
 
-    private inner class CategoriesSubscriber(): BaseSubscriber<MutableList<CategoryModel>>() {
+    private inner class CategoriesSubscriber: BaseSubscriber<MutableList<CategoryModel>>() {
         override fun onComplete() {
             super.onComplete()
         }
@@ -238,12 +242,13 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
         override fun onNext(response: MutableList<CategoryModel>) {
             super.onNext(response)
             Log.d("ffd", "CategoriesSubscriber")
+//            dictionaryUseCase!!.getActions(accessToken!!, ActionsSubscriber())
 
-            dictionaryUseCase!!.getCategory(response[0].id, CategorySubscriber())
+//            dictionaryUseCase!!.getCategory(response[0].id, CategorySubscriber())
         }
     }
 
-    private inner class CategorySubscriber(): BaseSubscriber<CategoryModel>() {
+    private inner class CategorySubscriber: BaseSubscriber<CategoryModel>() {
 
         override fun onError(e: Throwable) {
             super.onError(e)
@@ -253,11 +258,11 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
             super.onNext(response)
             Log.d("ffd", "CategorySubscriber")
 
-            dictionaryUseCase!!.getActions(ActionsSubscriber())
+
         }
     }
 
-    private inner class ActionsSubscriber(): BaseSubscriber<MutableList<ActionModel>>() {
+    private inner class ActionsSubscriber: BaseSubscriber<MutableList<ActionModel>>() {
 
         override fun onError(e: Throwable) {
             super.onError(e)
@@ -266,8 +271,8 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
         override fun onNext(response: MutableList<ActionModel>) {
             super.onNext(response)
             Log.d("ffd", "ActionsSubscriber")
-
-            dictionaryUseCase!!.getAction(response[0].id, ActionSubscriber())
+//            dictionaryUseCase!!.getNoms(accessToken=accessToken!!, last = response.last().last, limit = "100", NomsSubscriber())
+//            dictionaryUseCase!!.getAction(response[0].id, ActionSubscriber())
         }
     }
 
@@ -281,11 +286,11 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
             super.onNext(response)
             Log.d("ffd", "ActionSubscriber")
 
-            dictionaryUseCase!!.getNoms(last = response.last, limit = "100", NomsSubscriber())
+//            dictionaryUseCase!!.getNoms(last = response.last, limit = "100", NomsSubscriber())
         }
     }
 
-    private inner class NomsSubscriber(): BaseSubscriber<MutableList<NomModel>>() {
+    private inner class NomsSubscriber(): BaseSubscriber<MutableList<NomModel>>() { //MutableList<NomModel>
 
         override fun onError(e: Throwable) {
             super.onError(e)
@@ -295,7 +300,7 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
             super.onNext(response)
             Log.d("ffd", "NomsSubscriber")
 
-            dictionaryUseCase!!.getNom(response[0].id, NomSubscriber())
+//            dictionaryUseCase!!.getNom(response[0].id, NomSubscriber())
         }
     }
 
