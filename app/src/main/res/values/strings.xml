@@ -96,5 +96,10 @@
     <string name="choose_price_title">Выберите цену, чтобы увидеть места
         на плане с выбранной ценой</string>
     <string name="apply">Применить</string>
+    <string name="wrong_email_format">Неправильный адрес почты</string>
+    <string name="wrong_password_format">Неправильный пароль почты</string>
+    <string name="lastname">Фамилия</string>
+    <string name="name">Имя</string>
+    <string name="phone">Телефон</string>
 
 </resources>

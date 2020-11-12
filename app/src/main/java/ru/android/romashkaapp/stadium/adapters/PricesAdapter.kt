@@ -24,18 +24,21 @@ class PricesAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder> {
         listener = l
     }
 
-    class PriceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val binding: ItemPriceBinding? = DataBindingUtil.bind(view)
+    class PriceViewHolder(view: View, context: Context) : RecyclerView.ViewHolder(view) {
+//        val binding: ItemPriceBinding? =  DataBindingUtil.inflate(
+//            LayoutInflater.from(context),
+//            R.layout.item_price, null, false
+//        )
     }
 
     private lateinit var context: Context
-    private var list: MutableList<EventModel?> = mutableListOf()
+    private var list: MutableList<EventModel?> = arrayListOf(EventModel(), EventModel(), EventModel(), EventModel(), EventModel())
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         context = parent.context
         val view = LayoutInflater.from(context).inflate(R.layout.item_price, parent, false)
-        return PriceViewHolder(view)
+        return PriceViewHolder(view, context)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -47,7 +50,7 @@ class PricesAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //                var lp: RecyclerView.LayoutParams = holder.binding?.clMainGameCard?.layoutParams as RecyclerView.LayoutParams
 //                lp.bottomMargin = 24.toDp(context)
 //            }
-            holder.binding?.root?.setOnClickListener { listener!!.click(list[position]) }
+//            holder.binding?.root?.setOnClickListener { listener!!.click(list[position]) }
         }
     }
 

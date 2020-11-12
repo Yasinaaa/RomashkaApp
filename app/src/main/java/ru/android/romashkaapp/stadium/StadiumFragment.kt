@@ -114,20 +114,11 @@ class StadiumFragment : Fragment(){
             }
         })
 
-        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-        val layoutView = layoutInflater.inflate(R.layout.dialog_prices, null)
-        builder.setView(layoutView)
-        val dial = builder.create()
-
-        val rvPrices = layoutView!!.findViewById(R.id.rv_prices) as RecyclerView
-        rvPrices.layoutManager = LinearLayoutManager(context)
-
-        val pricesAdapter = PricesAdapter(viewModel.getListener())
-        rvPrices.adapter = pricesAdapter
 
         binding.viewModel?.priceClick!!.observe(viewLifecycleOwner, {
-            pricesAdapter.updateList(arrayListOf(EventModel(), EventModel(), EventModel(), EventModel(), EventModel()))
-            dial.show()
+            var dialog = PriceFragment()
+            dialog.setViewModel(viewModel)
+            dialog.show(childFragmentManager, "")
         })
     }
 

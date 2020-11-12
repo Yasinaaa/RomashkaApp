@@ -136,9 +136,8 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:inputType="textPersonName"
-                android:imeOptions="actionNext" />
-
-<!--            android:text="@={viewModel.turnstileName}"-->
+                android:imeOptions="actionNext"
+                android:text="@={viewModel.login}"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -165,7 +164,92 @@
                 android:singleLine="true"
                 android:imeOptions="actionDone"
                 android:focusable="true"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:text="@={viewModel.password}"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:theme="@style/OutlinedBox"
+            android:id="@+id/tif_lastname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/lastname"
+            app:placeholderTextColor="@color/button_next_color"
+            app:boxStrokeColor="@color/button_next_color"
+            android:layout_marginTop="8dp"
+            app:endIconMode="password_toggle"
+            app:hintTextColor="@color/button_next_color"
+            app:layout_constraintEnd_toEndOf="@+id/ib_close"
+            app:layout_constraintStart_toStartOf="@+id/mb_vk"
+            app:layout_constraintTop_toBottomOf="@+id/tif_password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_lastname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:focusable="true"
+                android:inputType="textPersonName"
+                android:imeOptions="actionNext"
+                android:text="@={viewModel.lastname}"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:theme="@style/OutlinedBox"
+            android:id="@+id/tif_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/name"
+            app:placeholderTextColor="@color/button_next_color"
+            app:boxStrokeColor="@color/button_next_color"
+            android:layout_marginTop="8dp"
+            app:endIconMode="password_toggle"
+            app:hintTextColor="@color/button_next_color"
+            app:layout_constraintEnd_toEndOf="@+id/ib_close"
+            app:layout_constraintStart_toStartOf="@+id/mb_vk"
+            app:layout_constraintTop_toBottomOf="@+id/tif_lastname">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:focusable="true"
+                android:inputType="textPersonName"
+                android:imeOptions="actionNext"
+                android:text="@={viewModel.name}"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:theme="@style/OutlinedBox"
+            android:id="@+id/tif_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/phone"
+            app:placeholderTextColor="@color/button_next_color"
+            app:boxStrokeColor="@color/button_next_color"
+            android:layout_marginTop="8dp"
+            app:endIconMode="password_toggle"
+            app:hintTextColor="@color/button_next_color"
+            app:layout_constraintEnd_toEndOf="@+id/ib_close"
+            app:layout_constraintStart_toStartOf="@+id/mb_vk"
+            app:layout_constraintTop_toBottomOf="@+id/tif_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:inputType="textPersonName"
+                android:imeOptions="actionNext"
+                android:focusable="true"
+                android:text="@={viewModel.phone}"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -183,10 +267,10 @@
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="@+id/ib_close"
             app:layout_constraintStart_toStartOf="@+id/mb_vk"
-            app:layout_constraintTop_toBottomOf="@+id/tif_password" />
-
-<!--        android:alpha="@{viewModel.buttonOpacity}"-->
-<!--        android:enabled="@{viewModel.buttonOpacity == 1f}"-->
+            app:layout_constraintTop_toBottomOf="@+id/tif_password"
+            android:alpha="@{viewModel.buttonOpacity}"
+            android:enabled="@{viewModel.buttonOpacity == 1f}"
+            android:visibility="@{viewModel.buttonOpacity != 0f ? View.VISIBLE : View.GONE}"/>
 <!--        android:onClick="@{()-> viewModel.insert()}"-->
 
         <Button

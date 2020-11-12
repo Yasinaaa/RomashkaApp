@@ -79,7 +79,7 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
             .retryOnConnectionFailure(true)
             .build()
         return Retrofit.Builder()
-            .baseUrl("http://192.168.2.49:33100")
+            .baseUrl("http://192.168.2.49:23400") //33100
 //            .baseUrl("https://private-a905e4-artemshvedenko.apiary-mock.com")
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

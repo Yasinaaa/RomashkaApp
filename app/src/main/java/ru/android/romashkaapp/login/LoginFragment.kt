@@ -12,6 +12,7 @@ import ru.android.romashkaapp.R
 import ru.android.romashkaapp.login.LoginViewModel
 import ru.android.romashkaapp.databinding.FragmentLoginBinding
 import ru.android.romashkaapp.main.MainViewModel
+import ru.android.romashkaapp.utils.Utils
 
 /**
  * Created by yasina on 05.11.2020.
@@ -22,6 +23,7 @@ class LoginFragment : Fragment() {
     lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModels()
     private lateinit var mainViewModel: MainViewModel
+    private var isReadyToSave = mutableMapOf("login" to false, "password" to false)
 
     fun setViewModel(viewModel: MainViewModel) {
         this.mainViewModel = viewModel
@@ -42,5 +44,42 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.login.observe(viewLifecycleOwner, {
+            if(it.isNotEmpty()) {
+                isReadyToSave["login"] = it.isNotEmpty()
+                isEmptyTurnstile()
+                tif_email.isErrorEnabled = false
+            }else{
+                tif_email.isErrorEnabled = true
+                tif_email.error = requireContext().getString(R.string.wrong_email_format)
+            }
+        })
+        viewModel.password.observe(viewLifecycleOwner, {
+            if(it.isNotEmpty()) {
+                isReadyToSave["password"] = it.isNotEmpty()
+                isEmptyTurnstile()
+                tif_email.isErrorEnabled = false
+            }else{
+                tif_email.isErrorEnabled = true
+                tif_email.error = requireContext().getString(R.string.wrong_password_format)
+            }
+        })
+        viewModel.error.observe(viewLifecycleOwner, {
+            Utils.hideKeyboardFrom(requireContext(), binding.root)
+            Utils.showSnackBar(requireContext(), requireView(), it)
+        })
+    }
+
+    private fun isEmptyTurnstile(){
+        var needToSave = true
+        for((_, value) in isReadyToSave){
+            if (!value)
+                needToSave = value
+        }
+        if (needToSave) {
+            viewModel.buttonOpacity.set(1f)
+        } else {
+            viewModel.buttonOpacity.set(0.58f)
+        }
     }
 }

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_afisha.*
 import ru.android.romashkaapp.R
@@ -23,7 +25,7 @@ class AfishaFragment : Fragment() {
 
     lateinit var binding: FragmentAfishaBinding
     private val viewModel: AfishaViewModel by viewModels()
-    private val matchesAdapter = MatchesAdapter()
+    private lateinit var matchesAdapter: MatchesAdapter
     private val servicesAdapter = ServicesAdapter()
     private lateinit var mainViewModel: MainViewModel
 
@@ -46,6 +48,7 @@ class AfishaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            matchesAdapter = MatchesAdapter(viewModel!!.getListener())
             rv_matches.adapter = matchesAdapter
             rv_matches.layoutManager = LinearLayoutManager(context)
             rv_services.adapter = servicesAdapter
@@ -60,6 +63,17 @@ class AfishaFragment : Fragment() {
         })
         viewModel.viewAllClick.observe(viewLifecycleOwner, {
             mainViewModel.setMatchesFragment()
+        })
+
+        viewModel.nextFragmentOpenClick.observe(viewLifecycleOwner, {
+            findNavController().navigate(
+                R.id.nav_stadium,
+                null,
+                NavOptions.Builder().setPopUpTo(
+                    R.id.nav_main,
+                    true
+                ).build()
+            )
         })
     }
 

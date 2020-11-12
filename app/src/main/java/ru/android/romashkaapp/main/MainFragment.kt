@@ -61,6 +61,7 @@ class MainFragment : Fragment() {
         badge.backgroundColor = ContextCompat.getColor(requireContext(), R.color.button_next_color)
         badge.isVisible = true
         badge.number = 99
+
     }
 
     private fun setFragment(fragment: Fragment){
