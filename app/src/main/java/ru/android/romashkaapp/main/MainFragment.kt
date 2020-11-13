@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.util.Log
 import android.util.LogPrinter
 import android.view.*
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -62,6 +64,13 @@ class MainFragment : Fragment() {
         badge.isVisible = true
         badge.number = 99
 
+        viewModel.bottomBar.observe(viewLifecycleOwner, {
+            if(it){
+                bottom_navigation.visibility = VISIBLE
+            }else{
+                bottom_navigation.visibility = GONE
+            }
+        })
     }
 
     private fun setFragment(fragment: Fragment){

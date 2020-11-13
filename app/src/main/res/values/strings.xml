@@ -101,5 +101,9 @@
     <string name="lastname">Фамилия</string>
     <string name="name">Имя</string>
     <string name="phone">Телефон</string>
+    <string name="courts">Площадки</string>
+    <string name="championships">Турниры</string>
+    <string name="reset">Сбросить</string>
+    <string name="terms_of_use">Я ознакомился с Пользовательским соглашением, принимаю его и даю Согласие на обработку персональных данных</string>
 
 </resources>

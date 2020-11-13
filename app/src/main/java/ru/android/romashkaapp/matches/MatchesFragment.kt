@@ -1,11 +1,12 @@
 package ru.android.romashkaapp.matches
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -13,7 +14,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_matches.*
+
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.databinding.FragmentMatchesBinding
 import ru.android.romashkaapp.main.MainViewModel
@@ -29,6 +32,7 @@ class MatchesFragment : Fragment(){
     private val viewModel: MatchesViewModel by viewModels()
     private var matchesAdapter: MatchesAndCalendarAdapter? = null
     private lateinit var mainViewModel: MainViewModel
+    private var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>? = null
 
     fun setViewModel(viewModel: MainViewModel){
         this.mainViewModel = viewModel
@@ -76,6 +80,43 @@ class MatchesFragment : Fragment(){
                 ).build()
             )
         })
+
+        bottomSheetBehavior = BottomSheetBehavior.from(cl_bottomsheet)
+        bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_HIDDEN
+        cl_bottomsheet.visibility = GONE
+
+        bottomSheetBehavior!!.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                // handle onSlide
+            }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when (newState) {
+                    BottomSheetBehavior.STATE_COLLAPSED -> {
+                        mainViewModel.showNavigationBar()
+                        cl_bottomsheet.visibility = GONE
+                    }
+                    BottomSheetBehavior.STATE_EXPANDED -> {
+
+                    }
+                    BottomSheetBehavior.STATE_DRAGGING -> {
+
+                    }
+                    BottomSheetBehavior.STATE_SETTLING -> {
+
+                    }
+                }
+            }
+        })
+
+        bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_HIDDEN
+
+        mb_info.setOnClickListener {
+            cl_bottomsheet.visibility = VISIBLE
+            bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED
+            mainViewModel.skipNavigationBar()
+        }
     }
 
 }

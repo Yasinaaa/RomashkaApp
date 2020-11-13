@@ -56,8 +56,16 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
     private var orderUseCase: OrderUseCase? = null
     val picture = MutableLiveData<String>()
     val createFragment = MutableLiveData<Fragment>()
-
+    val bottomBar = MutableLiveData<Boolean>()
     var accessToken: String? = null
+
+    fun skipNavigationBar(){
+        bottomBar.value = false
+    }
+
+    fun showNavigationBar(){
+        bottomBar.value = true
+    }
 
     private fun api(): API {
         val interceptor = HttpLoggingInterceptor()

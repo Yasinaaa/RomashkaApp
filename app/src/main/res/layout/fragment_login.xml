@@ -170,6 +170,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:visibility="gone"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:theme="@style/OutlinedBox"
             android:id="@+id/tif_lastname"
@@ -179,7 +180,6 @@
             app:placeholderTextColor="@color/button_next_color"
             app:boxStrokeColor="@color/button_next_color"
             android:layout_marginTop="8dp"
-            app:endIconMode="password_toggle"
             app:hintTextColor="@color/button_next_color"
             app:layout_constraintEnd_toEndOf="@+id/ib_close"
             app:layout_constraintStart_toStartOf="@+id/mb_vk"
@@ -198,6 +198,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:visibility="gone"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:theme="@style/OutlinedBox"
             android:id="@+id/tif_name"
@@ -207,7 +208,6 @@
             app:placeholderTextColor="@color/button_next_color"
             app:boxStrokeColor="@color/button_next_color"
             android:layout_marginTop="8dp"
-            app:endIconMode="password_toggle"
             app:hintTextColor="@color/button_next_color"
             app:layout_constraintEnd_toEndOf="@+id/ib_close"
             app:layout_constraintStart_toStartOf="@+id/mb_vk"
@@ -226,6 +226,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:visibility="gone"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:theme="@style/OutlinedBox"
             android:id="@+id/tif_phone"
@@ -235,7 +236,6 @@
             app:placeholderTextColor="@color/button_next_color"
             app:boxStrokeColor="@color/button_next_color"
             android:layout_marginTop="8dp"
-            app:endIconMode="password_toggle"
             app:hintTextColor="@color/button_next_color"
             app:layout_constraintEnd_toEndOf="@+id/ib_close"
             app:layout_constraintStart_toStartOf="@+id/mb_vk"
@@ -253,6 +253,17 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <CheckBox
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/ch_terms_of_use"
+            android:text="@string/terms_of_use"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="@+id/ib_close"
+            app:layout_constraintStart_toStartOf="@+id/mb_vk"
+            app:layout_constraintTop_toBottomOf="@+id/tif_phone"/>
+
         <Button
             android:id="@+id/btn_login"
             android:layout_width="0dp"
@@ -267,7 +278,7 @@
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="@+id/ib_close"
             app:layout_constraintStart_toStartOf="@+id/mb_vk"
-            app:layout_constraintTop_toBottomOf="@+id/tif_password"
+            app:layout_constraintTop_toBottomOf="@+id/ch_terms_of_use"
             android:alpha="@{viewModel.buttonOpacity}"
             android:enabled="@{viewModel.buttonOpacity == 1f}"
             android:visibility="@{viewModel.buttonOpacity != 0f ? View.VISIBLE : View.GONE}"/>
