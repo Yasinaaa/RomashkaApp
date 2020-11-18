@@ -13,7 +13,7 @@ interface API {
 
     ///api/v1
     @Headers("Content-Type: application/json")
-    @POST("/oauth2/token")
+    @POST("/yasina/oauth2/token")
     fun getAppToken(@Body appToken: AppToken): Observable<AppTokenResponse>
 
     @Headers("Content-Type: application/json")
@@ -28,6 +28,9 @@ interface API {
 
     @PATCH("/users/{user_id}")
     fun editUser(@Path("user_id") userId: Long, @Body user: UserModel): Observable<ResponseBody>
+
+    @GET("/yasina/v1/events")
+    fun getEvents(@Query("accessToken") accessToken: String, @Query("page") page: Int?, @Query("per-page") perPage: Int?): Observable<MutableList<EventModel>>
 
     @GET("/events")
     fun getEvents(@Query("last_gt") last: String?, @Query("limit") limit: String?,

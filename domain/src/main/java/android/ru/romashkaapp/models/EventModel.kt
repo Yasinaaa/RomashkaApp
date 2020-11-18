@@ -10,7 +10,7 @@ class EventModel {
 
     var id: Int = 0
     var name: String? = null
-    var active: Boolean? = null
+    var active: Int? = null
     var nom_id: Int = 0
     var hall_id: Int = 0
     var sdate: String? = null

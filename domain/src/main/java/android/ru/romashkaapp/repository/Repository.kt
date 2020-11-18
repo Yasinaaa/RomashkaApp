@@ -26,6 +26,7 @@ interface Repository {
                   edateGt: String?, edateLs: String?,
                   type: String?): Observable<MutableList<EventModel>>
     fun getEvent(eventId: Int): Observable<EventModel>
+    fun getEvents(accessToken: String, page: Int?, perPage: Int?): Observable<MutableList<EventModel>>
 //    fun getSector(eventId: Int,  sectorId: Int): Observable<SectorModel>
 //    fun getSectorPlaces(eventId: Int,  sectorId: Int): Observable<SeatModel>
 //    fun getSectorSvg(eventId: Int,  sectorId: Int): Observable<SectorSvgModel>

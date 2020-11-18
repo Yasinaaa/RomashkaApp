@@ -75,6 +75,7 @@ class AfishaFragment : Fragment() {
                 ).build()
             )
         })
+        viewModel.getEvents(requireContext())
     }
 
 }

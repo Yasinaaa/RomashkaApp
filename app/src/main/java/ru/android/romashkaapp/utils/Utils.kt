@@ -17,6 +17,10 @@ class Utils {
 
     companion object {
 
+        val CLIENT_ID = "testclient"
+        val CLIENT_SECRET =  "testpass"
+        val GRANT_TYPE = "client_credentials"
+        val ACCESS_TOKEN = "ACCESS_TOKEN"
         val FIRST_OPEN = "FIRST_OPEN"
         
         fun hideKeyboardFrom(context: Context, view: View) {
@@ -41,6 +45,18 @@ class Utils {
             val editor = preferences.edit()
             editor.putBoolean(FIRST_OPEN, false)
             editor.apply()
+        }
+
+        fun saveAccessToken(context: Context, accessToken: String?){
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            val editor = preferences.edit()
+            editor.putString(ACCESS_TOKEN, accessToken)
+            editor.apply()
+        }
+
+        fun getAccessToken(context: Context): String?{
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return preferences.getString(ACCESS_TOKEN, null)
         }
     }
 }

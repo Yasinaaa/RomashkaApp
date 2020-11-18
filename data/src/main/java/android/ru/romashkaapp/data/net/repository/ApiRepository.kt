@@ -1,19 +1,59 @@
 package android.ru.romashkaapp.data.net.repository
 
+import android.ru.romashkaapp.data.BuildConfig
 import android.ru.romashkaapp.data.net.api.API
 import android.ru.romashkaapp.models.*
 import android.ru.romashkaapp.repository.Repository
+import android.util.Log
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Observable
+import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.Query
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 
 /**
  * Created by yasina on 26.06.2020.
  * Copyright (c) 2018 Infomatica. All rights reserved.
  */
-//@Singleton
-class ApiRepository constructor(private val mAPI: API) : Repository {
+@Singleton
+class ApiRepository: Repository {
+
+    private val mAPI: API = api()
+
+    private fun api(): API {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+        val client = OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .addInterceptor { chain ->
+                val request = chain.request()
+                var response = chain.proceed(request)
+                var tryCount = 0
+                while (!response.isSuccessful && tryCount < 3) {
+                    Log.d("intercept", "Request is not successful - $tryCount")
+                    tryCount++
+                    response = chain.proceed(request)
+                }
+                response
+            }.connectTimeout(120, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .retryOnConnectionFailure(true)
+            .build()
+        return Retrofit.Builder()
+            .baseUrl("http://192.168.2.80")
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .client(client)
+            .build().create(API::class.java)
+    }
 
     override fun getAppToken(
         appToken: AppToken?
@@ -37,6 +77,10 @@ class ApiRepository constructor(private val mAPI: API) : Repository {
 
     override fun editUser(userId: Long, user: UserModel): Observable<ResponseBody> {
         return mAPI.editUser(userId, user)
+    }
+
+    override fun getEvents(accessToken: String, page: Int?, perPage: Int?): Observable<MutableList<EventModel>> {
+        return mAPI.getEvents(accessToken= accessToken, page = page, perPage = perPage)
     }
 
     override fun getEvents(last: String?, limit: String?,
