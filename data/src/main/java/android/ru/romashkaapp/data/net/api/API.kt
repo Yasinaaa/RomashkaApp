@@ -46,8 +46,8 @@ interface API {
                   @Query("sdate_ls") edateLs: String?,
                   @Query("type") type: String?): Observable<MutableList<EventModel>>
 
-    @GET("/events/{event_id}")
-    fun getEvent(@Path("event_id") eventId: Int): Observable<EventModel>
+    @GET("/yasina/v1/events/{event_id}")
+    fun getEvent(@Path("event_id") eventId: Int, @Query("accessToken") accessToken: String): Observable<EventModel>
 
     //todo
     @GET("/events/{event_id}/subscriptions")

@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="viewModel"
+            name="event"
             type="android.ru.romashkaapp.models.EventModel" />
     </data>
 
@@ -41,7 +41,8 @@
             android:textSize="14sp"
             android:textColor="@color/button_next_color"
             android:textAlignment="viewStart"
-            android:text="Тинькофф Российская Премьер-Лига"
+            tools:text="Тинькофф Российская Премьер-Лига"
+            android:text="@{event.description}"
             android:fontFamily="@font/roboto"
             android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"
@@ -59,7 +60,7 @@
             android:textSize="16sp"
             android:textColor="@android:color/black"
             android:textAlignment="textStart"
-            android:text="Инфоматика"
+            android:text="@{event.name}"
             android:lineSpacingExtra="0dp"
             android:fontFamily="@font/roboto_medium"
             android:layout_marginStart="16dp"
@@ -76,7 +77,7 @@
             android:textColor="@android:color/black"
             android:textAlignment="textStart"
             android:lineSpacingExtra="0dp"
-            android:text="Лион"
+            tools:text="Лион"
             android:fontFamily="@font/roboto_medium"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -86,5 +87,4 @@
             app:layout_constraintBottom_toBottomOf="@+id/civ_logo2"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

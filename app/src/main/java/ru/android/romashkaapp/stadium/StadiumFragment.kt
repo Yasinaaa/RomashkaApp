@@ -39,6 +39,10 @@ class StadiumFragment : Fragment(){
     lateinit var binding: FragmentStadium2Binding
     private val viewModel: StadiumViewModel by viewModels()
 
+    companion object{
+        val EVENT_ID = "EVENT_ID"
+    }
+
     class AndroidJSInterface(f: StadiumFragment) {
 
         private var fr: StadiumFragment? = f
@@ -77,6 +81,10 @@ class StadiumFragment : Fragment(){
     @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireArguments().containsKey(EVENT_ID).let {
+            viewModel.getEvent(requireArguments().getInt(EVENT_ID))
+        }
 
         val webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {

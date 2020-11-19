@@ -19,87 +19,74 @@
             android:background="#E2E2E2"
             tools:context=".ru.android.romashkaapp.afisha.AfishaFragment">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_search"
                 android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:id="@+id/cl_toolbar"
-                android:elevation="10dp"
-                android:background="@android:color/white"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="17dp"
+                android:layout_marginTop="8dp"
+                app:hintAnimationEnabled="false"
+                app:hintEnabled="false"
+                app:boxBackgroundColor="#F2F2F2"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:boxCornerRadiusBottomEnd="8dp"
+                app:boxCornerRadiusTopEnd="8dp"
+                app:boxCornerRadiusBottomStart="8dp"
+                app:boxCornerRadiusTopStart="8dp"
+                app:startIconDrawable="@drawable/ic_search"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ib_info"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_search"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="17dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    app:hintAnimationEnabled="false"
-                    app:hintEnabled="false"
-                    app:boxBackgroundColor="#F2F2F2"
-                    app:boxStrokeWidth="0dp"
-                    app:boxStrokeWidthFocused="0dp"
-                    app:boxCornerRadiusBottomEnd="8dp"
-                    app:boxCornerRadiusTopEnd="8dp"
-                    app:boxCornerRadiusBottomStart="8dp"
-                    app:boxCornerRadiusTopStart="8dp"
-                    app:startIconDrawable="@drawable/ic_search"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/ib_info"
-                    app:layout_constraintTop_toTopOf="parent">
+                <!--                    app:endIconTint="@color/text_field_color"-->
+                <AutoCompleteTextView
+                    android:id="@+id/auctv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
-<!--                    app:endIconTint="@color/text_field_color"-->
-                    <AutoCompleteTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                <!--                    android:id="@+id/actv_free_passage"-->
+                <!--                    android:hint="@string/not_chosen"-->
+                <!--                    android:textColorHint="@color/text_field_color"-->
+                <!--                    android:textColor="@color/black"-->
 
-<!--                    android:id="@+id/actv_free_passage"-->
-<!--                    android:hint="@string/not_chosen"-->
-<!--                    android:textColorHint="@color/text_field_color"-->
-<!--                    android:textColor="@color/black"-->
+            </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <ImageButton
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:id="@+id/ib_info"
-                    android:background="@drawable/ic_info"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginEnd="18dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageButton
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/ib_info"
+                android:background="@drawable/ic_info"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="300dp"
                 android:id="@+id/iv_image"
-                android:background="@color/button_next_color"
-                app:layout_constraintTop_toBottomOf="@+id/cl_toolbar"
+                android:background="@drawable/main_toolbar"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_title"
-                android:textSize="20sp"
-                android:textColor="@android:color/black"
-                android:textAlignment="viewStart"
-                android:text="Главная игра этого сезона"
-                android:fontFamily="@font/roboto_medium"
-                android:layout_marginTop="124dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="142dp"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:fontFamily="@font/pfbeausanspro_bold"
+                android:text="Главная игра этого сезона"
+                android:textAlignment="viewStart"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/til_search" />
 
             <include
                 android:layout_height="wrap_content"

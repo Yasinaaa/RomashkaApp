@@ -2,10 +2,15 @@ package ru.android.romashkaapp.stadium
 
 import android.app.Application
 import android.ru.romashkaapp.models.EventModel
+import android.ru.romashkaapp.usecases.EventsUseCase
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
+import ru.android.romashkaapp.BaseSubscriber
+import ru.android.romashkaapp.StartActivity
 import ru.android.romashkaapp.base.BaseViewModel
 import ru.android.romashkaapp.matches.ItemClickListener
+import ru.android.romashkaapp.utils.Utils
 
 /**
  * Created by yasina on 15.10.2020.
@@ -18,13 +23,33 @@ public interface ItemClickListener{
 class StadiumViewModel(application: Application) : BaseViewModel(application), View.OnClickListener,
     ItemClickListener {
 
+    private var eventUseCase: EventsUseCase? = null
     val pricesList: MutableLiveData<MutableList<EventModel?>> = MutableLiveData()
     val zoomView = MutableLiveData<Boolean>()
     val toolbarView = MutableLiveData<Boolean>()
     val priceClick = MutableLiveData<Boolean>()
 
     init {
+        eventUseCase = EventsUseCase(StartActivity.REPOSITORY, Utils.getAccessToken(application)!!)
+
         pricesList.value = arrayListOf(EventModel(), EventModel(), EventModel(), EventModel(), EventModel())
+    }
+
+    fun getEvent(id: Int){
+        eventUseCase!!.getEvent(id, EventSubscriber())
+    }
+
+    private inner class EventSubscriber: BaseSubscriber<EventModel>() {
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: EventModel) {
+            super.onNext(response)
+            Log.d("ffd", "EventSubscriber")
+
+        }
     }
 
     fun zoomIn(){

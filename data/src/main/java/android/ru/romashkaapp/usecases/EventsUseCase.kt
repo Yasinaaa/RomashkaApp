@@ -1,6 +1,7 @@
 package android.ru.romashkaapp.usecases
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.ru.romashkaapp.data.net.repository.ApiRepository
 import android.ru.romashkaapp.models.*
 import io.reactivex.Observable
@@ -15,7 +16,8 @@ import io.reactivex.schedulers.Schedulers
  */
 @SuppressLint("CheckResult")
 class EventsUseCase(
-    private val mRepository: ApiRepository
+    private val mRepository: ApiRepository,
+    private val mAccessToken: String
 ): ApiUseCase () {
 
     fun<T> get(ob: Observable<T>, useCaseDisposable: Observer<in T>){
@@ -24,8 +26,8 @@ class EventsUseCase(
             .subscribeWith(useCaseDisposable)
     }
 
-    fun <S> getEvents(accessToken: String, page: Int?, perPage: Int?, useCaseDisposable: S) where S : Observer<in MutableList<EventModel>>?, S : Disposable {
-        mRepository.getEvents(accessToken, page, perPage)
+    fun <S> getEvents(page: Int?, perPage: Int?, useCaseDisposable: S) where S : Observer<in MutableList<EventModel>>?, S : Disposable {
+        mRepository.getEvents(mAccessToken, page, perPage)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)
@@ -45,7 +47,7 @@ class EventsUseCase(
     }
 
     fun <S> getEvent(eventId: Int, useCaseDisposable: S) where S : Observer<EventModel>?, S : Disposable {
-        mRepository.getEvent(eventId)
+        mRepository.getEvent(mAccessToken, eventId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)

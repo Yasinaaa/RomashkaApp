@@ -93,8 +93,8 @@ class ApiRepository: Repository {
         return mAPI.getEvents(last, limit, active, unitId, hallId, nomId, actionId, categoryId, sdateGt, sdateLs, edateGt, edateLs, type)
     }
 
-    override fun getEvent(eventId: Int): Observable<EventModel> {
-        return mAPI.getEvent(eventId)
+    override fun getEvent(accessToken: String, eventId: Int): Observable<EventModel> {
+        return mAPI.getEvent(eventId, accessToken)
     }
 
 //    override fun getSector(eventId: Int, sectorId: Int): Observable<SectorModel> {

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import ru.android.romashkaapp.BR
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.matches.ItemClickListener
 
@@ -36,7 +37,7 @@ class MatchesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ItemViewHolder) {
-//            holder.binding?.setVariable(BR.email, list!![position])
+            holder.binding?.setVariable(BR.event, list[position])
             holder.binding?.executePendingBindings()
             holder.binding?.root?.setOnClickListener { listener!!.click(list[position]) }
         }

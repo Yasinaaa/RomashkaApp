@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -16,6 +17,7 @@ import ru.android.romashkaapp.afisha.adapters.MatchesAdapter
 import ru.android.romashkaapp.afisha.adapters.ServicesAdapter
 import ru.android.romashkaapp.databinding.FragmentAfishaBinding
 import ru.android.romashkaapp.main.MainViewModel
+import ru.android.romashkaapp.stadium.StadiumFragment.Companion.EVENT_ID
 
 /**
  * Created by yasina on 02.11.2020.
@@ -68,14 +70,14 @@ class AfishaFragment : Fragment() {
         viewModel.nextFragmentOpenClick.observe(viewLifecycleOwner, {
             findNavController().navigate(
                 R.id.nav_stadium,
-                null,
+                bundleOf(EVENT_ID to it!!.id),
                 NavOptions.Builder().setPopUpTo(
                     R.id.nav_main,
                     true
                 ).build()
             )
         })
-        viewModel.getEvents(requireContext())
+        viewModel.getEvents()
     }
 
 }

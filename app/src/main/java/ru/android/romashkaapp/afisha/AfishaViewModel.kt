@@ -27,15 +27,13 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
     val nextFragmentOpenClick = MutableLiveData<EventModel?>()
 
     init {
-        matchesList.value = arrayListOf(EventModel(), EventModel(), EventModel())
         servicesList.value = arrayListOf(EventModel())
 
-        eventUseCase = EventsUseCase(StartActivity.REPOSITORY)
+        eventUseCase = EventsUseCase(StartActivity.REPOSITORY, getAccessToken(application.applicationContext)!!)
     }
 
-    fun getEvents(cont: Context){
-        eventUseCase!!.getEvents(accessToken = getAccessToken(cont)!!, page = null, perPage = null, EventsSubscriber())
-        //, page = null, perPage = null, EventsSubscriber())
+    fun getEvents(){
+        eventUseCase!!.getEvents(page = null, perPage = null, EventsSubscriber())
     }
 
     private inner class EventsSubscriber: BaseSubscriber<MutableList<EventModel>>() {
@@ -47,10 +45,7 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
         override fun onNext(response: MutableList<EventModel>) {
             super.onNext(response)
             Log.d("ffd", "EventsSubscriber")
-
-//            eventUseCase!!.getEvent(
-//                response[0].id,
-//                EventSubscriber())
+            matchesList.value = response
         }
     }
 
@@ -63,27 +58,11 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
     }
 
     override fun click(item: EventModel?) {
-        nextFragmentOpenClick.value = item
+        nextFragmentOpenClick.value = item!!
     }
 
     fun getListener(): ItemClickListener{
         return this
-    }
-
-    private inner class EventSubscriber: BaseSubscriber<EventModel>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: EventModel) {
-            super.onNext(response)
-            Log.d("ffd", "EventSubscriber")
-
-            eventUseCase!!.getEventSubscriptions(
-                response.id,
-                EventSubscriptionsSubscriber())
-        }
     }
 
     private inner class EventSubscriptionsSubscriber: BaseSubscriber<MutableList<EventModel>>() {
