@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.ru.romashkaapp.models.CartModel
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,11 +19,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.android.synthetic.main.fragment_sector2.*
+import kotlinx.android.synthetic.main.fragment_sector.*
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.adapter.helpers.SwipeRemoveActionCallback
 import ru.android.romashkaapp.adapter.helpers.SwipeRemoveItemDecoration
-import ru.android.romashkaapp.databinding.FragmentSector2Binding
+import ru.android.romashkaapp.databinding.FragmentSectorBinding
 import ru.android.romashkaapp.sector_seat.adapter.AnimationOnLastItemAdapter
 
 /**
@@ -33,7 +32,7 @@ import ru.android.romashkaapp.sector_seat.adapter.AnimationOnLastItemAdapter
  */
 class SectorSeatFragment : Fragment() {
 
-    lateinit var binding: FragmentSector2Binding
+    lateinit var binding: FragmentSectorBinding
     private val viewModel: SectorSeatViewModel by viewModels()
     private var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>? = null
     private val adapter = AnimationOnLastItemAdapter()
@@ -47,7 +46,7 @@ class SectorSeatFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sector2, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sector, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.executePendingBindings()

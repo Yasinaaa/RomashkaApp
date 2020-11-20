@@ -3,7 +3,6 @@ package ru.android.romashkaapp.stadium
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.ru.romashkaapp.models.EventModel
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,22 +12,17 @@ import android.view.ViewGroup
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment.findNavController
-import kotlinx.android.synthetic.main.fragment_stadium2.*
+import kotlinx.android.synthetic.main.fragment_stadium.*
 import ru.android.romashkaapp.R
-import ru.android.romashkaapp.databinding.FragmentStadium2Binding
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_matches.*
+import ru.android.romashkaapp.databinding.FragmentStadiumBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import ru.android.romashkaapp.stadium.adapters.PricesAdapter
 
 /**
  * Created by yasina on 15.10.2020.
@@ -36,7 +30,7 @@ import ru.android.romashkaapp.stadium.adapters.PricesAdapter
  */
 class StadiumFragment : Fragment(){
 
-    lateinit var binding: FragmentStadium2Binding
+    lateinit var binding: FragmentStadiumBinding
     private val viewModel: StadiumViewModel by viewModels()
 
     companion object{
@@ -71,7 +65,7 @@ class StadiumFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stadium2, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stadium, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.executePendingBindings()

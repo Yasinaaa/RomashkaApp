@@ -80,7 +80,7 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
 
 
         orderUseCase = OrderUseCase(REPOSITORY)
-        dictionaryUseCase = DictionaryUseCase(REPOSITORY)
+//        dictionaryUseCase = DictionaryUseCase(REPOSITORY)
     }
 
     fun setMatchesFragment(){
@@ -185,7 +185,6 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
         override fun onNext(response: MutableList<UserModel>) {
             super.onNext(response)
             Log.d("ffd", "fd")
-            dictionaryUseCase!!.getNoms(accessToken=accessToken!!, last = "100", limit = "100", NomsSubscriber())
 //            dictionaryUseCase!!.getCategories(accessToken!!, last = null, limit = "100", CategoriesSubscriber())
         }
     }
@@ -250,19 +249,7 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
         }
     }
 
-    private inner class NomsSubscriber(): BaseSubscriber<MutableList<NomModel>>() { //MutableList<NomModel>
 
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: MutableList<NomModel>) {
-            super.onNext(response)
-            Log.d("ffd", "NomsSubscriber")
-
-//            dictionaryUseCase!!.getNom(response[0].id, NomSubscriber())
-        }
-    }
 
     private inner class NomSubscriber: BaseSubscriber<NomModel>() {
 

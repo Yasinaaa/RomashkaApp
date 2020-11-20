@@ -2,27 +2,40 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/civ_logo1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="#E2E2E2"
-        app:civ_border_width="2dp"
-        app:civ_border_color="@android:color/white"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="12dp"
+        app:srcCompat="@drawable/ic_lenta"
+        android:scaleType="centerInside"
+        app:strokeColor="#F3F5FB"
+        app:strokeWidth="2dp"
+        app:shapeAppearanceOverlay="@style/circleImageView"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp"
+        android:paddingStart="1dp"
+        android:paddingEnd="1dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="14dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_event_championship_title"/>
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/civ_logo2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="#E2E2E2"
-        app:civ_border_width="2dp"
-        app:civ_border_color="@android:color/white"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="27dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerInside"
+        android:background="@android:color/white"
+        app:strokeColor="#F3F5FB"
+        app:strokeWidth="2dp"
+        app:srcCompat="@android:color/darker_gray"
+        app:shapeAppearanceOverlay="@style/circleImageView"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp"
+        android:paddingStart="1dp"
+        android:paddingEnd="1dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="@+id/tv_event_date"
         app:layout_constraintTop_toBottomOf="@+id/tv_event_championship_title"/>
 

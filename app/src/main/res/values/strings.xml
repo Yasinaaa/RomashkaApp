@@ -105,5 +105,7 @@
     <string name="championships">Турниры</string>
     <string name="reset">Сбросить</string>
     <string name="terms_of_use">Я ознакомился с Пользовательским соглашением, принимаю его и даю Согласие на обработку персональных данных</string>
+    <string name="no_event_title">Без названия</string>
+    <string name="main_game">Главная игра этого сезона</string>
 
 </resources>

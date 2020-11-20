@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="event"
-            type="android.ru.romashkaapp.models.EventModel" />
+            name="match"
+            type="ru.android.romashkaapp.afisha.adapters.MatchesAdapter.Match" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +24,7 @@
             android:textSize="14sp"
             android:textColor="@android:color/black"
             android:textAlignment="viewStart"
-            android:text="17 ОКТЯБРЯ  ЧТ 18:00"
+            tools:text="17 ОКТЯБРЯ  ЧТ 18:00"
             android:fontFamily="@font/roboto_bold"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
@@ -42,7 +42,7 @@
             android:textColor="@color/button_next_color"
             android:textAlignment="viewStart"
             tools:text="Тинькофф Российская Премьер-Лига"
-            android:text="@{event.description}"
+            android:text="@{match.nomTitle}"
             android:fontFamily="@font/roboto"
             android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"
@@ -51,7 +51,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_event_date"/>
 
-        <include layout="@layout/two_circle_images"/>
+        <include
+            layout="@layout/two_circle_images"/>
 
         <TextView
             android:layout_width="0dp"
@@ -60,7 +61,8 @@
             android:textSize="16sp"
             android:textColor="@android:color/black"
             android:textAlignment="textStart"
-            android:text="@{event.name}"
+            tools:text="Лион"
+            android:text="@{match.firstLine}"
             android:lineSpacingExtra="0dp"
             android:fontFamily="@font/roboto_medium"
             android:layout_marginStart="16dp"
@@ -77,6 +79,7 @@
             android:textColor="@android:color/black"
             android:textAlignment="textStart"
             android:lineSpacingExtra="0dp"
+            android:text="@{match.secondLine}"
             tools:text="Лион"
             android:fontFamily="@font/roboto_medium"
             android:layout_marginStart="16dp"

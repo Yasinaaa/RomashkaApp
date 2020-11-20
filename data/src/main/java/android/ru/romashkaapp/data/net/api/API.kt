@@ -119,7 +119,7 @@ interface API {
     @GET("/categories/{category_id}")
     fun getCategory(@Path("category_id") categoryId: Int): Observable<CategoryModel>
 
-    @GET("/v1/noms")
+    @GET("/yasina/v1/noms")
     fun getNoms(@Query("accessToken") accessToken: String, @Query("last_gt") last: String?, @Query("limit") limit: String?): Observable<MutableList<NomModel>>
 
     @GET("/noms/{nom_id}")

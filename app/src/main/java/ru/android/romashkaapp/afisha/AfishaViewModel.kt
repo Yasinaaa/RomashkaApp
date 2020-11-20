@@ -3,12 +3,14 @@ package ru.android.romashkaapp.afisha
 import android.app.Application
 import android.content.Context
 import android.ru.romashkaapp.models.*
+import android.ru.romashkaapp.usecases.DictionaryUseCase
 import android.ru.romashkaapp.usecases.EventsUseCase
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import ru.android.romashkaapp.BaseSubscriber
 import ru.android.romashkaapp.StartActivity
+import ru.android.romashkaapp.afisha.adapters.MatchesAdapter
 import ru.android.romashkaapp.base.BaseViewModel
 import ru.android.romashkaapp.matches.ItemClickListener
 import ru.android.romashkaapp.utils.Utils.Companion.getAccessToken
@@ -21,22 +23,42 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
     ItemClickListener {
 
     private var eventUseCase: EventsUseCase? = null
-    val matchesList: MutableLiveData<MutableList<EventModel>> = MutableLiveData()
+    private var dictionaryUseCase: DictionaryUseCase? = null
+    val matchesList: MutableLiveData<MutableList<MatchesAdapter.Match?>> = MutableLiveData()
     val servicesList: MutableLiveData<MutableList<EventModel>> = MutableLiveData()
     val viewAllClick: MutableLiveData<Boolean> = MutableLiveData()
     val nextFragmentOpenClick = MutableLiveData<EventModel?>()
 
     init {
         servicesList.value = arrayListOf(EventModel())
-
+        dictionaryUseCase = DictionaryUseCase(StartActivity.REPOSITORY, getAccessToken(application.applicationContext)!!)
         eventUseCase = EventsUseCase(StartActivity.REPOSITORY, getAccessToken(application.applicationContext)!!)
     }
 
     fun getEvents(){
-        eventUseCase!!.getEvents(page = null, perPage = null, EventsSubscriber())
+        dictionaryUseCase!!.getNoms(last = "100", limit = "100", NomsSubscriber())
     }
 
-    private inner class EventsSubscriber: BaseSubscriber<MutableList<EventModel>>() {
+    private inner class NomsSubscriber(): BaseSubscriber<MutableList<NomModel>>() { //MutableList<NomModel>
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: MutableList<NomModel>) {
+            super.onNext(response)
+            Log.d("ffd", "NomsSubscriber")
+            eventUseCase!!.getEvents(page = null, perPage = null, EventsSubscriber(response))
+        }
+    }
+
+    private inner class EventsSubscriber: BaseSubscriber<MutableList<EventModel>>{
+
+        var noms: MutableList<NomModel> = mutableListOf()
+
+        constructor(n: MutableList<NomModel>){
+            noms = n
+        }
 
         override fun onError(e: Throwable) {
             super.onError(e)
@@ -45,7 +67,19 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
         override fun onNext(response: MutableList<EventModel>) {
             super.onNext(response)
             Log.d("ffd", "EventsSubscriber")
-            matchesList.value = response
+
+            val list = mutableListOf<MatchesAdapter.Match?>()
+            for (event in response){
+                val match = MatchesAdapter.Match()
+                match.event = event
+                for(n in noms){
+                    if(event.nom_id == n.id){
+                        match.nomTitle = n.name
+                    }
+                }
+                list.add(match)
+            }
+            matchesList.value = list
         }
     }
 

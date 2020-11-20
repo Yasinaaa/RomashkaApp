@@ -15,7 +15,8 @@ import io.reactivex.schedulers.Schedulers
  */
 @SuppressLint("CheckResult")
 class DictionaryUseCase(
-    private val mRepository: ApiRepository
+    private val mRepository: ApiRepository,
+    private val mAccessToken: String
 ): ApiUseCase () {
 
     fun <S> getCategories(accessToken: String, last: String?, limit: String?, useCaseDisposable: S) where S : Observer<in MutableList<CategoryModel>>?, S : Disposable {
@@ -46,8 +47,8 @@ class DictionaryUseCase(
             .subscribeWith(useCaseDisposable)
     }
 
-    fun <S> getNoms(accessToken: String, last: String?, limit: String?, useCaseDisposable: S) where S : Observer<in MutableList<NomModel>>?, S : Disposable {
-        mRepository.getNoms(accessToken, last, limit)
+    fun <S> getNoms(last: String?, limit: String?, useCaseDisposable: S) where S : Observer<in MutableList<NomModel>>?, S : Disposable {
+        mRepository.getNoms(mAccessToken, last, limit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)
