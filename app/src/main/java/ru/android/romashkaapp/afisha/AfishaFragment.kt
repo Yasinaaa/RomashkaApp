@@ -17,6 +17,7 @@ import ru.android.romashkaapp.afisha.adapters.MatchesAdapter
 import ru.android.romashkaapp.afisha.adapters.ServicesAdapter
 import ru.android.romashkaapp.databinding.FragmentAfishaBinding
 import ru.android.romashkaapp.main.MainViewModel
+import ru.android.romashkaapp.stadium.StadiumFragment.Companion.CHAMPIONSHIP_TITLE
 import ru.android.romashkaapp.stadium.StadiumFragment.Companion.EVENT_ID
 
 /**
@@ -70,7 +71,7 @@ class AfishaFragment : Fragment() {
         viewModel.nextFragmentOpenClick.observe(viewLifecycleOwner, {
             findNavController().navigate(
                 R.id.nav_stadium,
-                bundleOf(EVENT_ID to it!!.id),
+                bundleOf(EVENT_ID to it!!.event.id, CHAMPIONSHIP_TITLE to it.nomTitle),
                 NavOptions.Builder().setPopUpTo(
                     R.id.nav_main,
                     true

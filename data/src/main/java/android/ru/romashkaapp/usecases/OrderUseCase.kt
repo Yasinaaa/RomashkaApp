@@ -15,7 +15,8 @@ import io.reactivex.schedulers.Schedulers
  */
 @SuppressLint("CheckResult")
 class OrderUseCase(
-    private val mRepository: ApiRepository
+    private val mRepository: ApiRepository,
+    private val mAccessToken: String
 ): ApiUseCase () {
 
     fun<T> get(ob: Observable<T>, useCaseDisposable: Observer<in T>){

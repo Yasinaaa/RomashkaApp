@@ -1,6 +1,7 @@
 package android.ru.romashkaapp.data.net.api
 
 import android.ru.romashkaapp.models.*
+import android.ru.romashkaapp.models.request.UserRequestModel
 import io.reactivex.Observable
 import okhttp3.ResponseBody
 import retrofit2.http.*
@@ -26,6 +27,10 @@ interface API {
     @GET("/users/{user_id}")
     fun getUser(@Path("user_id") userId: Long): Observable<UserModel>
 
+    @POST("/yasina/v1/users")
+    @Headers("Content-Type: application/json; charset=UTF-8")
+    fun addUser(@Body user: UserRequestModel, @Header("Authorization") accessToken: String): Observable<ResponseBody>
+
     @PATCH("/users/{user_id}")
     fun editUser(@Path("user_id") userId: Long, @Body user: UserModel): Observable<ResponseBody>
 
@@ -49,6 +54,37 @@ interface API {
     @GET("/yasina/v1/events/{event_id}")
     fun getEvent(@Path("event_id") eventId: Int, @Query("accessToken") accessToken: String): Observable<EventModel>
 
+    @GET("/yasina/v1/events/{event_id}/areas")
+    fun getEventAreas(@Path("event_id") eventId: Int, @Query("accessToken") accessToken: String): Observable<MutableList<AreaModel>>
+
+    //test
+
+    @GET("/yasina/v1/events/{event_id}/areas/{area_id}")
+    fun getEventArea(@Path("event_id") eventId: Int, @Path("area_id") areaId: Int,
+                     @Query("accessToken") accessToken: String): Observable<AreaModel>
+
+    @GET("/yasina/v1/events/{event_id}/areas/{area_id}/plan")
+    fun getEventAreaPlan(@Path("event_id") eventId: Int, @Path("area_id") areaId: Int,
+                         @Query("type") type: String,
+                         @Query("accessToken") accessToken: String): Observable<SectorSvgModel>
+
+    @GET("/yasina/v1/events/{event_id}/areas/{area_id}/sectors/{sector_id}/seats")
+    fun getEventSectorSeats(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int,
+                            @Path("area_id") areaId: Int,
+                            @Query("accessToken") accessToken: String): Observable<MutableList<SeatModel>>
+
+    @GET("/yasina/v1/events/{event_id}/areas/{area_id}/zones")
+    fun getEventSectorZones(@Path("event_id") eventId: Int, @Path("area_id") areaId: Int,
+                            @Query("accessToken") accessToken: String): Observable<MutableList<ZoneModel>>
+
+    @GET("/yasina/v1/events/{event_id}/areas/{area_id}/sectors/{sector_id}/statuses")
+    fun getEventSectorStatuses(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int,
+                               @Path("area_id") areaId: Int,
+                               @Query("accessToken") accessToken: String): Observable<MutableList<StatusModel>>
+
+    //test
+
+
     //todo
     @GET("/events/{event_id}/subscriptions")
     fun getEventSubscriptions(@Path("event_id") eventId: Int): Observable<MutableList<EventModel>>
@@ -59,13 +95,6 @@ interface API {
                        @Query("last_seats_gt") lastSeatsGt: String?,
                        @Query("last_area_gt") lastAreaGt: String?): Observable<SectorModel>
 
-    @GET("/events/{event_id}/area/sectors/{sector_id}/zones")
-    fun getEventSectorZones(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int,
-                       @Query("limit") limit: Int): Observable<MutableList<ZoneModel>>
-
-    @GET("/events/{event_id}/area/sectors/{sector_id}/seats")
-    fun getEventSectorSeats(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int,
-                            @Query("limit") limit: Int): Observable<MutableList<SeatModel>>
 
     @GET("/events/{event_id}/area/sectors/{sector_id}/points")
     fun getEventSectorPoints(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int,
@@ -74,8 +103,7 @@ interface API {
     @GET("/events/{event_id}/area/sectors/{sector_id}/image")
     fun getEventSectorImage(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int): Observable<SectorImageModel>
 
-    @GET("/events/{event_id}/area/sectors/{sector_id}/svg")
-    fun getEventSectorSvg(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int): Observable<SectorSvgModel>
+
 
     @GET("/orders")
     fun getUserOrders(@Query("status") status: Int): Observable<MutableList<OrderModel>>
@@ -104,8 +132,8 @@ interface API {
     @GET("/halls")
     fun getHalls(@Query("last_gt") last: String?, @Query("limit") limit: String?): Observable<MutableList<HallModel>>
 
-    @GET("/halls/{hall_id}")
-    fun getHall(@Path("hall_id") id: Int): Observable<HallModel>
+    @GET("/yasina/v1/halls/{hall_id}")
+    fun getHall(@Path("hall_id") id: Int, @Query("accessToken") accessToken: String): Observable<HallModel>
 
     @GET("/cities")
     fun getCities(@Query("last_gt") last: String?, @Query("limit") limit: String?): Observable<MutableList<CityModel>>

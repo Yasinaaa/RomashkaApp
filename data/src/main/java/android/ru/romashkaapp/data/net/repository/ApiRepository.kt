@@ -3,6 +3,7 @@ package android.ru.romashkaapp.data.net.repository
 import android.ru.romashkaapp.data.BuildConfig
 import android.ru.romashkaapp.data.net.api.API
 import android.ru.romashkaapp.models.*
+import android.ru.romashkaapp.models.request.UserRequestModel
 import android.ru.romashkaapp.repository.Repository
 import android.util.Log
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -70,7 +71,11 @@ class ApiRepository: Repository {
     override fun getUsers(accessToken: String): Observable<MutableList<UserModel>> {
         return mAPI.getUsers(accessToken)
     }
-    
+
+    override fun addUser(user: UserRequestModel, accessToken: String): Observable<ResponseBody> {
+        return mAPI.addUser(user, "Bearer " + accessToken)
+    }
+
     override fun getUser(userId: Long): Observable<UserModel> {
         return mAPI.getUser(userId)
     }
@@ -149,8 +154,8 @@ class ApiRepository: Repository {
         return mAPI.getHalls(last, limit)
     }
 
-    override fun getHall(id: Int): Observable<HallModel> {
-        return mAPI.getHall(id)
+    override fun getHall(accessToken: String, id: Int): Observable<HallModel> {
+        return mAPI.getHall(id, accessToken)
     }
 
     override fun getCities(last: String?, limit: String?): Observable<MutableList<CityModel>> {
@@ -199,42 +204,12 @@ class ApiRepository: Repository {
         return mAPI.getEventSector(eventId, sectorId, last, lastSeatsGt, lastAreaGt)
     }
 
-    override fun getEventSectorZones(
-        eventId: Int,
-        sectorId: Int,
-        limit: Int
-    ): Observable<MutableList<ZoneModel>> {
-        return mAPI.getEventSectorZones(eventId, sectorId, limit)
-    }
-
-    override fun getEventSectorSeats(
-        eventId: Int,
-        sectorId: Int,
-        limit: Int
-    ): Observable<MutableList<SeatModel>> {
-        return mAPI.getEventSectorSeats(eventId, sectorId, limit)
-    }
-
     override fun getEventSectorPoints(
         eventId: Int,
         sectorId: Int,
         limit: Int
     ): Observable<MutableList<PointModel>> {
         return mAPI.getEventSectorPoints(eventId, sectorId, limit)
-    }
-
-    override fun getEventSectorImage(
-        eventId: Int,
-        sectorId: Int
-    ): Observable<SectorImageModel> {
-        return mAPI.getEventSectorImage(eventId, sectorId)
-    }
-
-    override fun getEventSectorSvg(
-        eventId: Int,
-        sectorId: Int
-    ): Observable<SectorSvgModel> {
-        return mAPI.getEventSectorSvg(eventId, sectorId)
     }
 
     override fun getUserOrders(status: Int): Observable<MutableList<OrderModel>> {
@@ -252,5 +227,54 @@ class ApiRepository: Repository {
 
     override fun getService(serviceId: Int): Observable<ServiceModel> {
         return mAPI.getService(serviceId)
+    }
+
+    override fun getEventAreas(
+        eventId: Int,
+        accessToken: String
+    ): Observable<MutableList<AreaModel>> {
+        return mAPI.getEventAreas(eventId, accessToken)
+    }
+
+    override fun getEventArea(
+        eventId: Int,
+        areaId: Int,
+        accessToken: String
+    ): Observable<AreaModel> {
+        return mAPI.getEventArea(eventId, areaId, accessToken)
+    }
+
+    override fun getEventAreaPlan(
+        eventId: Int,
+        areaId: Int,
+        accessToken: String
+    ): Observable<SectorSvgModel> {
+        return mAPI.getEventAreaPlan(eventId, areaId, "svg", accessToken)
+    }
+
+    override fun getEventSectorSeats(
+        eventId: Int,
+        sectorId: Int,
+        areaId: Int,
+        accessToken: String
+    ): Observable<MutableList<SeatModel>> {
+        return mAPI.getEventSectorSeats(eventId, sectorId, areaId, accessToken)
+    }
+
+    override fun getEventSectorZones(
+        eventId: Int,
+        areaId: Int,
+        accessToken: String
+    ): Observable<MutableList<ZoneModel>> {
+        return mAPI.getEventSectorZones(eventId, areaId, accessToken)
+    }
+
+    override fun getEventSectorStatuses(
+        eventId: Int,
+        sectorId: Int,
+        areaId: Int,
+        accessToken: String
+    ): Observable<MutableList<StatusModel>> {
+        return mAPI.getEventSectorStatuses(eventId, sectorId, areaId, accessToken)
     }
 }

@@ -21,6 +21,7 @@ import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.MonthHeaderFooterBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import ru.android.romashkaapp.R
+import ru.android.romashkaapp.afisha.adapters.MatchesAdapter
 import ru.android.romashkaapp.databinding.*
 import ru.android.romashkaapp.matches.ItemClickListener
 import ru.android.romashkaapp.utils.makeInVisible
@@ -62,7 +63,7 @@ class MatchesAndCalendarAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private lateinit var context: Context
-    private var list: MutableList<EventModel?> = mutableListOf()
+    private var list: MutableList<MatchesAdapter.Match?> = mutableListOf()
     //calendar
     private var selectedDate: LocalDate? = null
     private val today = LocalDate.now()
@@ -200,7 +201,7 @@ class MatchesAndCalendarAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
-    fun updateList(list: MutableList<EventModel?>) {
+    fun updateList(list: MutableList<MatchesAdapter.Match?>) {
         this.list = list
         notifyDataSetChanged()
     }

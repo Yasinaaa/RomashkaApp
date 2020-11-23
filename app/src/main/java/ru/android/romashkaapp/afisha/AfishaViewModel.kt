@@ -27,7 +27,7 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
     val matchesList: MutableLiveData<MutableList<MatchesAdapter.Match?>> = MutableLiveData()
     val servicesList: MutableLiveData<MutableList<EventModel>> = MutableLiveData()
     val viewAllClick: MutableLiveData<Boolean> = MutableLiveData()
-    val nextFragmentOpenClick = MutableLiveData<EventModel?>()
+    val nextFragmentOpenClick = MutableLiveData<MatchesAdapter.Match?>()
 
     init {
         servicesList.value = arrayListOf(EventModel())
@@ -79,7 +79,8 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
                 }
                 list.add(match)
             }
-            matchesList.value = list
+            list.sortBy{it?.event?.sdate}
+            matchesList.value = list.subList(0, 4)
         }
     }
 
@@ -91,7 +92,7 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
         viewAllClick.value = true
     }
 
-    override fun click(item: EventModel?) {
+    override fun click(item: MatchesAdapter.Match?) {
         nextFragmentOpenClick.value = item!!
     }
 
@@ -129,11 +130,6 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
             super.onNext(response)
             Log.d("ffd", "EventSectorZonesSubscriber")
 
-            eventUseCase!!.getEventSectorSeats(
-                eventId = response.id,
-                sectorId = 1,
-                limit = 100,
-                EventSectorSeatsSubscriber())
         }
     }
 
@@ -165,43 +161,7 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
             super.onNext(response)
             Log.d("ffd", "EventSectorPointsSubscriber")
 
-            eventUseCase!!.getEventSectorImage(
-                eventId = 12,
-                sectorId = 1,
-                EventSectorImageSubscriber())
-        }
-    }
 
-    private inner class EventSectorImageSubscriber: BaseSubscriber<SectorImageModel>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: SectorImageModel) {
-            super.onNext(response)
-            Log.d("ffd", "EventSectorImageSubscriber")
-
-            eventUseCase!!.getEventSectorSvg(
-                eventId = 12,
-                sectorId = 1,
-                EventSectorSvgSubscriber())
-        }
-    }
-
-    private inner class EventSectorSvgSubscriber: BaseSubscriber<SectorSvgModel>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: SectorSvgModel) {
-            super.onNext(response)
-            Log.d("ffd", "EventSectorSvgSubscriber")
-
-//            orderUseCase!!.getOrders(
-//                status = 1,
-//                OrdersSubscriber())
         }
     }
 

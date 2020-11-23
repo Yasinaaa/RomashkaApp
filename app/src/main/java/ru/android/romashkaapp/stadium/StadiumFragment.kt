@@ -35,6 +35,7 @@ class StadiumFragment : Fragment(){
 
     companion object{
         val EVENT_ID = "EVENT_ID"
+        val CHAMPIONSHIP_TITLE = "CHAMPIONSHIP_TITLE"
     }
 
     class AndroidJSInterface(f: StadiumFragment) {
@@ -64,7 +65,7 @@ class StadiumFragment : Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stadium, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -77,7 +78,8 @@ class StadiumFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         requireArguments().containsKey(EVENT_ID).let {
-            viewModel.getEvent(requireArguments().getInt(EVENT_ID))
+            viewModel.getEvent(requireArguments().getInt(EVENT_ID),
+                requireArguments().getString(CHAMPIONSHIP_TITLE))
         }
 
         val webViewClient = object : WebViewClient() {
@@ -121,6 +123,10 @@ class StadiumFragment : Fragment(){
             var dialog = PriceFragment()
             dialog.setViewModel(viewModel)
             dialog.show(childFragmentManager, "")
+        })
+
+        binding.viewModel?.svgArea!!.observe(viewLifecycleOwner, {
+            wv_stadium.loadUrl(it)
         })
     }
 

@@ -3,7 +3,10 @@ package android.ru.romashkaapp.repository
 import okhttp3.ResponseBody
 import io.reactivex.Observable
 import android.ru.romashkaapp.models.*
+import android.ru.romashkaapp.models.request.UserRequestModel
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -14,7 +17,7 @@ interface Repository {
 
     fun getAppToken(appToken: AppToken?): Observable<AppTokenResponse>
     fun getClientToken(clientToken: ClientToken): Observable<ClientTokenResponse>
-
+    fun addUser(user: UserRequestModel, accessToken: String): Observable<ResponseBody>
     fun getUsers(accessToken: String): Observable<MutableList<UserModel>>
     fun getUser(userId: Long): Observable<UserModel>
     fun editUser(userId: Long, user: UserModel): Observable<ResponseBody>
@@ -27,9 +30,14 @@ interface Repository {
                   type: String?): Observable<MutableList<EventModel>>
     fun getEvent(accessToken: String, eventId: Int): Observable<EventModel>
     fun getEvents(accessToken: String, page: Int?, perPage: Int?): Observable<MutableList<EventModel>>
-//    fun getSector(eventId: Int,  sectorId: Int): Observable<SectorModel>
-//    fun getSectorPlaces(eventId: Int,  sectorId: Int): Observable<SeatModel>
-//    fun getSectorSvg(eventId: Int,  sectorId: Int): Observable<SectorSvgModel>
+    fun getEventAreas(eventId: Int, accessToken: String): Observable<MutableList<AreaModel>>
+
+    fun getEventArea(eventId: Int, areaId: Int, accessToken: String): Observable<AreaModel>
+    fun getEventAreaPlan(eventId: Int, areaId: Int, accessToken: String): Observable<SectorSvgModel>
+    fun getEventSectorSeats(eventId: Int, sectorId: Int, areaId: Int, accessToken: String): Observable<MutableList<SeatModel>>
+    fun getEventSectorZones(eventId: Int, areaId: Int, accessToken: String): Observable<MutableList<ZoneModel>>
+    fun getEventSectorStatuses(eventId: Int, sectorId: Int, areaId: Int, accessToken: String): Observable<MutableList<StatusModel>>
+
 //    fun getUserOrder(userId: Int, orderId: Int): Observable<OrderModel>
 //    fun createOrder(userId: Int, order: OrderModel): Observable<OrderModel>
 //    fun addSeatToOrder(userId: Int, orderId: Int, sid: String): Observable<CartModel>
@@ -38,7 +46,7 @@ interface Repository {
     fun getUnits(last: String?, limit: String?): Observable<MutableList<UnitModel>>
     fun getUnit(id: Int): Observable<UnitModel>
     fun getHalls(last: String?, limit: String?): Observable<MutableList<HallModel>>
-    fun getHall(id: Int): Observable<HallModel>
+    fun getHall(accessToken: String, id: Int): Observable<HallModel>
     fun getCities(last: String?, limit: String?): Observable<MutableList<CityModel>>
     fun getCity(id: Int): Observable<CityModel>
     fun getCategories(accessToken: String, last: String?, limit: String?): Observable<MutableList<CategoryModel>>
@@ -50,11 +58,8 @@ interface Repository {
     
     fun getEventSubscriptions(eventId: Int): Observable<MutableList<EventModel>>
     fun getEventSector(eventId: Int, sectorId: Int, last: String?, lastSeatsGt: String?, lastAreaGt: String?): Observable<SectorModel>
-    fun getEventSectorZones(eventId: Int,sectorId: Int, limit: Int): Observable<MutableList<ZoneModel>>
-    fun getEventSectorSeats(eventId: Int,sectorId: Int, limit: Int): Observable<MutableList<SeatModel>>
-    fun getEventSectorPoints(eventId: Int,sectorId: Int, limit: Int): Observable<MutableList<PointModel>>
-    fun getEventSectorImage(eventId: Int,sectorId: Int): Observable<SectorImageModel>
-    fun getEventSectorSvg(eventId: Int,sectorId: Int): Observable<SectorSvgModel>
+    fun getEventSectorPoints(eventId: Int, sectorId: Int, limit: Int): Observable<MutableList<PointModel>>
+
     fun getUserOrders(status: Int): Observable<MutableList<OrderModel>>
     fun getServices(last: String?, limit: String?, active: Boolean?,unitId: Int?): Observable<MutableList<ServiceModel>>
     fun getService(serviceId: Int): Observable<ServiceModel>

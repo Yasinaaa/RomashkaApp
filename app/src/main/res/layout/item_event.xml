@@ -22,8 +22,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/tv_event_date"
             android:textSize="14sp"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
             android:textAlignment="viewStart"
+            android:text="@{match.date}"
             tools:text="17 ОКТЯБРЯ  ЧТ 18:00"
             android:fontFamily="@font/roboto_bold"
             android:layout_marginTop="16dp"
@@ -55,21 +57,21 @@
             layout="@layout/two_circle_images"/>
 
         <TextView
+            android:id="@+id/tv_event_title1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_event_title1"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:textAlignment="textStart"
-            tools:text="Лион"
-            android:text="@{match.firstLine}"
-            android:lineSpacingExtra="0dp"
-            android:fontFamily="@font/roboto_medium"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/pfbeauaanspro_reg"
+            android:lineSpacingExtra="0dp"
+            android:text="@{match.firstLine}"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/civ_logo2"
-            app:layout_constraintTop_toTopOf="@+id/civ_logo1" />
+            app:layout_constraintTop_toTopOf="@+id/civ_logo1"
+            tools:text="Лион" />
 
         <TextView
             android:layout_width="0dp"
@@ -81,13 +83,13 @@
             android:lineSpacingExtra="0dp"
             android:text="@{match.secondLine}"
             tools:text="Лион"
-            android:fontFamily="@font/roboto_medium"
+            android:fontFamily="@font/pfbeauaanspro_reg"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/civ_logo2"
-            app:layout_constraintTop_toBottomOf="@+id/tv_event_title1"
-            app:layout_constraintBottom_toBottomOf="@+id/civ_logo2"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_event_title1"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

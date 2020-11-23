@@ -30,11 +30,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import ru.android.romashkaapp.BaseSubscriber
 import ru.android.romashkaapp.BuildConfig
+import ru.android.romashkaapp.StartActivity
 import ru.android.romashkaapp.StartActivity.Companion.REPOSITORY
 import ru.android.romashkaapp.afisha.AfishaFragment
 import ru.android.romashkaapp.base.BaseViewModel
 import ru.android.romashkaapp.matches.MatchesFragment
 import ru.android.romashkaapp.sector_seat.SectorSeatFragment
+import ru.android.romashkaapp.utils.Utils
 import ru.android.romashkaapp.utils.Utils.Companion.CLIENT_ID
 import ru.android.romashkaapp.utils.Utils.Companion.CLIENT_SECRET
 import ru.android.romashkaapp.utils.Utils.Companion.GRANT_TYPE
@@ -73,13 +75,12 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
     }
 
     init{
-        usecase = UserUseCase(REPOSITORY)
-
+        usecase = UserUseCase(StartActivity.REPOSITORY, Utils.getAccessToken(application.applicationContext)!!)
         //step 1
         usecase!!.getAppToken(clientId = CLIENT_ID, clientSecret = CLIENT_SECRET, grantType = GRANT_TYPE, AppTokenSubscriber())
 
 
-        orderUseCase = OrderUseCase(REPOSITORY)
+        orderUseCase = OrderUseCase(REPOSITORY, Utils.getAccessToken(application.applicationContext)!!)
 //        dictionaryUseCase = DictionaryUseCase(REPOSITORY)
     }
 
@@ -331,23 +332,6 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
             super.onNext(response)
             Log.d("ffd", "UnitSubscriber")
 
-            dictionaryUseCase!!.getHall(response[0].id, HallSubscriber())
-        }
-    }
-
-    private inner class HallSubscriber: BaseSubscriber<HallModel>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: HallModel) {
-            super.onNext(response)
-            Log.d("ffd", "HallSubscriber")
-
-            dictionaryUseCase!!.getServices(last = response.last, limit = "100",
-                active = true, unitId = response.unity_id,
-                ServicesSubscriber())
         }
     }
 

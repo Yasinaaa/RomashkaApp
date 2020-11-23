@@ -3,6 +3,7 @@ package android.ru.romashkaapp.usecases
 import android.annotation.SuppressLint
 import android.ru.romashkaapp.data.net.repository.ApiRepository
 import android.ru.romashkaapp.models.*
+import android.ru.romashkaapp.models.request.UserRequestModel
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -18,7 +19,8 @@ import javax.inject.Inject
  */
 @SuppressLint("CheckResult")
 class UserUseCase(
-    private val mRepository: ApiRepository
+    private val mRepository: ApiRepository,
+    private val mAccessToken: String
 ): ApiUseCase () {
 
     fun <S> getAppToken(clientId: String?,
@@ -41,6 +43,13 @@ class UserUseCase(
 
     fun <S> getUsers(accessToken: String, useCaseDisposable: S) where S : Observer<in MutableList<UserModel>>?, S : Disposable {
         mRepository.getUsers(accessToken)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(useCaseDisposable)
+    }
+
+    fun <S> addUser(user: UserRequestModel, useCaseDisposable: S) where S : Observer<in ResponseBody>?, S : Disposable {
+        mRepository.addUser(user, mAccessToken)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)

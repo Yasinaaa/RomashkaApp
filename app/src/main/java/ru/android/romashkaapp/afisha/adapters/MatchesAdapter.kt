@@ -14,6 +14,13 @@ import com.google.android.material.imageview.ShapeableImageView
 import ru.android.romashkaapp.BR
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.matches.ItemClickListener
+import ru.android.romashkaapp.utils.parseTimeStamp
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.*
+
 
 /**
  * Created by yasina on 02.11.2020.
@@ -66,7 +73,7 @@ class MatchesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
                 holder.binding?.setVariable(BR.match, list[position])
                 holder.binding?.executePendingBindings()
-                holder.binding?.root?.setOnClickListener { listener!!.click(list[position]!!.event) }
+                holder.binding?.root?.setOnClickListener { listener!!.click(list[position]!!) }
 
             }else if(position == 1){
 
@@ -74,19 +81,13 @@ class MatchesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    //16.09.49 16:00
     private fun setDate(match: Match){
-        if(match.event.sdate != null){
-            val stamp = Timestamp(System.currentTimeMillis())
-            val date = Date(stamp.getTime())
-        }else{
-//            match.firstLine = context.getString(R.string.no_event_title)
-        }
+        match.date = match.event.sdate.parseTimeStamp()
     }
 
     private fun setRivalImage(holder: ItemViewHolder, thumbnail: String?){
+        var circleImage = holder.binding!!.root.findViewById(R.id.civ_logo2) as ShapeableImageView
         if(!thumbnail.isNullOrEmpty()){
-            var circleImage = holder.binding!!.root.findViewById(R.id.civ_logo2) as ShapeableImageView
             var image = thumbnail
             if (thumbnail.contains("data:")){
                 val list = thumbnail.split(",", limit = 2)
@@ -95,6 +96,11 @@ class MatchesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
             val imageByteArray: ByteArray = Base64.decode(image, Base64.DEFAULT)
             Glide.with(context)
                 .load(imageByteArray)
+                .centerInside()
+                .into(circleImage)
+        }else{
+            Glide.with(context)
+                .load(context.getDrawable(R.drawable.ic_soccer))
                 .centerInside()
                 .into(circleImage)
         }
@@ -147,5 +153,6 @@ class MatchesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         var nomTitle: String? = null
         var firstLine: String? = null
         var secondLine: String? = null
+        var date: String? = null
     }
 }

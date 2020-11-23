@@ -97,7 +97,7 @@ class DictionaryUseCase(
     }
 
     fun <S> getHall(id: Int, useCaseDisposable: S) where S : Observer<in HallModel>?, S : Disposable {
-        mRepository.getHall(id)
+        mRepository.getHall(mAccessToken, id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)

@@ -6,6 +6,11 @@ import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import ru.android.romashkaapp.afisha.adapters.MatchesAdapter
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 /**
  * Created by yasina on 09.11.2020.
@@ -26,3 +31,20 @@ fun View.makeInVisible() {
 internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
 
 internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(context.getColorCompat(color))
+
+fun String?.parseTimeStamp(): String{
+    return if(this != null){
+        val stamp = Instant.ofEpochSecond(this.toLong())
+            .atZone(ZoneId.systemDefault())
+            .toLocalDateTime()
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern(
+            "dd MMMM yyyy EEE hh:mm",
+            Locale("ru")
+        )
+        val formattedString: String = stamp.format(formatter)
+        formattedString.toUpperCase()
+    }else{
+        ""
+//            match.firstLine = context.getString(R.string.no_event_title)
+    }
+}
