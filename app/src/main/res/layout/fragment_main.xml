@@ -31,6 +31,8 @@
             android:layout_height="wrap_content"
             app:menu="@menu/bottom_navigation_menu"
             app:labelVisibilityMode="labeled"
+            app:itemIconTint="#BBC2D6"
+            app:itemTextColor="#AAB3C9"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

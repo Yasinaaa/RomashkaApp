@@ -160,8 +160,6 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
         override fun onNext(response: MutableList<PointModel>) {
             super.onNext(response)
             Log.d("ffd", "EventSectorPointsSubscriber")
-
-
         }
     }
 

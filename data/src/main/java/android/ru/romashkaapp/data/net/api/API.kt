@@ -18,7 +18,7 @@ interface API {
     fun getAppToken(@Body appToken: AppToken): Observable<AppTokenResponse>
 
     @Headers("Content-Type: application/json")
-    @POST("/oauth2/token")
+    @POST("/yasina/oauth2/token")
     fun getClientToken(@Body clientToken: ClientToken): Observable<ClientTokenResponse>
 
     @GET("/v1/users")
@@ -70,7 +70,7 @@ interface API {
 
     @GET("/yasina/v1/events/{event_id}/areas/{area_id}/sectors/{sector_id}/seats")
     fun getEventSectorSeats(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int,
-                            @Path("area_id") areaId: Int,
+                            @Path("area_id") areaId: Int, @Query("type") type: String?,
                             @Query("accessToken") accessToken: String): Observable<MutableList<SeatModel>>
 
     @GET("/yasina/v1/events/{event_id}/areas/{area_id}/zones")

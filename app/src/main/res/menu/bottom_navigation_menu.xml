@@ -1,23 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/play_bill"
         android:enabled="true"
-        android:icon="@drawable/ic_circle"
+        app:showAsAction="always|withText"
+        android:iconTint="#BBC2D6"
+        android:icon="@drawable/ic_calendar"
         android:title="@string/play_bill"/>
     <item
         android:id="@+id/basket"
         android:enabled="true"
-        android:icon="@drawable/ic_circle"
+        app:showAsAction="always|withText"
+        android:icon="@drawable/ic_cart"
+        android:iconTint="#BBC2D6"
         android:title="@string/basket"/>
     <item
         android:id="@+id/my_tickets"
         android:enabled="true"
-        android:icon="@drawable/ic_circle"
+        app:showAsAction="always|withText"
+        android:icon="@drawable/ic_ticket"
+        android:iconTint="#BBC2D6"
         android:title="@string/my_tickets"/>
     <item
         android:id="@+id/account"
         android:enabled="true"
-        android:icon="@drawable/ic_circle"
+        app:showAsAction="always|withText"
+        android:icon="@drawable/ic_account"
+        android:iconTint="#BBC2D6"
         android:title="@string/account"/>
 </menu>

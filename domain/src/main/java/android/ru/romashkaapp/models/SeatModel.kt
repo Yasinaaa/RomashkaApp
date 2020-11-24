@@ -8,14 +8,12 @@ import android.ru.romashkaapp.models.enums.SeatStatusType
  */
 class SeatModel {
 
+    var sid: String? = null
+    var x: String? = null
+    var y: String? = null
+    var kind: String? = null
     var row: Int = 0
     var col: Int = 0
-    var sector: Int = 0
     var name: String? = null
-    var color: String? = null
-    var price: String? = null
-    var sid: String? = null
-    var zone: String? = null
-    var status: SeatStatusType? = null
-
+    var zone_id: String? = null
 }

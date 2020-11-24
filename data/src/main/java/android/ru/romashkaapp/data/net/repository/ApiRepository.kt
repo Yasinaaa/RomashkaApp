@@ -256,9 +256,10 @@ class ApiRepository: Repository {
         eventId: Int,
         sectorId: Int,
         areaId: Int,
+        type: String?,
         accessToken: String
     ): Observable<MutableList<SeatModel>> {
-        return mAPI.getEventSectorSeats(eventId, sectorId, areaId, accessToken)
+        return mAPI.getEventSectorSeats(eventId, sectorId, areaId, type, accessToken)
     }
 
     override fun getEventSectorZones(

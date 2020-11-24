@@ -48,6 +48,9 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
 
     fun getEvent(id: Int, championship: String?){
         eventId = id
+
+        eventId = 16 //todo remove
+
         eventUseCase!!.getEvent(id, EventSubscriber(championship))
     }
 
@@ -70,7 +73,8 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
             time.value = response.sdate.parseTimeStamp()
             championship.value = championshipTitle
 //            dictionaryUseCase!!.getHall(response.hall_id, HallSubscriber())
-            eventUseCase!!.getEventAreas(response.id, AreasSubscriber())
+            eventUseCase!!.getEventAreas(16, AreasSubscriber())
+//            eventUseCase!!.getEventAreas(response.id, AreasSubscriber())
         }
     }
 
@@ -105,7 +109,7 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
 
 
 
-            //eventUseCase!!.getEventSectorSeats(eventId!!, 1,  response.id, SectorSeatsSubscriber(response.id))
+            eventUseCase!!.getEventSectorSeats(eventId!!, 1,  response.id, "coordinates", SectorSeatsSubscriber(response.id))
         }
     }
 
@@ -123,7 +127,7 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
 
         override fun onNext(response: SectorSvgModel) {
             super.onNext(response)
-            eventUseCase!!.getEventSectorSeats(eventId!!, 1,  areaId, SectorSeatsSubscriber(areaId))
+            //eventUseCase!!.getEventSectorSeats(eventId!!, 1,  areaId, "coordinates", SectorSeatsSubscriber(areaId))
         }
     }
 
@@ -141,8 +145,8 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
 
         override fun onNext(response: MutableList<SeatModel>) {
             super.onNext(response)
-            //eventUseCase!!.getEventSectorZones(eventId!!, areaId,  SectorZonesSubscriber(areaId))
-            eventUseCase!!.getEventSectorStatuses(eventId!!, 1, areaId, SectorStatusesSubscriber())
+            eventUseCase!!.getEventSectorZones(eventId!!, areaId,  SectorZonesSubscriber(areaId))
+//            eventUseCase!!.getEventSectorStatuses(eventId!!, 1, areaId, SectorStatusesSubscriber())
         }
     }
 

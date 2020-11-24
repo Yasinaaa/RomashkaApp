@@ -1,7 +1,7 @@
 package ru.android.romashkaapp.login
 
 import android.app.Application
-import android.ru.romashkaapp.models.UserModel
+import android.ru.romashkaapp.models.ClientTokenResponse
 import android.ru.romashkaapp.models.request.UserRequestModel
 import android.ru.romashkaapp.usecases.UserUseCase
 import android.util.Log
@@ -28,21 +28,21 @@ class LoginViewModel(application: Application) : BaseViewModel(application), Vie
     val error = MutableLiveData<String>()
     var buttonOpacity = ObservableField<Float>()
 
-    private var usecase: UserUseCase? = null
+    private var userUseCase: UserUseCase? = null
 
     init {
-        usecase = UserUseCase(StartActivity.REPOSITORY, Utils.getAccessToken(application.applicationContext)!!)
+        userUseCase = UserUseCase(StartActivity.REPOSITORY, Utils.getAccessToken(application.applicationContext)!!)
         createUser()
     }
 
     fun createUser(){
         var user = UserRequestModel()
-        user.email = "bla@gmail.com"
+        user.email = "blabla@gmail.com"
         user.phone = "11111111111"
         user.second = "second"
         user.first = "first"
         user.password = "3435gfdd"
-        usecase!!.addUser(user, UserSubscriber())
+        userUseCase!!.addUser(user, UserSubscriber())
     }
 
     private inner class UserSubscriber(): BaseSubscriber<ResponseBody>() {
@@ -57,6 +57,25 @@ class LoginViewModel(application: Application) : BaseViewModel(application), Vie
         override fun onNext(response: ResponseBody) {
             super.onNext(response)
             Log.d("ffd", "ss")
+
+            userUseCase!!.getClientToken(clientId = Utils.CLIENT_ID, clientSecret = Utils.CLIENT_SECRET,
+                grantType = Utils.GRANT_TYPE_PASSWORD,
+                username = "bla435@gmail.com",
+                password = "3435gfdd",
+                ClientTokenSubscriber())
+        }
+    }
+
+    private inner class ClientTokenSubscriber: BaseSubscriber<ClientTokenResponse>() {
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: ClientTokenResponse) {
+            super.onNext(response)
+            Log.d("ffd", "ss=$response")
+            Utils.saveAccessToken(context, response.access_token)
         }
     }
 

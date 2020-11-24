@@ -20,6 +20,7 @@ class Utils {
         val CLIENT_ID = "testclient"
         val CLIENT_SECRET =  "testpass"
         val GRANT_TYPE = "client_credentials"
+        val GRANT_TYPE_PASSWORD = "password"
         val ACCESS_TOKEN = "ACCESS_TOKEN"
         val FIRST_OPEN = "FIRST_OPEN"
         

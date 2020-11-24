@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -43,7 +44,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -59,8 +60,9 @@ class MainFragment : Fragment() {
         })
 
         bottom_navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        var badge = bottom_navigation.getOrCreateBadge(R.id.account)
-        badge.backgroundColor = ContextCompat.getColor(requireContext(), R.color.button_next_color)
+        var badge = bottom_navigation.getOrCreateBadge(R.id.basket)
+        badge.backgroundColor = ContextCompat.getColor(requireContext(), R.color.green)
+        badge.badgeTextColor = ContextCompat.getColor(requireContext(), android.R.color.white)
         badge.isVisible = true
         badge.number = 99
 
@@ -71,6 +73,8 @@ class MainFragment : Fragment() {
                 bottom_navigation.visibility = GONE
             }
         })
+
+        bottom_navigation.itemIconTintList = null
     }
 
     private fun setFragment(fragment: Fragment){
@@ -81,10 +85,10 @@ class MainFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.basket ->{
+            R.id.play_bill ->{
 
             }
-            R.id.play_bill ->{
+            R.id.basket ->{
 
             }
             R.id.my_tickets ->{
@@ -101,6 +105,7 @@ class MainFragment : Fragment() {
     }
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
+        changeNavigationStatus(menuItem)
         when (menuItem.itemId) {
             R.id.basket ->{
                 setFragment(BasketFragment())
@@ -118,5 +123,26 @@ class MainFragment : Fragment() {
             }
         }
         false
+    }
+
+    var menuOutlinedImages = mutableMapOf(
+        R.id.basket to R.drawable.ic_cart_outlined,
+        R.id.play_bill to R.drawable.ic_calendar_outlined,
+        R.id.my_tickets to R.drawable.ic_ticket_outlined,
+        R.id.account to R.drawable.ic_account_outlined)
+
+    var menuImages = mutableMapOf(
+        R.id.basket to R.drawable.ic_cart,
+        R.id.play_bill to R.drawable.ic_calendar,
+        R.id.my_tickets to R.drawable.ic_ticket,
+        R.id.account to R.drawable.ic_account)
+
+    private fun changeNavigationStatus(menuItem: MenuItem){
+        menuItem.icon = ContextCompat.getDrawable(requireContext(), menuOutlinedImages[menuItem.itemId]!!)
+        bottom_navigation.menu.forEach {
+            if(it.itemId != menuItem.itemId){
+                it.icon = ContextCompat.getDrawable(requireContext(), menuImages[it.itemId]!!)
+            }
+        }
     }
 }

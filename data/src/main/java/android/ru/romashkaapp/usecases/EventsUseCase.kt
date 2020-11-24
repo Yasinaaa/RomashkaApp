@@ -78,8 +78,9 @@ class EventsUseCase(
 
     fun <S> getEventSectorSeats(eventId: Int,
                                 sectorId: Int,
-                                areaId: Int, useCaseDisposable: S) where S : Observer<MutableList<SeatModel>>?, S : Disposable {
-        mRepository.getEventSectorSeats(eventId, sectorId, areaId, mAccessToken)
+                                areaId: Int,
+                                type: String?, useCaseDisposable: S) where S : Observer<MutableList<SeatModel>>?, S : Disposable {
+        mRepository.getEventSectorSeats(eventId, sectorId, areaId, type, mAccessToken)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)
