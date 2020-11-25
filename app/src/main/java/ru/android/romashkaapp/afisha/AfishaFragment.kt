@@ -3,6 +3,8 @@ package ru.android.romashkaapp.afisha
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
@@ -59,6 +61,10 @@ class AfishaFragment : Fragment() {
         }
 
         viewModel.matchesList.observe(viewLifecycleOwner, {
+            pb.visibility = GONE
+            view_title_line.visibility = VISIBLE
+            tv_title.visibility = VISIBLE
+            mb_view_all_matches.visibility = VISIBLE
             matchesAdapter.updateList(it)
         })
         viewModel.servicesList.observe(viewLifecycleOwner, {

@@ -278,4 +278,13 @@ class ApiRepository: Repository {
     ): Observable<MutableList<StatusModel>> {
         return mAPI.getEventSectorStatuses(eventId, sectorId, areaId, accessToken)
     }
+
+    override fun addToCart(
+        eventId: Int,
+        areaId: Int,
+        sid: String,
+        accessToken: String
+    ): Observable<ResponseBody> {
+        return mAPI.addToCart(eventId, areaId, sid, accessToken)
+    }
 }

@@ -10,13 +10,14 @@
             type="ru.android.romashkaapp.afisha.AfishaViewModel" />
     </data>
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#F3F5FB"
             tools:context=".ru.android.romashkaapp.afisha.AfishaFragment">
 
             <ImageView
@@ -25,6 +26,15 @@
                 android:id="@+id/iv_image"
                 android:background="@drawable/main_toolbar"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <ProgressBar
+                android:id="@+id/pb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/iv_image"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -73,6 +83,7 @@
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <View
+                android:visibility="invisible"
                 android:layout_width="0dp"
                 android:layout_height="4dp"
                 android:id="@+id/view_title_line"
@@ -84,6 +95,7 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_title"/>
 
             <TextView
+                android:visibility="invisible"
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,26 +117,28 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/view_title_line"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <com.google.android.material.button.MaterialButton
+                android:visibility="invisible"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/mb_view_all_matches"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                 app:strokeWidth="1dp"
                 app:cornerRadius="8dp"
-                app:strokeColor="@color/button_next_color"
+                app:strokeColor="@color/colorPrimary"
                 android:text="@string/view_all_matches"
-                android:fontFamily="@font/roboto_medium"
-                android:textColor="@color/button_next_color"
+                android:fontFamily="@font/pfbeauaanspro_reg"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
-                android:textAllCaps="true"
+                android:textAllCaps="false"
                 android:letterSpacing="0"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginTop="12dp"
                 android:paddingTop="15dp"
                 android:paddingBottom="15dp"
@@ -134,6 +148,7 @@
                 android:onClick="@{(view)->viewModel.onViewAllBtnClick()}"/>
 
             <TextView
+                android:visibility="invisible"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_services"
@@ -150,6 +165,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/mb_view_all_matches"/>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:visibility="invisible"
                 android:id="@+id/rv_services"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

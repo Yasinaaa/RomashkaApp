@@ -1,5 +1,6 @@
 package ru.android.romashkaapp.matches
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +16,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.android.synthetic.main.fragment_basket.*
 import kotlinx.android.synthetic.main.fragment_matches.*
+import kotlinx.android.synthetic.main.fragment_matches.cl_bottomsheet
 
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.databinding.FragmentMatchesBinding
@@ -42,7 +45,7 @@ class MatchesFragment : Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_matches, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -62,9 +65,13 @@ class MatchesFragment : Fragment(){
             if(it[0] == null){
                 tv_matches.setTextColor(ContextCompat.getColor(requireContext(), R.color.button_next_color))
                 tv_calendar.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
+                mb_info.visibility = GONE
+                cl_toolbar.backgroundTintList = ContextCompat.getColorStateList(requireContext(), android.R.color.white)
             }else{
                 tv_calendar.setTextColor(ContextCompat.getColor(requireContext(), R.color.button_next_color))
                 tv_matches.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
+                mb_info.visibility = VISIBLE
+                cl_toolbar.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.background)
             }
             matchesAdapter!!.updateList(it)
             pb.visibility = GONE
@@ -116,6 +123,10 @@ class MatchesFragment : Fragment(){
             cl_bottomsheet.visibility = VISIBLE
             bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED
             mainViewModel.skipNavigationBar()
+        }
+
+        ib_back.setOnClickListener {
+            parentFragmentManager.popBackStackImmediate()
         }
     }
 

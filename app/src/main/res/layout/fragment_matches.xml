@@ -10,17 +10,18 @@
             type="ru.android.romashkaapp.matches.MatchesViewModel" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/cl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E2E2E2"
+        android:background="@color/background"
         tools:context=".ru.android.romashkaapp.matches.MatchesFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:id="@+id/cl_toolbar"
-            android:elevation="10dp"
-            android:background="@android:color/white"
+            android:background="@color/background"
+            android:layout_marginTop="26dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -86,14 +87,13 @@
                 app:iconTint="@color/button_next_color"
                 app:iconTintMode="src_in"
                 app:iconGravity="textStart"
-                app:iconSize="24dp"
                 android:gravity="center"
                 android:background="@android:color/transparent"
                 app:strokeColor="@color/button_next_color"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
-                android:paddingStart="3dp"
-                android:paddingEnd="3dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:paddingTop="3dp"
                 android:paddingBottom="3dp"
                 android:layout_marginBottom="3dp"
@@ -102,6 +102,59 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:visibility="gone"
+            android:background="@color/background"
+            android:id="@+id/cl_events_not_found"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_event_not_found"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/ic_event_not_found"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_events_not_found_title"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:text="@string/events_not_found_title"
+                android:fontFamily="@font/pfbeauaanspro_reg"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintTop_toBottomOf="@+id/iv_event_not_found"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_events_not_found_text"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:lineHeight="20dp"
+                android:text="@string/events_not_found_text"
+                android:fontFamily="@font/pfbeauaanspro_reg"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_events_not_found_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -120,9 +173,7 @@
             android:id="@+id/rv_matches"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="65dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="64dp"
             app:layout_anchor="@+id/cl_toolbar"
             app:layout_anchorGravity="bottom"/>
 
@@ -266,7 +317,5 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -6,6 +6,7 @@ import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
@@ -15,25 +16,15 @@ import ru.android.romashkaapp.BR
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.matches.ItemClickListener
 import ru.android.romashkaapp.utils.parseTimeStamp
-import java.time.Instant
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
-import java.util.*
 
 
 /**
  * Created by yasina on 02.11.2020.
  * Copyright (c) 2020 Infomatica. All rights reserved.
  */
-class MatchesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
+open class MatchesAdapter(var listener: ItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private lateinit var context: Context
-    var listener: ItemClickListener? = null
-
-    constructor(l: ItemClickListener){
-        listener = l
-    }
+    protected lateinit var mContext: Context
 
     companion object {
         const val VIEW_TEXT_TYPE = 0
@@ -47,7 +38,7 @@ class MatchesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private var list: MutableList<Match?> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        context = parent.context
+        mContext = parent.context
         return when(viewType) {
             VIEW_TEXT_TYPE -> {
                 ItemViewHolder(
@@ -81,11 +72,11 @@ class MatchesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    private fun setDate(match: Match){
+    fun setDate(match: Match){
         match.date = match.event.sdate.parseTimeStamp()
     }
 
-    private fun setRivalImage(holder: ItemViewHolder, thumbnail: String?){
+    fun setRivalImage(holder: ItemViewHolder, thumbnail: String?){
         var circleImage = holder.binding!!.root.findViewById(R.id.civ_logo2) as ShapeableImageView
         if(!thumbnail.isNullOrEmpty()){
             var image = thumbnail
@@ -94,19 +85,19 @@ class MatchesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 image = list[1]
             }
             val imageByteArray: ByteArray = Base64.decode(image, Base64.DEFAULT)
-            Glide.with(context)
+            Glide.with(mContext)
                 .load(imageByteArray)
                 .centerInside()
                 .into(circleImage)
         }else{
-            Glide.with(context)
-                .load(context.getDrawable(R.drawable.ic_soccer))
+            Glide.with(mContext)
+                .load(ContextCompat.getDrawable(mContext, R.drawable.ic_soccer))
                 .centerInside()
                 .into(circleImage)
         }
     }
 
-    private fun parseName(match: Match){
+    fun parseName(match: Match){
         if(match.event.name != null){
             when {
                 match.event.name!!.contains(" - ") -> {
@@ -120,7 +111,7 @@ class MatchesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 }
             }
         }else{
-            match.firstLine = context.getString(R.string.no_event_title)
+            match.firstLine = mContext.getString(R.string.no_event_title)
         }
     }
 
@@ -138,7 +129,7 @@ class MatchesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return if(position == 1) VIEW_TEXT_TYPE else VIEW_TYPE_MATCH
     }
 
-    fun updateList(list: MutableList<Match?>) {
+    open fun updateList(list: MutableList<Match?>) {
         list.add(1, null)
         this.list = list
         notifyDataSetChanged()

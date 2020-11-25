@@ -19,8 +19,8 @@
         android:gravity="center"
         android:text="@string/monday"
         android:textSize="12sp"
-        android:textColor="#BDBDBD"
-        android:fontFamily="@font/roboto"/>
+        android:textColor="@color/grey"
+        android:fontFamily="@font/pfbeauaanspro_reg"/>
 
     <TextView
         android:id="@+id/legendText2"
@@ -30,8 +30,8 @@
         android:gravity="center"
         android:text="@string/tuesday"
         android:textSize="12sp"
-        android:textColor="#BDBDBD"
-        android:fontFamily="@font/roboto" />
+        android:textColor="@color/grey"
+        android:fontFamily="@font/pfbeauaanspro_reg" />
 
     <TextView
         android:id="@+id/legendText3"
@@ -41,8 +41,8 @@
         android:gravity="center"
         android:text="@string/wednesday"
         android:textSize="12sp"
-        android:textColor="#BDBDBD"
-        android:fontFamily="@font/roboto"/>
+        android:textColor="@color/grey"
+        android:fontFamily="@font/pfbeauaanspro_reg"/>
 
     <TextView
         android:id="@+id/legendText4"
@@ -52,8 +52,8 @@
         android:gravity="center"
         android:text="@string/thursday"
         android:textSize="12sp"
-        android:textColor="#BDBDBD"
-        android:fontFamily="@font/roboto" />
+        android:textColor="@color/grey"
+        android:fontFamily="@font/pfbeauaanspro_reg" />
 
     <TextView
         android:id="@+id/legendText5"
@@ -63,8 +63,8 @@
         android:gravity="center"
         android:text="@string/friday"
         android:textSize="12sp"
-        android:textColor="#BDBDBD"
-        android:fontFamily="@font/roboto"/>
+        android:textColor="@color/grey"
+        android:fontFamily="@font/pfbeauaanspro_reg"/>
 
     <TextView
         android:id="@+id/legendText6"
@@ -74,7 +74,7 @@
         android:gravity="center"
         android:text="@string/saturday"
         android:textSize="12sp"
-        android:textColor="#BDBDBD"
+        android:textColor="@color/red"
         android:fontFamily="@font/roboto" />
 
     <TextView
@@ -85,8 +85,8 @@
         android:gravity="center"
         android:text="@string/sunday"
         android:textSize="12sp"
-        android:textColor="#BDBDBD"
-        android:fontFamily="@font/roboto" />
+        android:textColor="@color/red"
+        android:fontFamily="@font/pfbeauaanspro_reg" />
 
 </LinearLayout>
 

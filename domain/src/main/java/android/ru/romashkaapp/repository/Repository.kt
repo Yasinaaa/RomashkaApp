@@ -37,7 +37,7 @@ interface Repository {
     fun getEventSectorSeats(eventId: Int, sectorId: Int, areaId: Int, type: String?, accessToken: String): Observable<MutableList<SeatModel>>
     fun getEventSectorZones(eventId: Int, areaId: Int, accessToken: String): Observable<MutableList<ZoneModel>>
     fun getEventSectorStatuses(eventId: Int, sectorId: Int, areaId: Int, accessToken: String): Observable<MutableList<StatusModel>>
-
+    fun addToCart(eventId: Int, areaId: Int, sid: String, accessToken: String): Observable<ResponseBody>
 //    fun getUserOrder(userId: Int, orderId: Int): Observable<OrderModel>
 //    fun createOrder(userId: Int, order: OrderModel): Observable<OrderModel>
 //    fun addSeatToOrder(userId: Int, orderId: Int, sid: String): Observable<CartModel>

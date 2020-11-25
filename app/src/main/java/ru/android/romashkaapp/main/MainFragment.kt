@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.fragment_afisha.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_sector.*
 import ru.android.romashkaapp.R
@@ -57,6 +58,7 @@ class MainFragment : Fragment() {
 
         viewModel.createFragment.observe(viewLifecycleOwner, {
             setFragment(it)
+            changeNavigationStatus(bottom_navigation.menu.getItem(0))
         })
 
         bottom_navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
@@ -79,8 +81,9 @@ class MainFragment : Fragment() {
 
     private fun setFragment(fragment: Fragment){
         val transaction = childFragmentManager.beginTransaction()
-        transaction.replace(R.id.nav_main_fragment, fragment)
-        transaction.commitAllowingStateLoss()
+        transaction.add(R.id.nav_main_fragment, fragment)
+        transaction.addToBackStack(null) //fragment::class.java.name
+        transaction.commit()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

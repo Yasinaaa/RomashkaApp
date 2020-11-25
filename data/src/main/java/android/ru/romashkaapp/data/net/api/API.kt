@@ -57,8 +57,6 @@ interface API {
     @GET("/yasina/v1/events/{event_id}/areas")
     fun getEventAreas(@Path("event_id") eventId: Int, @Query("accessToken") accessToken: String): Observable<MutableList<AreaModel>>
 
-    //test
-
     @GET("/yasina/v1/events/{event_id}/areas/{area_id}")
     fun getEventArea(@Path("event_id") eventId: Int, @Path("area_id") areaId: Int,
                      @Query("accessToken") accessToken: String): Observable<AreaModel>
@@ -82,8 +80,10 @@ interface API {
                                @Path("area_id") areaId: Int,
                                @Query("accessToken") accessToken: String): Observable<MutableList<StatusModel>>
 
-    //test
-
+    @POST("/yasina/v1/events/{event_id}/areas/{area_id}/carts/create")
+    fun addToCart(@Path("event_id") eventId: Int, @Path("area_id") areaId: Int,
+                  @Query("id") sid: String,
+                  @Query("accessToken") accessToken: String): Observable<ResponseBody>
 
     //todo
     @GET("/events/{event_id}/subscriptions")

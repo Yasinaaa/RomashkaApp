@@ -4,9 +4,11 @@ import android.app.Application
 import android.ru.romashkaapp.models.*
 import android.ru.romashkaapp.usecases.DictionaryUseCase
 import android.ru.romashkaapp.usecases.EventsUseCase
+import android.ru.romashkaapp.usecases.OrderUseCase
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
+import okhttp3.ResponseBody
 import ru.android.romashkaapp.BaseSubscriber
 import ru.android.romashkaapp.StartActivity
 import ru.android.romashkaapp.StartActivity.Companion.REPOSITORY
@@ -29,6 +31,7 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
 
     private var eventUseCase: EventsUseCase? = null
     private var dictionaryUseCase: DictionaryUseCase? = null
+    private var orderUseCase: OrderUseCase? = null
     private val pricesList: MutableLiveData<MutableList<EventModel?>> = MutableLiveData()
     val zoomView = MutableLiveData<Boolean>()
     val title = MutableLiveData<String>()
@@ -42,6 +45,7 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
 
     init {
         eventUseCase = EventsUseCase(REPOSITORY, Utils.getAccessToken(application)!!)
+        orderUseCase = OrderUseCase(REPOSITORY, Utils.getAccessToken(application)!!)
         dictionaryUseCase = DictionaryUseCase(REPOSITORY, Utils.getAccessToken(application)!!)
         pricesList.value = arrayListOf(EventModel(), EventModel(), EventModel(), EventModel(), EventModel())
     }
@@ -49,7 +53,7 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
     fun getEvent(id: Int, championship: String?){
         eventId = id
 
-        eventId = 16 //todo remove
+        //eventId = 16 //todo remove
 
         eventUseCase!!.getEvent(id, EventSubscriber(championship))
     }
@@ -147,6 +151,19 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
             super.onNext(response)
             eventUseCase!!.getEventSectorZones(eventId!!, areaId,  SectorZonesSubscriber(areaId))
 //            eventUseCase!!.getEventSectorStatuses(eventId!!, 1, areaId, SectorStatusesSubscriber())
+
+            orderUseCase!!.createOrders(eventId!!, areaId, response[0].sid!!, CreateOrderSubscriber())
+        }
+    }
+
+    private inner class CreateOrderSubscriber: BaseSubscriber<ResponseBody>() {
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: ResponseBody) {
+            super.onNext(response)
         }
     }
 
