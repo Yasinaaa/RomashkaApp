@@ -248,7 +248,7 @@ class ApiRepository: Repository {
         eventId: Int,
         areaId: Int,
         accessToken: String
-    ): Observable<SectorSvgModel> {
+    ): Observable<ResponseBody> {
         return mAPI.getEventAreaPlan(eventId, areaId, "svg", accessToken)
     }
 

@@ -9,6 +9,7 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import okhttp3.ResponseBody
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -69,7 +70,7 @@ class EventsUseCase(
             .subscribeWith(useCaseDisposable)
     }
 
-    fun <S> getEventAreaPlan(eventId: Int, areaId: Int, useCaseDisposable: S) where S : Observer<SectorSvgModel>?, S : Disposable {
+    fun <S> getEventAreaPlan(eventId: Int, areaId: Int, useCaseDisposable: S) where S : Observer<ResponseBody>?, S : Disposable {
         mRepository.getEventAreaPlan(eventId, areaId, mAccessToken)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

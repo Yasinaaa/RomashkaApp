@@ -64,7 +64,7 @@ interface API {
     @GET("/yasina/v1/events/{event_id}/areas/{area_id}/plan")
     fun getEventAreaPlan(@Path("event_id") eventId: Int, @Path("area_id") areaId: Int,
                          @Query("type") type: String,
-                         @Query("accessToken") accessToken: String): Observable<SectorSvgModel>
+                         @Query("accessToken") accessToken: String): Observable<ResponseBody>
 
     @GET("/yasina/v1/events/{event_id}/areas/{area_id}/sectors/{sector_id}/seats")
     fun getEventSectorSeats(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int,
@@ -80,9 +80,9 @@ interface API {
                                @Path("area_id") areaId: Int,
                                @Query("accessToken") accessToken: String): Observable<MutableList<StatusModel>>
 
-    @POST("/yasina/v1/events/{event_id}/areas/{area_id}/carts/create")
+    @POST("/yasina/v1/events/{event_id}/areas/{area_id}/carts")
     fun addToCart(@Path("event_id") eventId: Int, @Path("area_id") areaId: Int,
-                  @Query("id") sid: String,
+                  @Query("sid") sid: String,
                   @Query("accessToken") accessToken: String): Observable<ResponseBody>
 
     //todo

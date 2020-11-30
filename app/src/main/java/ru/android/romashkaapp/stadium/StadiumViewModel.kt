@@ -53,9 +53,9 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
     fun getEvent(id: Int, championship: String?){
         eventId = id
 
-        //eventId = 16 //todo remove
+        eventId = 180 //todo remove
 
-        eventUseCase!!.getEvent(id, EventSubscriber(championship))
+        eventUseCase!!.getEvent(eventId!!, EventSubscriber(championship))
     }
 
     private inner class EventSubscriber: BaseSubscriber<EventModel> {
@@ -77,7 +77,7 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
             time.value = response.sdate.parseTimeStamp()
             championship.value = championshipTitle
 //            dictionaryUseCase!!.getHall(response.hall_id, HallSubscriber())
-            eventUseCase!!.getEventAreas(16, AreasSubscriber())
+            eventUseCase!!.getEventAreas(response.id, AreasSubscriber())
 //            eventUseCase!!.getEventAreas(response.id, AreasSubscriber())
         }
     }
@@ -108,16 +108,16 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
 
 //            svgArea.value = "http://192.168.2.80/yasina/v1/events/" + eventId!! + "/areas/" + response.id + "/plan?type=svg&accessToken=" +
 //                    Utils.getAccessToken(context)!!
-            //eventUseCase!!.getEventAreaPlan(eventId!!, response.id, AreaPlanSubscriber(response.id))
+            eventUseCase!!.getEventAreaPlan(eventId!!, response.id, AreaPlanSubscriber(response.id))
 
 
 
 
-            eventUseCase!!.getEventSectorSeats(eventId!!, 1,  response.id, "coordinates", SectorSeatsSubscriber(response.id))
+            //eventUseCase!!.getEventSectorSeats(eventId!!, 1,  response.id, "coordinates", SectorSeatsSubscriber(response.id))
         }
     }
 
-    private inner class AreaPlanSubscriber: BaseSubscriber<SectorSvgModel> {
+    private inner class AreaPlanSubscriber: BaseSubscriber<ResponseBody> {
 
         var areaId: Int
 
@@ -129,8 +129,10 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
             super.onError(e)
         }
 
-        override fun onNext(response: SectorSvgModel) {
+        override fun onNext(response: ResponseBody) {
             super.onNext(response)
+            var s = response.string()
+            Log.d("dss", s)
             //eventUseCase!!.getEventSectorSeats(eventId!!, 1,  areaId, "coordinates", SectorSeatsSubscriber(areaId))
         }
     }
