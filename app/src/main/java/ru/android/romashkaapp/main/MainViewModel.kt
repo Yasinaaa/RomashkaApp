@@ -75,12 +75,12 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
     }
 
     init{
-        usecase = UserUseCase(StartActivity.REPOSITORY, Utils.getAccessToken(application.applicationContext)!!)
+        usecase = UserUseCase(REPOSITORY, Utils.getAccessToken(application.applicationContext))
         //step 1
         usecase!!.getAppToken(clientId = CLIENT_ID, clientSecret = CLIENT_SECRET, grantType = GRANT_TYPE, AppTokenSubscriber())
 
 
-        orderUseCase = OrderUseCase(REPOSITORY, Utils.getAccessToken(application.applicationContext)!!)
+        orderUseCase = OrderUseCase(REPOSITORY, Utils.getAccessToken(application.applicationContext))
 //        dictionaryUseCase = DictionaryUseCase(REPOSITORY)
     }
 

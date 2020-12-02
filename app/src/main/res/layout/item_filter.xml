@@ -7,58 +7,24 @@
             name="viewModel"
             type="android.ru.romashkaapp.models.EventModel" />
     </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/cl_main_game_card"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/button_next_color"
-        android:background="@drawable/rectangle_white">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_event_championship_title"
-            android:textSize="14sp"
-            android:textColor="@android:color/white"
-            android:textAlignment="viewStart"
-            android:text="АК Барс Арена"
-            android:fontFamily="@font/roboto"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/mb_cancel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/mb_cancel"
-            app:icon="@drawable/ic_mdi_cancel"
-            app:iconTint="#E5F1FF"
-            app:iconTintMode="src_atop"
-            app:iconGravity="textStart"
-            app:iconSize="24dp"
-            android:gravity="center"
-            android:background="@color/button_next_color"
-            app:strokeColor="@color/button_next_color"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:paddingStart="3dp"
-            android:paddingEnd="3dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:layout_marginBottom="3dp"
-            android:layout_marginEnd="7dp"
-            android:layout_marginTop="3dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:id="@+id/tv_event_championship_title"
+        android:textSize="14sp"
+        android:textColor="@android:color/black"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/grey"
+        android:text="АК Барс Арена"
+        android:fontFamily="@font/pfbeauaanspro_reg"
+        android:layout_marginTop="12dp"
+        android:paddingTop="6.5dp"
+        android:paddingEnd="12dp"
+        android:paddingStart="12dp"
+        android:paddingBottom="6.5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </layout>

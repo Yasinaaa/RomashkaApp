@@ -57,7 +57,7 @@ interface API {
     @GET("/yasina/v1/events/{event_id}/areas")
     fun getEventAreas(@Path("event_id") eventId: Int, @Query("accessToken") accessToken: String): Observable<MutableList<AreaModel>>
 
-    @GET("/yasina/v1/events/{event_id}/areas/{area_id}")
+    @GET("/yasina/v1/events/{event_id}/areas/{area_id}/sectors")
     fun getEventArea(@Path("event_id") eventId: Int, @Path("area_id") areaId: Int,
                      @Query("accessToken") accessToken: String): Observable<AreaModel>
 

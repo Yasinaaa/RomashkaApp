@@ -1,5 +1,6 @@
 package ru.android.romashkaapp.matches.adapters
 
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -24,6 +25,7 @@ import ru.android.romashkaapp.utils.makeInVisible
 import ru.android.romashkaapp.utils.makeVisible
 import ru.android.romashkaapp.utils.setTextColorRes
 import ru.android.romashkaapp.utils.toDp
+import java.sql.Timestamp
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
@@ -49,7 +51,7 @@ class MatchesAndCalendarAdapter constructor(l: ItemClickListener) : MatchesAdapt
 
     private var list: MutableList<Match?> = mutableListOf()
     //calendar
-    private var selectedDate: LocalDate? = null
+    private var selectedDates = mutableMapOf<LocalDate, List<Event>>()
     private val today = LocalDate.now()
     private val events = mutableMapOf<LocalDate, List<Event>>()
 
@@ -66,18 +68,22 @@ class MatchesAndCalendarAdapter constructor(l: ItemClickListener) : MatchesAdapt
 //                        .setNegativeButton(R.string.close, null)
 //                        .show()
                 }
-                CalendarViewHolder(LayoutInflater.from(mContext)
-                    .inflate(R.layout.item_calendar, parent, false))
+                CalendarViewHolder(
+                    LayoutInflater.from(mContext)
+                        .inflate(R.layout.item_calendar, parent, false)
+                )
             }
             else -> {
-                MatchesAdapter.ItemViewHolder(LayoutInflater.from(mContext)
-                    .inflate(R.layout.item_event, parent, false))
+                MatchesAdapter.ItemViewHolder(
+                    LayoutInflater.from(mContext)
+                        .inflate(R.layout.item_event, parent, false)
+                )
             }
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is MatchesAdapter.ItemViewHolder) {
+        if (holder is ItemViewHolder) {
 
             parseName(list[position]!!)
             setDate(list[position]!!)
@@ -85,7 +91,7 @@ class MatchesAndCalendarAdapter constructor(l: ItemClickListener) : MatchesAdapt
 
             holder.binding?.setVariable(BR.match, list[position])
             holder.binding?.executePendingBindings()
-            holder.binding?.root?.setOnClickListener { listener!!.click(list[position]!!) }
+            holder.binding?.root?.setOnClickListener { listener.click(list[position]!!) }
 
             if(position == 0){
                 var lp: RecyclerView.LayoutParams = holder.binding?.root?.layoutParams as RecyclerView.LayoutParams
@@ -94,7 +100,7 @@ class MatchesAndCalendarAdapter constructor(l: ItemClickListener) : MatchesAdapt
                 var lp: RecyclerView.LayoutParams = holder.binding?.root?.layoutParams as RecyclerView.LayoutParams
                 lp.bottomMargin = 24.toDp(mContext)
             }
-            holder.binding?.root?.setOnClickListener { listener!!.click(list[position]) }
+            holder.binding?.root?.setOnClickListener { listener.click(list[position]) }
 
         }else if (holder is CalendarViewHolder) {
             val daysOfWeek = daysOfWeekFromLocale()
@@ -105,7 +111,15 @@ class MatchesAndCalendarAdapter constructor(l: ItemClickListener) : MatchesAdapt
             }
             holder.bindingV?.exThreeCalendar?.post {
                 // Show today's events initially.
-                selectDate(holder, today)
+                //selectDate(holder, today)
+
+//                events.forEach { localDate, list ->
+//                    if(day.date == localDate){
+//                        dayText.visibility = GONE
+//                        backgroundView.visibility = VISIBLE
+//                        ivSoccerView.visibility = VISIBLE
+//                    }
+//                }
             }
             class DayViewContainer(view: View) : ViewContainer(view) {
                 lateinit var day: CalendarDay // Will be set when this container is bound.
@@ -119,8 +133,13 @@ class MatchesAndCalendarAdapter constructor(l: ItemClickListener) : MatchesAdapt
                     }
                 }
             }
+
+
+//            holder.bindingV?.exThreeCalendar.dayBinder.
+
             holder.bindingV?.exThreeCalendar?.dayBinder = object : DayBinder<DayViewContainer> {
                 override fun create(view: View) = DayViewContainer(view)
+
                 override fun bind(container: DayViewContainer, day: CalendarDay) {
                     container.day = day
                     val dayText = container.binding.tvDay
@@ -129,27 +148,42 @@ class MatchesAndCalendarAdapter constructor(l: ItemClickListener) : MatchesAdapt
 
                     dayText.text = day.date.dayOfMonth.toString()
 
+
+
                     if (day.owner == DayOwner.THIS_MONTH) {
                         dayText.makeVisible()
+                        list.forEach {
+                            if(it != null){
+                                //todo
+                               // val timestamp: Timestamp = Timestamp(it.event.sdate).
+//                                if(day. == it.date)
+                            }
+                        }
+
                         when (day.date) {
                             today -> {
-                                dayText.visibility = GONE
-//                                textView.setTextColorRes(android.R.color.white)
-                                backgroundView.visibility = VISIBLE
-                                ivSoccerView.visibility = VISIBLE
+//                                dayText.setTextColorRes(android.R.color.white)
+//                                dayText.setBackgroundResource(R.drawable.ic_soccer_calendar)
+//
+//                                dayText.visibility = GONE
+//                                backgroundView.visibility = GONE
+//                                ivSoccerView.visibility = VISIBLE
 
-                            }
-                            selectedDate -> {
-                                dayText.setTextColorRes(android.R.color.white)
-                                dayText.setBackgroundResource(R.drawable.ic_soccer_calendar)
-
-                                dayText.visibility = GONE
+                                dayText.visibility = VISIBLE
+                                dayText.setTypeface(dayText.typeface, Typeface.BOLD)
+                                dayText.setTextColorRes(android.R.color.black)
                                 backgroundView.visibility = GONE
-                                ivSoccerView.visibility = VISIBLE
+                                ivSoccerView.visibility = GONE
                             }
+//                            selectedDate -> {
+//                                dayText.visibility = GONE
+//                                backgroundView.visibility = VISIBLE
+//                                ivSoccerView.visibility = VISIBLE
+//                            }
                             else -> {
                                 dayText.visibility = VISIBLE
                                 dayText.setTextColorRes(android.R.color.black)
+                                dayText.setTypeface(dayText.typeface, Typeface.NORMAL)
                                 backgroundView.visibility = GONE
                                 ivSoccerView.visibility = GONE
 //                                dotView.isVisible = events[day.date].orEmpty().isNotEmpty()
@@ -169,7 +203,7 @@ class MatchesAndCalendarAdapter constructor(l: ItemClickListener) : MatchesAdapt
 //                    titleFormatter.format(it.yearMonth)
 //                }
                 var months = mContext.resources.getStringArray(R.array.months)
-                var m = months[it.yearMonth.monthValue-1]
+                var m = months[it.yearMonth.monthValue - 1]
 
                 holder.bindingV?.tvMonth?.text =
                     m.plus(" ").plus(it.year.toString())
@@ -216,13 +250,13 @@ class MatchesAndCalendarAdapter constructor(l: ItemClickListener) : MatchesAdapt
     }
 
     private fun selectDate(holder: CalendarViewHolder, date: LocalDate) {
-        if (selectedDate != date) {
-            val oldDate = selectedDate
-            selectedDate = date
-            oldDate?.let { holder.bindingV?.exThreeCalendar?.notifyDateChanged(it) }
-            holder.bindingV?.exThreeCalendar?.notifyDateChanged(date)
-            updateAdapterForDate(date)
-        }
+//        if (selectedDate != date) {
+//            val oldDate = events
+//            selectedDate = date
+//            oldDate?.let { holder.bindingV?.exThreeCalendar?.notifyDateChanged(it) }
+//            holder.bindingV?.exThreeCalendar?.notifyDateChanged(date)
+//            updateAdapterForDate(list)
+//        }
     }
 
     private fun daysOfWeekFromLocale(): Array<DayOfWeek> {

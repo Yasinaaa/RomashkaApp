@@ -17,7 +17,7 @@ import okhttp3.ResponseBody
 @SuppressLint("CheckResult")
 class OrderUseCase(
     private val mRepository: ApiRepository,
-    private val mAccessToken: String
+    private val mAccessToken: String?
 ): ApiUseCase () {
 
     fun<T> get(ob: Observable<T>, useCaseDisposable: Observer<in T>){
@@ -29,10 +29,12 @@ class OrderUseCase(
     fun <S> createOrders(eventId: Int,
                          areaId: Int,
                          sid: String, useCaseDisposable: S) where S : Observer<in ResponseBody>?, S : Disposable {
-        mRepository.addToCart(eventId, areaId, sid, mAccessToken)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(useCaseDisposable)
+        if (mAccessToken != null) {
+            mRepository.addToCart(eventId, areaId, sid, mAccessToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(useCaseDisposable)
+        }
     }
 
     fun <S> getOrders(status: Int, useCaseDisposable: S) where S : Observer<in MutableList<OrderModel>>?, S : Disposable {

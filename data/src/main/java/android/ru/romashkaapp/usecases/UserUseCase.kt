@@ -20,7 +20,7 @@ import javax.inject.Inject
 @SuppressLint("CheckResult")
 class UserUseCase(
     private val mRepository: ApiRepository,
-    private val mAccessToken: String
+    private val mAccessToken: String?,
 ): ApiUseCase () {
 
     fun <S> getAppToken(clientId: String?,
@@ -49,10 +49,12 @@ class UserUseCase(
     }
 
     fun <S> addUser(user: UserRequestModel, useCaseDisposable: S) where S : Observer<in ResponseBody>?, S : Disposable {
-        mRepository.addUser(user, mAccessToken)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(useCaseDisposable)
+        if (mAccessToken != null) {
+            mRepository.addUser(user, mAccessToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(useCaseDisposable)
+        }
     }
 
     fun <S> getUser(useCaseDisposable: S) where S : Observer<in UserModel>?, S : Disposable {

@@ -28,6 +28,7 @@ class MatchesViewModel(application: Application) : BaseViewModel(application), I
     private var dictionaryUseCase: DictionaryUseCase? = null
 
     val matchesList: MutableLiveData<MutableList<MatchesAdapter.Match?>> = MutableLiveData()
+    val matchesAndCalendarList: MutableLiveData<MutableList<MatchesAdapter.Match?>> = MutableLiveData()
     val nextFragmentOpenClick = MutableLiveData<MatchesAdapter.Match?>()
 
     init {
@@ -86,8 +87,9 @@ class MatchesViewModel(application: Application) : BaseViewModel(application), I
     }
 
     fun onCalendarBtnClick(){
-        matchesList.value = arrayListOf(null)
-//        matchesList.value = arrayListOf(null, MatchesAdapter(EventModel(), EventModel(), EventModel(), EventModel())
+        var list = matchesList.value
+        list!!.add(0, null)
+        matchesList.value = list
     }
 
     fun onMatchesBtnClick(){

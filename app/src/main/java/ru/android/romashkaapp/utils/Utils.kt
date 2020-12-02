@@ -17,8 +17,8 @@ class Utils {
 
     companion object {
 
-        val CLIENT_ID = "testclient"
-        val CLIENT_SECRET =  "testpass"
+        val CLIENT_ID = "application"
+        val CLIENT_SECRET =  "DNsP4FNATrLFb6WTzL"
         val GRANT_TYPE = "client_credentials"
         val GRANT_TYPE_PASSWORD = "password"
         val ACCESS_TOKEN = "ACCESS_TOKEN"

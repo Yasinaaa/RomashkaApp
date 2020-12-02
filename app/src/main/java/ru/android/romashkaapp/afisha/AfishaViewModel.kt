@@ -36,7 +36,7 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
     }
 
     fun getEvents(){
-        dictionaryUseCase!!.getNoms(last = "100", limit = "100", NomsSubscriber())
+        dictionaryUseCase!!.getNoms(last = null, limit = null, NomsSubscriber())
     }
 
     private inner class NomsSubscriber(): BaseSubscriber<MutableList<NomModel>>() { //MutableList<NomModel>
