@@ -59,14 +59,14 @@ interface API {
 
     @GET("/yasina/v1/events/{event_id}/areas/{area_id}/sectors")
     fun getEventArea(@Path("event_id") eventId: Int, @Path("area_id") areaId: Int,
-                     @Query("accessToken") accessToken: String): Observable<AreaModel>
+                     @Query("accessToken") accessToken: String): Observable<MutableList<SectorModel>>
 
     @GET("/yasina/v1/events/{event_id}/areas/{area_id}/plan")
     fun getEventAreaPlan(@Path("event_id") eventId: Int, @Path("area_id") areaId: Int,
                          @Query("type") type: String,
                          @Query("accessToken") accessToken: String): Observable<ResponseBody>
 
-    @GET("/yasina/v1/events/{event_id}/areas/{area_id}/sectors/{sector_id}/seats")
+    @GET("/yasina/v1/events/{event_id}/areas/{area_id}/sectors/{sector_id}/places")
     fun getEventSectorSeats(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int,
                             @Path("area_id") areaId: Int, @Query("type") type: String?,
                             @Query("accessToken") accessToken: String): Observable<MutableList<SeatModel>>

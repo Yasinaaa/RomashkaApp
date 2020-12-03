@@ -92,28 +92,37 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
             super.onNext(response)
             if(response.size == 1){
                 location.value = response[0].name
-                eventUseCase!!.getEventArea(eventId!!, response[0].id, AreaSubscriber())
+                eventUseCase!!.getEventArea(eventId!!, response[0].id, AreaSubscriber(response[0].id))
             }
         }
     }
 
-    private inner class AreaSubscriber: BaseSubscriber<AreaModel>() {
+    private inner class AreaSubscriber: BaseSubscriber<MutableList<SectorModel>> {
+
+        var areaId: Int
+
+        constructor(areaId: Int){
+            this.areaId = areaId
+        }
 
         override fun onError(e: Throwable) {
             super.onError(e)
         }
 
-        override fun onNext(response: AreaModel) {
+        override fun onNext(response: MutableList<SectorModel>) {
             super.onNext(response)
-
 //            svgArea.value = "http://192.168.2.80/yasina/v1/events/" + eventId!! + "/areas/" + response.id + "/plan?type=svg&accessToken=" +
 //                    Utils.getAccessToken(context)!!
-            eventUseCase!!.getEventAreaPlan(eventId!!, response.id, AreaPlanSubscriber(response.id))
-
-
-
-
-            //eventUseCase!!.getEventSectorSeats(eventId!!, 1,  response.id, "coordinates", SectorSeatsSubscriber(response.id))
+//            eventUseCase!!.getEventAreaPlan(eventId!!, response.view_id, AreaPlanSubscriber(response.view_id))
+            if(response.size >= 1) {
+                eventUseCase!!.getEventSectorSeats(
+                    eventId!!,
+                    response[0].view_id,
+                    areaId,
+                    "coordinates",
+                    SectorSeatsSubscriber(areaId)
+                )
+            }
         }
     }
 
@@ -154,7 +163,7 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
             eventUseCase!!.getEventSectorZones(eventId!!, areaId,  SectorZonesSubscriber(areaId))
 //            eventUseCase!!.getEventSectorStatuses(eventId!!, 1, areaId, SectorStatusesSubscriber())
 
-            orderUseCase!!.createOrders(eventId!!, areaId, response[0].sid!!, CreateOrderSubscriber())
+//            orderUseCase!!.createOrders(eventId!!, areaId, response[0].sid!!, CreateOrderSubscriber())
         }
     }
 

@@ -32,12 +32,12 @@ class LoginViewModel(application: Application) : BaseViewModel(application), Vie
 
     init {
         userUseCase = UserUseCase(StartActivity.REPOSITORY, Utils.getAccessToken(application.applicationContext)!!)
-        createUser()
+//        createUser()
     }
 
     fun createUser(){
         var user = UserRequestModel()
-        user.email = "blabla@gmail.com"
+        user.email = "blablaradik@gmail.com"
         user.phone = "11111111111"
         user.second = "second"
         user.first = "first"
@@ -58,7 +58,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application), Vie
             super.onNext(response)
             Log.d("ffd", "ss")
 
-            userUseCase!!.getClientToken(clientId = Utils.CLIENT_ID, clientSecret = Utils.CLIENT_SECRET,
+            userUseCase!!.getClientToken(clientId = Utils.CLIENT_ID_USER, clientSecret = Utils.CLIENT_SECRET_USER,
                 grantType = Utils.GRANT_TYPE_PASSWORD,
                 username = "bla435@gmail.com",
                 password = "3435gfdd",

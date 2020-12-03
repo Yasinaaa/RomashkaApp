@@ -23,6 +23,9 @@ class Utils {
         val GRANT_TYPE_PASSWORD = "password"
         val ACCESS_TOKEN = "ACCESS_TOKEN"
         val FIRST_OPEN = "FIRST_OPEN"
+
+        val CLIENT_ID_USER = "user"
+        val CLIENT_SECRET_USER =  "YOl_BXKysP9QhGmzea"
         
         fun hideKeyboardFrom(context: Context, view: View) {
             val imm: InputMethodManager =

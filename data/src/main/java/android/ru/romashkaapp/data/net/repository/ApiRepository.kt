@@ -240,7 +240,7 @@ class ApiRepository: Repository {
         eventId: Int,
         areaId: Int,
         accessToken: String
-    ): Observable<AreaModel> {
+    ): Observable<MutableList<SectorModel>> {
         return mAPI.getEventArea(eventId, areaId, accessToken)
     }
 
