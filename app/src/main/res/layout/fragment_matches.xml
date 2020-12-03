@@ -175,7 +175,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="64dp"
             app:layout_anchor="@+id/cl_toolbar"
-            app:layout_anchorGravity="bottom"/>
+            app:layout_anchorGravity="top"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

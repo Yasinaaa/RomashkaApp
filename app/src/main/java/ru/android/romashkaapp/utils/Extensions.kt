@@ -8,6 +8,7 @@ import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import ru.android.romashkaapp.afisha.adapters.MatchesAdapter
 import java.time.Instant
+import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -47,4 +48,13 @@ fun String?.parseTimeStamp(): String{
         ""
 //            match.firstLine = context.getString(R.string.no_event_title)
     }
+}
+
+fun String?.toLocalDate(): LocalDate?{
+    if(this != null){
+        return Instant.ofEpochSecond(this.toLong())
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate()
+    }
+    return null
 }

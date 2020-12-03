@@ -32,7 +32,7 @@ open class MatchesAdapter(var listener: ItemClickListener) : RecyclerView.Adapte
     }
 
     class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val binding: ViewDataBinding? = DataBindingUtil.bind(view)
+        val bindingItem: ViewDataBinding? = DataBindingUtil.bind(view)
     }
 
     private var list: MutableList<Match?> = mutableListOf()
@@ -62,9 +62,9 @@ open class MatchesAdapter(var listener: ItemClickListener) : RecyclerView.Adapte
                 setDate(list[position]!!)
                 setRivalImage(holder, list[position]!!.event.thumbnail)
 
-                holder.binding?.setVariable(BR.match, list[position])
-                holder.binding?.executePendingBindings()
-                holder.binding?.root?.setOnClickListener { listener!!.click(list[position]!!) }
+                holder.bindingItem?.setVariable(BR.match, list[position])
+                holder.bindingItem?.executePendingBindings()
+                holder.bindingItem?.root?.setOnClickListener { listener!!.click(list[position]!!) }
 
             }else if(position == 1){
 
@@ -77,7 +77,7 @@ open class MatchesAdapter(var listener: ItemClickListener) : RecyclerView.Adapte
     }
 
     fun setRivalImage(holder: ItemViewHolder, thumbnail: String?){
-        var circleImage = holder.binding!!.root.findViewById(R.id.civ_logo2) as ShapeableImageView
+        var circleImage = holder.bindingItem!!.root.findViewById(R.id.civ_logo2) as ShapeableImageView
         if(!thumbnail.isNullOrEmpty()){
             var image = thumbnail
             if (thumbnail.contains("data:")){

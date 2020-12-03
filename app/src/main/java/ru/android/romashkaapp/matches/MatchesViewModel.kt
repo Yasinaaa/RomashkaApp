@@ -88,12 +88,24 @@ class MatchesViewModel(application: Application) : BaseViewModel(application), I
 
     fun onCalendarBtnClick(){
         var list = matchesList.value
-        list!!.add(0, null)
+        if(list != null){
+            if (list.size > 0) {
+                if (list[0] != null)
+                    list.add(0, null)
+            }
+        }
         matchesList.value = list
     }
 
     fun onMatchesBtnClick(){
-        getEvents()
+        var list = matchesList.value
+        if(list != null) {
+            if (list.size > 0) {
+                if (list[0] == null)
+                    list.removeAt(0)
+            }
+        }
+        matchesList.value = list
     }
 
     override fun click(item: MatchesAdapter.Match?) {

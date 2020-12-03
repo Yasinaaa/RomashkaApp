@@ -73,7 +73,12 @@ class MatchesFragment : Fragment(){
                 mb_info.visibility = VISIBLE
                 cl_toolbar.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.background)
             }
-            matchesAdapter!!.updateList(it)
+
+            if(it[0] == null){
+                matchesAdapter!!.updateMatchesList(it)
+            }else
+                matchesAdapter!!.updateList(it)
+
             pb.visibility = GONE
         })
 
