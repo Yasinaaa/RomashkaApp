@@ -1,20 +1,541 @@
-<html>
-<script language="JavaScript">
-function sayHelloFromJS(value) {
-  document.getElementById("namefromAndroid").value =   value;
-}
-
-function doAlert() {
- alert("JavaScript says: Hello Android !!! How are you?");
-
-}
-</script>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
-<p> Enter your name here <input type="text" id="namefromjs" />
-<p> <input type="button" onclick= "setHtml()" value="Set Name in Android">
-<p> Name from Android is <input type="text" id="namefromAndroid" />
 
-<p> Button Click <input type="button" value="Click me" id="buttonClick" onclick= "Android.onClicked()" />
+<svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="602" height="600">
+    <rect width="169.1" height="97" x="216.45" y="258.6" style="fill: #006699; stroke:#FFFAF0; stroke-width: 1.4;" />
+    <rect width="131.3" height="73.2" x="235.35" y="270.5" style="fill: #FFFAF0; stroke:#000000; stroke-width: 1;" />
+    <ellipse rx="22.25" ry="20.5" cx="341.6" cy="307.1" style="fill: #FFFAF0; stroke:#000000; stroke-width: 0.7;" />
+    <rect width="20" height="41" x="344.2" y="286.6" style="fill: #FFFAF0; stroke:#FFFAF0; stroke-width: 1;" />
+    <line x1="342.8" y1="286.1" x2="364.2" y2="286.1" style="stroke: #000000" />
+    <line x1="342.8" y1="327.4" x2="364.2" y2="327.4" style="stroke: #000000" />
+    <polygon points="336 319,336 294.5,384.3 294.5,384.3 319" style="fill: #006699; stroke:#000000; stroke-width: 1;" />
+    <circle r="6.5" cx="336" cy="307.1" style="fill: #FFFAF0; stroke:#000000; stroke-width: 0.7;" />
+    <line x1="336.7" y1="297.1" x2="336.7" y2="317.1" style="stroke: #000000" />
+    <rect width="19.3" height="80.2" x="366.25" y="267" style="fill: #006699; stroke:#006699; stroke-width: 1;" />
+    <circle r="1.95" cx="359.1" cy="308.5" style="fill: #006699; stroke:#FFFFFF; stroke-width: 0.7;" />
+    <line x1="361.2" y1="299.9" x2="361.2" y2="314.3" style="stroke: #FFFFFF" />
+    <ellipse rx="22.25" ry="20.5" cx="259" cy="307.1" style="fill: #FFFAF0; stroke:#000000; stroke-width: 0.7;" />
+    <rect width="34" height="41" x="222.4" y="286.6" style="fill: #FFFAF0; stroke:#FFFAF0; stroke-width: 1;" />
+    <line x1="236.75" y1="286.8" x2="260.25" y2="286.8" style="stroke: #000000" />
+    <line x1="236.75" y1="327.4" x2="260.25" y2="327.4" style="stroke: #000000" />
+    <polygon points="224 319,224 294.5,264.6 294.5,264.6 319" style="fill: #006699; stroke:#000000; stroke-width: 1;" />
+    <circle r="6.5" cx="264.6" cy="307.1" style="fill: #FFFAF0; stroke:#000000; stroke-width: 0.7;" />
+    <line x1="264.6" y1="297.1" x2="264.6" y2="317.1" style="stroke: #000000" />
+    <rect width="18.6" height="80.2" x="218.2" y="268.4" style="fill: #006699; stroke:#006699; stroke-width: 1;" />
+    <ellipse rx="1.95" ry="1.95" cx="243.6" cy="307.1" style="fill: #006699; stroke:#FFFFFF; stroke-width: 0.7;" />
+    <line x1="239.4" y1="299.9" x2="239.4" y2="314.3" style="stroke: #FFFFFF" />
+    <circle r="6.5" cx="301.7" cy="307.1" style="fill: #FFFAF0; stroke:#000000; stroke-width: 0.7;" />
+    <line x1="301.7" y1="259.3" x2="301.7" y2="354.9" style="stroke: #000000" />
+    <g id="1" mode="1" count="212" free="212" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="276.5 154.5,322 154.5,318.5 179,283.5 179" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="286.9" y="176.19" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">A0</tspan>
+        </text>
+    </g>
+    <g id="2" mode="1" count="377" free="377" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="182 179,241.5 158,262.5 214,224 221" style="fill: #7B68EE; stroke:#000000; stroke-width: 1;" />
+        <text x="209.9" y="199.29" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">A1</tspan>
+        </text>
+    </g>
+    <g id="3" mode="1" count="240" free="240" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="245 158,273 154.5,280 182.5,255.5 186" style="fill: #FF9933; stroke:#000000; stroke-width: 1;" />
+    </g>
+    <text x="256.1" y="178.96" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+        <tspan style="font-weight: bold;">A2</tspan>
+    </text>
+    <g id="4" mode="1" count="240" free="240" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="325.5 154.5,357 158,347.9 184.6,320.6 182.5" style="fill: #FF9933; stroke:#000000; stroke-width: 1;" />
+    </g>
+    <text x="327.5" y="178.96" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+        <tspan style="font-weight: bold;">A3</tspan>
+    </text>
+    <g id="5" mode="1" count="341" free="341" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="360.5 158,420 179,374.5 224.5,339.5 214" style="fill: #7B68EE; stroke:#000000; stroke-width: 1;" />
+        <text x="367.4" y="200.69" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">A4</tspan>
+        </text>
+    </g>
+    <g id="6" mode="1" count="477" free="477" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="95.9 90.8,186.2 29.9,225.4 123.7,154.7 151" style="fill: #CCFFFF; stroke:#000000; stroke-width: 1;" />
+        <text x="142.8" y="99.89" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">A21</tspan>
+        </text>
+    </g>
+    <g id="7" mode="1" count="604" free="603" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="190.4 27.8,298.2 6.8,298.2 114.6,229.6 123" style="fill: #FFFFCC; stroke:#000000; stroke-width: 1;" />
+        <text x="226.8" y="74.69" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">A22</tspan>
+        </text>
+    </g>
+    <g id="8" mode="1" count="667" free="667" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="302.4 6.8,410.9 27.8,371 123,302.4 115.3" style="fill: #FFFFCC; stroke:#000000; stroke-width: 1;" />
+        <text x="338.8" y="74.69" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">A23</tspan>
+        </text>
+    </g>
+    <g id="9" mode="1" count="492" free="492" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="415.1 29.2,506.1 90.8,446.6 151,375.9 123.7" style="fill: #CCFFFF; stroke:#000000; stroke-width: 1;" />
+        <text x="423.5" y="99.89" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">A24</tspan>
+        </text>
+    </g>
+    <g id="10" mode="1" count="285" free="285" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="378 224.5,423.5 179,483 221,416.5 249" style="fill: #99FFCC; stroke:#000000; stroke-width: 1;" />
+        <text x="418" y="223.79" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">B1</tspan>
+        </text>
+    </g>
+    <g id="11" mode="1" count="307" free="298" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="420 251.1,483 224.5,511 298,430.5 298" style="fill: #00BFFF; stroke:#000000; stroke-width: 1;" />
+        <text x="453" y="270.69" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">B2</tspan>
+        </text>
+    </g>
+    <g id="12" mode="1" count="306" free="306" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="430.5 301.5,511 301.5,483 375,420 347" style="fill: #00BFFF; stroke:#000000; stroke-width: 1;" />
+        <text x="453" y="347.69" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">B3</tspan>
+        </text>
+    </g>
+    <g id="13" mode="1" count="300" free="300" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="416.5 350.5,483 378.5,423.5 420.5,378 375" style="fill: #CC66FF; stroke:#000000; stroke-width: 1;" />
+        <text x="418" y="395.29" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">B4</tspan>
+        </text>
+    </g>
+    <g id="14" mode="1" count="284" free="284" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="510.3 94.3,571.2 184.6,515.2 208.4,450.8 153.1" style="fill: #CCFFFF; stroke:#000000; stroke-width: 1;" />
+        <text x="493" y="160.79" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">B21</tspan>
+        </text>
+    </g>
+    <g id="15" mode="1" count="200" free="200" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="518 211.9,572.6 188.8,588.7 239.2,594.3 297.3,547.4 297.3,539.7 252.5" style="fill: #CCFFFF; stroke:#000000; stroke-width: 1;" />
+        <text x="539.3" y="252.02" style="font-family: Arial; font-size: 18px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">B22</tspan>
+        </text>
+    </g>
+    <g id="16" mode="1" count="187" free="187" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="548.1 302.2,594.3 302.2,588.7 359.6,572.6 410,518.7 386.9,541.1 342.8" style="fill: #CCFFFF; stroke:#000000; stroke-width: 1;" />
+        <text x="540" y="365.42" style="font-family: Arial; font-size: 18px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">B23</tspan>
+        </text>
+    </g>
+    <g id="17" mode="1" count="287" free="287" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="515.2 391.1,571.2 414.2,509.6 505.9,451.5 446.4" style="fill: #CCFFFF; stroke:#000000; stroke-width: 1;" />
+        <text x="493" y="458.29" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">B24</tspan>
+        </text>
+    </g>
+    <g id="18" mode="1" count="213" free="213" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="276.5 447.1,322 447.1,318.5 424,280 424" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="286.4" y="444.99" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">C0</tspan>
+        </text>
+    </g>
+    <g id="19" mode="1" count="390" free="390" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="338.8 386.9,374.5 377.1,419.3 421.9,361.2 440.8" style="fill: #7B68EE; stroke:#000000; stroke-width: 1;" />
+        <text x="366.2" y="418.39" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">C1</tspan>
+        </text>
+    </g>
+    <g id="20" mode="1" count="185" free="185" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="322 424,347.9 417,357.7 441.5,325.5 447.1" style="fill: #FF9933; stroke:#000000; stroke-width: 1;" />
+    </g>
+    <text x="327" y="437.96" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+        <tspan style="font-weight: bold;">C2</tspan>
+    </text>
+    <g id="21" mode="1" count="181" free="181" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="254.1 416.3,276.5 423.3,273 447.1,244.3 441.5" style="fill: #FF9933; stroke:#000000; stroke-width: 1;" />
+    </g>
+    <text x="251.4" y="437.96" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+        <tspan style="font-weight: bold;">C3</tspan>
+    </text>
+    <g id="22" mode="1" count="398" free="398" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="226.1 377.1,262.5 385.5,239.4 440.8,182 421.2" style="fill: #7B68EE; stroke:#000000; stroke-width: 1;" />
+        <text x="209.4" y="418.39" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">C4</tspan>
+        </text>
+    </g>
+    <g id="23" mode="1" count="489" free="489" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="376.6 475.8,445.9 449.2,506.1 508.7,415.1 569.6" style="fill: #CCFFFF; stroke:#000000; stroke-width: 1;" />
+        <text x="423" y="519.19" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">C21</tspan>
+        </text>
+    </g>
+    <g id="24" mode="1" count="591" free="591" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="303.1 484.2,371 476.5,410.9 571,303.1 593.4" style="fill: #FFFFCC; stroke:#000000; stroke-width: 1;" />
+        <text x="339" y="544.39" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">C22</tspan>
+        </text>
+    </g>
+    <g id="25" mode="1" count="599" free="599" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="229.6 477.2,298.2 484.2,298.2 592.7,190.4 571.7" style="fill: #FFFFCC; stroke:#000000; stroke-width: 1;" />
+        <text x="226.3" y="544.39" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">C23</tspan>
+        </text>
+    </g>
+    <g id="26" mode="1" count="547" free="547" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="154.7 449.2,224.7 475.1,186.2 569.6,94.5 508.7" style="fill: #CCFFFF; stroke:#000000; stroke-width: 1;" />
+        <text x="141.6" y="519.19" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">C24</tspan>
+        </text>
+    </g>
+    <g id="27" mode="1" count="200" free="200" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="119.7 376.4,184.8 349.8,221.9 375,177.1 419.8" style="fill: #99FFCC; stroke:#000000; stroke-width: 1;" />
+        <text x="158.3" y="394.59" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">D1</tspan>
+        </text>
+    </g>
+    <g id="28" mode="1" count="405" free="405" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="88.9 302.2,170.1 302.2,182.7 345.6,116.9 372.9" style="fill: #00BFFF; stroke:#000000; stroke-width: 1;" />
+        <text x="123.3" y="346.99" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">D2</tspan>
+        </text>
+    </g>
+    <g id="29" mode="1" count="428" free="428" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="117.6 225.9,182.7 252.5,170.1 298,88.2 298" style="fill: #00BFFF; stroke:#000000; stroke-width: 1;" />
+        <text x="122.6" y="271.39" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">D3</tspan>
+        </text>
+    </g>
+    <g id="30" mode="1" count="226" free="226" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="120.4 222.4,177.1 179.7,221.9 223.8,184.8 249.7" style="fill: #99FFCC; stroke:#000000; stroke-width: 1;" />
+        <text x="158.3" y="224.49" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">D4</tspan>
+        </text>
+    </g>
+    <g id="31" mode="1" count="291" free="291" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="86.1 390.4,149.8 446.4,91.7 505.2,30.1 414.2" style="fill: #CCFFFF; stroke:#000000; stroke-width: 1;" />
+        <text x="71.6" y="457.59" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">D21</tspan>
+        </text>
+    </g>
+    <g id="32" mode="1" count="207" free="207" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="7 302.2,53.9 302.2,61.6 346.3,82.6 386.9,29.4 410,11.9 356.8" style="fill: #CCFFFF; stroke:#000000; stroke-width: 1;" />
+        <text x="28.3" y="365.42" style="font-family: Arial; font-size: 18px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">D22</tspan>
+        </text>
+    </g>
+    <g id="33" mode="1" count="175" free="175" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="7 298,53.9 298,61.6 251.1,83.3 211.9,28.7 189.5,12.6 239.9" style="fill: #CCFFFF; stroke:#000000; stroke-width: 1;" />
+        <text x="28.3" y="252.72" style="font-family: Arial; font-size: 18px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">D23</tspan>
+        </text>
+    </g>
+    <g id="34" mode="1" count="293" free="293" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="30.1 184.6,86.1 208.4,149.8 152.4,91.7 93.6" style="fill: #CCFFFF; stroke:#000000; stroke-width: 1;" />
+        <text x="71.6" y="160.79" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">D24</tspan>
+        </text>
+    </g>
+    <g id="35" mode="1" count="248" free="248" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="224 235,224 253.2,378 253.2,378 235" style="fill: #339966; stroke:#000000; stroke-width: 1;" />
+        <text x="287.5" y="253.89" style="font-family: Arial; font-size: 19px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">АП</tspan>
+        </text>
+    </g>
+    <g id="36" mode="1" count="224" free="224" price_min="2" price_max="2" free_min="2" free_max="2">
+        <rect width="20" height="69" x="392.5" y="270.5" style="fill: #99CC99; stroke:#000000; stroke-width: 1;" />
+        <text x="395" y="311.48" style="font-family: Arial; font-size: 12px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">B0</tspan>
+        </text>
+    </g>
+    <g id="37" mode="1" count="124" free="124" price_min="2" price_max="2" free_min="2" free_max="2">
+        <rect width="20" height="69" x="189.5" y="270.5" style="fill: #99CC99; stroke:#000000; stroke-width: 1;" />
+        <text x="192" y="311.48" style="font-family: Arial; font-size: 12px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">D0</tspan>
+        </text>
+    </g>
+    <g id="38" mode="1" count="78" free="78" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="259 188.1,298.2 182.5,298.2 210.5,267.4 212.6" style="fill: #FF6666; stroke:#000000; stroke-width: 1;" />
+        <text x="266.1" y="204.16" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">A2c</tspan>
+        </text>
+    </g>
+    <g id="39" mode="1" count="84" free="84" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="304.5 210.5,304.5 182.5,343 188.1,333.9 213.3" style="fill: #FF6666; stroke:#000000; stroke-width: 1;" />
+        <text x="310.9" y="204.86" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">A3c</tspan>
+        </text>
+    </g>
+    <g id="40" mode="1" count="126" free="126" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="304.5 396,332.5 389,343.7 413.5,304.5 419.1" style="fill: #FF6666; stroke:#000000; stroke-width: 1;" />
+        <text x="311.1" y="410.66" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">C2c</tspan>
+        </text>
+    </g>
+    <g id="41" mode="1" count="126" free="126" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="268.1 388.3,297.5 395.3,297.5 419.1,258.3 413.5" style="fill: #FF6666; stroke:#000000; stroke-width: 1;" />
+        <text x="264.9" y="410.66" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">C3c</tspan>
+        </text>
+    </g>
+    <g id="42" mode="1" count="51" free="51" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="212.1 132.8,267.4 120.9,272.3 146.8,224.7 155.2" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="227.2" y="144.66" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">VIP3</tspan>
+        </text>
+    </g>
+    <g id="43" mode="1" count="32" free="32" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="272.3 120.2,326.9 120.9,323.4 147.5,277.2 146.8" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="284.6" y="140.46" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">VIP2</tspan>
+        </text>
+    </g>
+    <g id="44" mode="1" count="16" free="16" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="333.2 120.9,389.9 133.5,377.3 156.6,328.3 146.8" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="344.1" y="145.36" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">VIP1</tspan>
+        </text>
+    </g>
+    <g id="45" mode="1" count="13" free="13" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="398.3 136.3,417.9 144,402.5 163.6,385 158" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="397.1" y="156.56" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">1</tspan>
+        </text>
+    </g>
+    <g id="46" mode="1" count="13" free="13" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="422.1 145.4,441.7 155.2,424.2 173.4,406.7 165" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="420.2" y="166.36" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">2</tspan>
+        </text>
+    </g>
+    <g id="47" mode="1" count="14" free="14" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="446.6 157.3,465.5 169.9,445.9 185.3,428.4 174.8" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="442.6" y="178.26" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">3</tspan>
+        </text>
+    </g>
+    <g id="48" mode="1" count="15" free="15" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="469.7 172,488.6 188.1,467.6 200.7,448.7 188.1" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="464.3" y="192.96" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">4</tspan>
+        </text>
+    </g>
+    <g id="49" mode="1" count="15" free="15" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="471.8 203.5,492.8 191.6,509.6 210.5,487.2 220.3" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="486.7" y="212.56" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">5</tspan>
+        </text>
+    </g>
+    <g id="50" mode="1" count="17" free="17" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="490.7 223.8,512.4 214.7,525.7 237.1,503.3 242.7" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="504.2" y="235.66" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">6</tspan>
+        </text>
+    </g>
+    <g id="51" mode="1" count="17" free="17" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="506.1 247.6,527.8 241.3,537.6 265.8,514.5 269.3" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="517.5" y="262.26" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">7</tspan>
+        </text>
+    </g>
+    <g id="52" mode="1" count="17" free="17" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="515.9 273.5,538.3 271.4,541.1 298,518.7 298" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="524.5" y="291.66" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">8</tspan>
+        </text>
+    </g>
+    <g id="53" mode="1" count="17" free="17" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="518.7 302.2,541.1 302.2,538.3 328.1,515.9 325.3" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="524.5" y="321.76" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">9</tspan>
+        </text>
+    </g>
+    <g id="54" mode="1" count="17" free="17" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="515.2 330.9,536.9 333.7,527.8 358.2,506.1 351.9" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="513.5" y="351.16" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">10</tspan>
+        </text>
+    </g>
+    <g id="55" mode="1" count="17" free="17" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="503.3 356.8,525.7 362.4,511.7 384.1,490.7 375.7" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="500.2" y="377.06" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">11</tspan>
+        </text>
+    </g>
+    <g id="56" mode="1" count="15" free="15" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="487.2 379.2,508.9 389,492.8 406.5,471.8 395.3" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="482" y="399.46" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">12</tspan>
+        </text>
+    </g>
+    <g id="57" mode="1" count="15" free="15" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="467.6 398.8,487.9 411.4,470.4 426.1,450.8 411.4" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="461" y="419.06" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">13</tspan>
+        </text>
+    </g>
+    <g id="58" mode="1" count="14" free="14" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="445.9 414.9,464.8 428.9,445.9 441.5,428.4 424" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="438.6" y="435.16" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">14</tspan>
+        </text>
+    </g>
+    <g id="59" mode="1" count="14" free="14" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="424.2 426.1,441 443.6,422.1 453.4,406.7 433.8" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="415.5" y="446.36" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">15</tspan>
+        </text>
+    </g>
+    <g id="60" mode="1" count="13" free="13" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="401.8 435.9,417.2 455.5,398.3 462.5,387.1 441.5" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="393.8" y="456.16" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">16</tspan>
+        </text>
+    </g>
+    <g id="61" mode="1" count="16" free="16" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="380.1 442.9,392 464.6,373.8 469.5,364.7 447.1" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="370" y="463.16" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">17</tspan>
+        </text>
+    </g>
+    <g id="62" mode="1" count="16" free="16" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="343 450.6,359.1 447.8,368.2 470.2,349.3 474.4" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="347.6" y="468.06" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">18</tspan>
+        </text>
+    </g>
+    <g id="63" mode="1" count="16" free="16" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="324.1 452,337.4 452,343.7 475.8,326.2 476.5" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="326.9" y="470.38" style="font-family: Arial; font-size: 12px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">19</tspan>
+        </text>
+    </g>
+    <g id="64" mode="1" count="32" free="32" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="282.8 452,318.5 452,321.3 477.2,279.3 477.2" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="292.3" y="471.56" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">20</tspan>
+        </text>
+    </g>
+    <g id="65" mode="1" count="16" free="16" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="261.8 452,277.9 452,274.4 477.2,256.2 475.8" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="259.7" y="471.08" style="font-family: Arial; font-size: 12px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">21</tspan>
+        </text>
+    </g>
+    <g id="66" mode="1" count="16" free="16" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="242.2 447.8,257.6 450.6,250.6 473.7,233.1 470.2" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="238" y="466.88" style="font-family: Arial; font-size: 12px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">22</tspan>
+        </text>
+    </g>
+    <g id="67" mode="1" count="16" free="16" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="220.5 442.9,237.3 446.4,228.2 469.5,207.9 463.9" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="215.6" y="462.68" style="font-family: Arial; font-size: 12px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">23</tspan>
+        </text>
+    </g>
+    <g id="68" mode="1" count="13" free="13" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="198.8 435.9,215.6 440.8,203 462.5,184.1 455.5" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="192.5" y="455.68" style="font-family: Arial; font-size: 12px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">24</tspan>
+        </text>
+    </g>
+    <g id="69" mode="1" count="14" free="14" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="177.1 426.1,193.9 433.8,179.2 453.4,159.6 443.6" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="169.4" y="445.88" style="font-family: Arial; font-size: 12px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">25</tspan>
+        </text>
+    </g>
+    <g id="70" mode="1" count="14" free="14" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="155.4 414.2,172.2 424,154.7 441.5,135.8 428.9" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="146" y="434.46" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">26</tspan>
+        </text>
+    </g>
+    <g id="71" mode="1" count="15" free="15" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="133.7 398.8,150.5 411.4,131.6 426.1,112.7 410.7" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="123.6" y="419.06" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">27</tspan>
+        </text>
+    </g>
+    <g id="72" mode="1" count="15" free="15" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="114.1 379.2,129.5 394.6,108.5 407.2,91.7 389" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="102.6" y="400.16" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">28</tspan>
+        </text>
+    </g>
+    <g id="73" mode="1" count="17" free="17" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="98 356.1,112 374.3,88.9 384.8,74.2 363.8" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="85.1" y="377.06" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">29</tspan>
+        </text>
+    </g>
+    <g id="74" mode="1" count="17" free="17" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="85.4 330.2,96.6 351.9,73.5 358.9,63 337.9" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="71.8" y="351.16" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">30</tspan>
+        </text>
+    </g>
+    <g id="75" mode="1" count="17" free="17" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="63.7 305,84.7 300.8,83.3 326.7,62.3 332.3" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="65.5" y="323.16" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">31</tspan>
+        </text>
+    </g>
+    <g id="76" mode="1" count="17" free="17" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="63.7 273.5,86.1 270,86.1 296.6,63.7 299.4" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="66.9" y="291.66" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">32</tspan>
+        </text>
+    </g>
+    <g id="77" mode="1" count="17" free="17" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="74.9 241.3,94.5 242,87.5 265.8,67.9 266.5" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="74.2" y="260.38" style="font-family: Arial; font-size: 12px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">33</tspan>
+        </text>
+    </g>
+    <g id="78" mode="1" count="17" free="17" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="90.3 212.6,109.9 220.3,94.5 239.9,77 234.3" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="85.1" y="232.86" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">34</tspan>
+        </text>
+    </g>
+    <g id="79" mode="1" count="15" free="15" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="109.9 190.2,131.6 202.1,115.5 219.6,94.5 208.4" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="104.7" y="211.86" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">35</tspan>
+        </text>
+    </g>
+    <g id="80" mode="1" count="15" free="15" price_min="2" price_max="2" free_min="2" free_max="2">
+        <polygon points="133.7 172,153.3 185.3,137.2 200,116.2 187.4" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="126.4" y="192.96" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">36</tspan>
+        </text>
+    </g>
+    <g id="81" mode="1" count="14" free="14" price_min="3" price_max="3" free_min="3" free_max="3">
+        <polygon points="154.7 154.5,174.3 171.3,158.2 182.5,137.2 169.9" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="147.4" y="175.46" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">37</tspan>
+        </text>
+    </g>
+    <g id="82" mode="1" count="13" free="13" price_min="3" price_max="3" free_min="3" free_max="3">
+        <polygon points="182 144,198.8 161.5,179.9 169.9,164.5 151.7" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="173.3" y="163.56" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">38</tspan>
+        </text>
+    </g>
+    <g id="83" mode="1" count="13" free="13" price_min="3" price_max="3" free_min="3" free_max="3">
+        <polygon points="205.1 134.9,220.5 154.5,201.6 161.5,190.4 140.5" style="fill: #66CC66; stroke:#000000; stroke-width: 1;" />
+        <text x="197.1" y="155.16" style="font-family: Arial; font-size: 14px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">39</tspan>
+        </text>
+    </g>
+    <g id="84" mode="1" count="16" free="16" price_min="3" price_max="3" free_min="3" free_max="3">
+        <polygon points="274.4 359.6,274.4 371.5,328.3 371.5,328.3 359.6" style="fill: #339966; stroke:#000000; stroke-width: 1;" />
+        <text x="276.5" y="369.79" style="font-family: Arial; font-size: 9px; stroke: none; fill: #000000;">
+            <tspan style="font-weight: bold;">Hollywood</tspan>
+        </text>
+    </g>
+</svg>
 </body>
 </html>

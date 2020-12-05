@@ -254,7 +254,7 @@ class ApiRepository: Repository {
 
     override fun getEventSectorSeats(
         eventId: Int,
-        sectorId: Int,
+        sectorId: String?,
         areaId: Int,
         type: String?,
         accessToken: String
@@ -285,6 +285,8 @@ class ApiRepository: Repository {
         sid: String,
         accessToken: String
     ): Observable<ResponseBody> {
-        return mAPI.addToCart(eventId, areaId, sid, accessToken)
+        val sidValue = Sid()
+        sidValue.sid = sid
+        return mAPI.addToCart(eventId, areaId, sidValue, accessToken)
     }
 }

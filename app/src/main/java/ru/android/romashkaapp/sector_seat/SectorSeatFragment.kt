@@ -5,9 +5,11 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -16,21 +18,32 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_sector.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.adapter.helpers.SwipeRemoveActionCallback
 import ru.android.romashkaapp.adapter.helpers.SwipeRemoveItemDecoration
 import ru.android.romashkaapp.databinding.FragmentSectorBinding
 import ru.android.romashkaapp.sector_seat.adapter.AnimationOnLastItemAdapter
+import ru.android.romashkaapp.stadium.StadiumFragment
 
 /**
  * Created by yasina on 15.10.2020.
  * Copyright (c) 2020 Infomatica. All rights reserved.
  */
 class SectorSeatFragment : Fragment() {
+
+    companion object{
+        val AREA_ID = "AREA_ID"
+        val SECTOR_ID = "SECTOR_ID"
+    }
 
     lateinit var binding: FragmentSectorBinding
     private val viewModel: SectorSeatViewModel by viewModels()
@@ -45,7 +58,7 @@ class SectorSeatFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sector, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -60,6 +73,13 @@ class SectorSeatFragment : Fragment() {
         background = ColorDrawable(ContextCompat.getColor(requireContext(), android.R.color.darker_gray))
         icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_delete)
 
+        requireArguments().containsKey(StadiumFragment.EVENT_ID).let {
+            viewModel.getSeats(requireArguments().getInt(StadiumFragment.EVENT_ID),
+                requireArguments().getInt(AREA_ID),
+                requireArguments().getString(SECTOR_ID)
+            )
+        }
+
         binding.apply {
             rv_cart_items.adapter = adapter
             rv_cart_items.layoutManager = LinearLayoutManager(context)
@@ -72,7 +92,7 @@ class SectorSeatFragment : Fragment() {
         }
 
         viewModel.list.observe(viewLifecycleOwner, {
-            adapter.updateList(it)
+//            adapter.updateList(it)
         })
 
         swipeItemTouchHelper = ItemTouchHelper(
@@ -96,12 +116,12 @@ class SectorSeatFragment : Fragment() {
         wv_stadium.settings.builtInZoomControls = true
         wv_stadium.settings.displayZoomControls = false
         wv_stadium.setBackgroundColor(Color.TRANSPARENT)
-//        wv_stadium.addJavascriptInterface(AndroidJSInterface, "Android")
+        wv_stadium.addJavascriptInterface(AndroidJSInterface(), "Android")
 
         wv_stadium.settings.loadWithOverviewMode = true
         wv_stadium.settings.useWideViewPort = true
 
-        wv_stadium.loadUrl("file:///android_asset/www/sector203.svg")
+        //wv_stadium.loadUrl("file:///android_asset/www/sector203.svg")
 
         binding.viewModel?.zoomView!!.observe(viewLifecycleOwner, Observer {
             if(it){
@@ -143,6 +163,16 @@ class SectorSeatFragment : Fragment() {
 
     private fun loadJs(webView: WebView) {
         webView.requestFocus()
+    }
+
+    class AndroidJSInterface() {
+
+        @JavascriptInterface
+        fun onClicked(id: String?) {
+            Log.d("TAG12345", "Clicked id=$id")
+
+
+        }
     }
 
 }

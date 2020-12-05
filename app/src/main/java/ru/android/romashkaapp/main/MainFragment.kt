@@ -82,7 +82,7 @@ class MainFragment : Fragment() {
     private fun setFragment(fragment: Fragment){
         val transaction = childFragmentManager.beginTransaction()
         transaction.add(R.id.nav_main_fragment, fragment)
-        transaction.addToBackStack(null) //fragment::class.java.name
+        transaction.addToBackStack(null)
         transaction.commit()
     }
 

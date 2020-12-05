@@ -93,8 +93,7 @@
         <item>@string/november</item>
         <item>@string/december</item>
     </string-array>
-    <string name="choose_price_title">Выберите цену, чтобы увидеть места
-        на плане с выбранной ценой</string>
+    <string name="choose_price_title">Выберите цену, чтобы увидеть места\nна плане с выбранной ценой</string>
     <string name="apply">Применить</string>
     <string name="wrong_email_format">Неправильный адрес почты</string>
     <string name="wrong_password_format">Неправильный пароль почты</string>
@@ -109,5 +108,6 @@
     <string name="main_game">Главная игра этого сезона</string>
     <string name="events_not_found_title">Матчи не найдены</string>
     <string name="events_not_found_text">По данному запросу матчей нет.\nПопробуйте изменить фильтры.</string>
+    <string name="zone_price">%s ₽, свободно %s мест</string>
 
 </resources>

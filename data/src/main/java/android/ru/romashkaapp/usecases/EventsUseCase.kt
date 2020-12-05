@@ -78,7 +78,7 @@ class EventsUseCase(
     }
 
     fun <S> getEventSectorSeats(eventId: Int,
-                                sectorId: Int,
+                                sectorId: String?,
                                 areaId: Int,
                                 type: String?, useCaseDisposable: S) where S : Observer<MutableList<SeatModel>>?, S : Disposable {
         mRepository.getEventSectorSeats(eventId, sectorId, areaId, type, mAccessToken)

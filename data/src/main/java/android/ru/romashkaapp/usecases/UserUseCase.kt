@@ -32,10 +32,10 @@ class UserUseCase(
             .subscribeWith(useCaseDisposable)
     }
 
-    fun <S> getClientToken(clientId: String?,
-                        clientSecret: String?,
-                        grantType: String?, username: String?, password: String?, useCaseDisposable: S) where S : Observer<in ClientTokenResponse>?, S : Disposable {
-        mRepository.getClientToken(ClientToken(clientId, clientSecret, grantType, username, password))
+    fun <S> getClientToken(clientId: String?, clientSecret: String?,
+                        grantType: String?, username: String?, password: String?, scope:String?,
+                        useCaseDisposable: S) where S : Observer<in ClientTokenResponse>?, S : Disposable {
+        mRepository.getClientToken(ClientToken(clientId, clientSecret, grantType, username, password, scope))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)

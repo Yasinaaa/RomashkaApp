@@ -22,10 +22,12 @@ class Utils {
         val GRANT_TYPE = "client_credentials"
         val GRANT_TYPE_PASSWORD = "password"
         val ACCESS_TOKEN = "ACCESS_TOKEN"
+        val USER_LOGINED = "USER_LOGINED"
         val FIRST_OPEN = "FIRST_OPEN"
 
         val CLIENT_ID_USER = "user"
         val CLIENT_SECRET_USER =  "YOl_BXKysP9QhGmzea"
+        val CLIENT_SCOPES = "get_events get_noms get_areas get_dictionaries crud_carts get_personal_orders"
         
         fun hideKeyboardFrom(context: Context, view: View) {
             val imm: InputMethodManager =
@@ -55,12 +57,26 @@ class Utils {
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
             val editor = preferences.edit()
             editor.putString(ACCESS_TOKEN, accessToken)
+            editor.putBoolean(USER_LOGINED, false)
+            editor.apply()
+        }
+
+        fun saveUserToken(context: Context, accessToken: String?){
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            val editor = preferences.edit()
+            editor.putString(ACCESS_TOKEN, accessToken)
+            editor.putBoolean(USER_LOGINED, true)
             editor.apply()
         }
 
         fun getAccessToken(context: Context): String?{
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
             return preferences.getString(ACCESS_TOKEN, null)
+        }
+
+        fun isUserLogined(context: Context): Boolean{
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return preferences.getBoolean(USER_LOGINED, false)
         }
     }
 }

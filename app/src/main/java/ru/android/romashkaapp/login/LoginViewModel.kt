@@ -32,12 +32,12 @@ class LoginViewModel(application: Application) : BaseViewModel(application), Vie
 
     init {
         userUseCase = UserUseCase(StartActivity.REPOSITORY, Utils.getAccessToken(application.applicationContext)!!)
-//        createUser()
+        createUser()
     }
 
     fun createUser(){
         var user = UserRequestModel()
-        user.email = "blablaradik@gmail.com"
+        user.email = "radi12k@gmail.com"
         user.phone = "11111111111"
         user.second = "second"
         user.first = "first"
@@ -62,6 +62,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application), Vie
                 grantType = Utils.GRANT_TYPE_PASSWORD,
                 username = "bla435@gmail.com",
                 password = "3435gfdd",
+                scope = Utils.CLIENT_SCOPES,
                 ClientTokenSubscriber())
         }
     }
@@ -75,7 +76,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application), Vie
         override fun onNext(response: ClientTokenResponse) {
             super.onNext(response)
             Log.d("ffd", "ss=$response")
-            Utils.saveAccessToken(context, response.access_token)
+            Utils.saveUserToken(context, response.access_token)
         }
     }
 

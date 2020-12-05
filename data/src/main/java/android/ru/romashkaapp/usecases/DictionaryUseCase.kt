@@ -3,6 +3,7 @@ package android.ru.romashkaapp.usecases
 import android.annotation.SuppressLint
 import android.ru.romashkaapp.data.net.repository.ApiRepository
 import android.ru.romashkaapp.models.*
+import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -48,7 +49,9 @@ class DictionaryUseCase(
     }
 
     fun <S> getNoms(last: String?, limit: String?, useCaseDisposable: S) where S : Observer<in MutableList<NomModel>>?, S : Disposable {
-        mRepository.getNoms(mAccessToken, last, limit)
+        var observer: Observable<MutableList<NomModel>>? = null
+        observer = mRepository.getNoms(mAccessToken, last, limit)
+        observer!!
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)

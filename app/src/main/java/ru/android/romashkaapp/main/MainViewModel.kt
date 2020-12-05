@@ -1,36 +1,17 @@
 package ru.android.romashkaapp.main
 
-import android.Manifest
 import android.app.Application
-import android.content.Context
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.os.Environment
-import android.os.SystemClock
-import android.ru.romashkaapp.data.net.api.API
-import android.ru.romashkaapp.data.net.repository.ApiRepository
+import android.os.Bundle
 import android.ru.romashkaapp.models.*
 import android.ru.romashkaapp.usecases.DictionaryUseCase
-import android.ru.romashkaapp.usecases.EventsUseCase
 import android.ru.romashkaapp.usecases.OrderUseCase
 import android.ru.romashkaapp.usecases.UserUseCase
 import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 import ru.android.romashkaapp.BaseSubscriber
-import ru.android.romashkaapp.BuildConfig
-import ru.android.romashkaapp.StartActivity
 import ru.android.romashkaapp.StartActivity.Companion.REPOSITORY
 import ru.android.romashkaapp.afisha.AfishaFragment
 import ru.android.romashkaapp.base.BaseViewModel
@@ -41,11 +22,7 @@ import ru.android.romashkaapp.utils.Utils.Companion.CLIENT_ID
 import ru.android.romashkaapp.utils.Utils.Companion.CLIENT_SECRET
 import ru.android.romashkaapp.utils.Utils.Companion.GRANT_TYPE
 import ru.android.romashkaapp.utils.Utils.Companion.saveAccessToken
-import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStreamWriter
-import java.io.PrintWriter
-import java.util.concurrent.TimeUnit
+import ru.android.romashkaapp.utils.Utils.Companion.saveUserToken
 
 /**
  * Created by yasina on 01.10.2020.
@@ -57,7 +34,7 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
         TODO("Not yet implemented")
     }
 
-    private var usecase: UserUseCase? = null
+    private var userUseCase: UserUseCase? = null
     private var dictionaryUseCase: DictionaryUseCase? = null
 
     private var orderUseCase: OrderUseCase? = null
@@ -66,7 +43,7 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
     val bottomBar = MutableLiveData<Boolean>()
     var accessToken: String? = null
 
-    fun skipNavigationBar(){
+    fun hideNavigationBar(){
         bottomBar.value = false
     }
 
@@ -75,10 +52,23 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
     }
 
     init{
-        usecase = UserUseCase(REPOSITORY, Utils.getAccessToken(application.applicationContext))
+        userUseCase = UserUseCase(REPOSITORY, Utils.getAccessToken(application.applicationContext))
         //step 1
-        usecase!!.getAppToken(clientId = CLIENT_ID, clientSecret = CLIENT_SECRET, grantType = GRANT_TYPE, AppTokenSubscriber())
-
+//        if(!Utils.isUserLogined(application.applicationContext)) {
+//            userUseCase!!.getAppToken(
+//                clientId = CLIENT_ID,
+//                clientSecret = CLIENT_SECRET,
+//                grantType = GRANT_TYPE,
+//                AppTokenSubscriber()
+//            )
+//        }else{
+            userUseCase!!.getClientToken(clientId = Utils.CLIENT_ID_USER, clientSecret = Utils.CLIENT_SECRET_USER,
+                grantType = Utils.GRANT_TYPE_PASSWORD,
+                username = "bla435@gmail.com",
+                password = "3435gfdd",
+                scope = Utils.CLIENT_SCOPES,
+                ClientTokenSubscriber())
+//        }
 
         orderUseCase = OrderUseCase(REPOSITORY, Utils.getAccessToken(application.applicationContext))
 //        dictionaryUseCase = DictionaryUseCase(REPOSITORY)
@@ -90,19 +80,14 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
         createFragment.value = fragment
     }
 
-    fun setSectorFragment(){
-        var fragment = SectorSeatFragment()
-//        fragment.setViewModel(this)
+    fun setStadiumFragment(bundle: Bundle){
+        var fragment = MatchesFragment()
+        fragment.arguments = bundle
+        fragment.setViewModel(this)
         createFragment.value = fragment
     }
 
     private inner class AppTokenSubscriber: BaseSubscriber<AppTokenResponse>() {
-        override fun onComplete() {
-            super.onComplete()
-//            usecase!!.getClientToken(clientId = "testclient", clientSecret = "testpass", grantType = "password",
-//                password = "Ls5112233", username = "aa@gmail.com", useCaseDisposable = ClientTokenSubscriber()
-//            )
-        }
 
         override fun onError(e: Throwable) {
             super.onError(e)
@@ -130,9 +115,13 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
 
         override fun onNext(response: ClientTokenResponse) {
             super.onNext(response)
-            Log.d("ffd", "ss=$response")
-            usecase!!.getUsers(response.access_token!!, AllUsersSubscriber())
-            accessToken = response.access_token
+
+            Log.d("ffd", "ss=${response.access_token}")
+            saveUserToken(context, response.access_token)
+
+            var fragment = AfishaFragment()
+            fragment.setViewModel(this@MainViewModel)
+            createFragment.value = fragment
         }
     }
 
@@ -153,7 +142,7 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
             var user = UserModel()
             user.photo = "R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
 
-            usecase!!.editUser(id, user, PatchUserSubscriber())
+            userUseCase!!.editUser(id, user, PatchUserSubscriber())
         }
     }
 
@@ -370,28 +359,6 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
         override fun onNext(response: MutableList<OrderModel>) {
             super.onNext(response)
             Log.d("ffd", "OrdersSubscriber")
-        }
-    }
-
-    fun saveSvgToLocal(context: Context){
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(context, "please grant write file permission and trya gain", Toast.LENGTH_SHORT).show()
-        } else {
-//            val dir = File(Environment.getExternalStorageDirectory(), "dataset")
-//            val file = File(dir, "sector_${SystemClock.currentThreadTimeMillis()}.svg")
-//            try {
-//                // response is the data written to file
-//                PrintWriter(file).use { out -> out.println("gdsgds") }
-//            } catch (e: Exception) {
-//                // handle the exception
-//            }
-            val path = context.getExternalFilesDir(null)
-            val letDirectory = File(path, "LET")
-            letDirectory.mkdirs()
-            val file = File(letDirectory, "Records.svg")
-            FileOutputStream(file).use {
-                it.write("record goes here".encodeToByteArray())
-            }
         }
     }
 }

@@ -1,30 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
-            name="viewModel"
-            type="android.ru.romashkaapp.models.EventModel" />
+            name="text"
+            type="String" />
+        <variable
+            name="isSelected"
+            type="Boolean" />
     </data>
-    <com.google.android.material.button.MaterialButton
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_event_championship_title"
-        android:textSize="14sp"
-        android:textColor="@android:color/black"
+        android:id="@+id/tv_title"
+        android:textSize="16sp"
+        android:textColor="@{isSelected ? @android:color/white : @android:color/black}"
         android:textAlignment="viewStart"
         android:textAllCaps="false"
-        android:backgroundTint="@color/grey"
-        android:text="АК Барс Арена"
+        android:background="@{isSelected ? @drawable/rectangle_blue_button : @drawable/rectangle_grey_button}"
+        android:text="@{text}"
+        tools:text="АК Барс Арена"
         android:fontFamily="@font/pfbeauaanspro_reg"
-        android:layout_marginTop="12dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
         android:paddingTop="6.5dp"
         android:paddingEnd="12dp"
         android:paddingStart="12dp"
         android:paddingBottom="6.5dp"
+        android:layout_marginTop="12dp"
+        app:cornerRadius="1dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="@color/grey_15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
 </layout>

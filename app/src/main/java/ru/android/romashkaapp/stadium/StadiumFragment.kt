@@ -10,19 +10,22 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.webkit.JavascriptInterface
-import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_stadium.*
+import kotlinx.android.synthetic.main.fragment_stadium.cl_bottomsheet
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.databinding.FragmentStadiumBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import ru.android.romashkaapp.main.MainViewModel
+import ru.android.romashkaapp.sector_seat.SectorSeatFragment.Companion.AREA_ID
+import ru.android.romashkaapp.sector_seat.SectorSeatFragment.Companion.SECTOR_ID
+import ru.android.romashkaapp.stadium.adapters.PricesAdapter
 
 /**
  * Created by yasina on 15.10.2020.
@@ -30,34 +33,34 @@ import kotlinx.coroutines.launch
  */
 class StadiumFragment : Fragment(){
 
-    lateinit var binding: FragmentStadiumBinding
-    private val viewModel: StadiumViewModel by viewModels()
-
     companion object{
         val EVENT_ID = "EVENT_ID"
         val CHAMPIONSHIP_TITLE = "CHAMPIONSHIP_TITLE"
     }
 
-    class AndroidJSInterface(f: StadiumFragment) {
+    lateinit var binding: FragmentStadiumBinding
+    private val viewModel: StadiumViewModel by viewModels()
+    private var jsInterface: AndroidJSInterface? = null
+    private var pricesAdapter: PricesAdapter? = null
+    private lateinit var mainViewModel: MainViewModel
+    private var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>? = null
 
-        private var fr: StadiumFragment? = f
+    fun setViewModel(viewModel: MainViewModel){
+        this.mainViewModel = viewModel
+        jsInterface!!.mainViewModel = viewModel
+        mainViewModel.hideNavigationBar()
+    }
+
+    class AndroidJSInterface {
+
+        var mainViewModel: MainViewModel? = null
+        var eventId: Int? = null
+        var areaId: Int? = null
 
         @JavascriptInterface
         fun onClicked(id: String?) {
             Log.d("TAG12345", "Clicked id=$id")
-
-            GlobalScope.launch {
-                launch(Dispatchers.Main) {
-                    findNavController(fr!!).navigate(
-                        R.id.nav_sector_seats,
-                        null,
-                        NavOptions.Builder().setPopUpTo(
-                            R.id.nav_stadium,
-                            true
-                        ).build()
-                    )
-                }
-            }
+            mainViewModel!!.setStadiumFragment(bundleOf(EVENT_ID to eventId, AREA_ID to areaId, SECTOR_ID to id))
         }
     }
 
@@ -77,28 +80,23 @@ class StadiumFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        jsInterface = AndroidJSInterface()
+
         requireArguments().containsKey(EVENT_ID).let {
+            jsInterface!!.eventId = requireArguments().getInt(EVENT_ID)
             viewModel.getEvent(requireArguments().getInt(EVENT_ID),
                 requireArguments().getString(CHAMPIONSHIP_TITLE))
         }
 
-        val webViewClient = object : WebViewClient() {
-            override fun onPageFinished(view: WebView, url: String) {
-                loadJs(view)
-            }
-        }
-
+        val webViewClient = WebViewClient()
         wv_stadium.webViewClient = webViewClient
         wv_stadium.settings.javaScriptEnabled = true
         wv_stadium.settings.builtInZoomControls = true
         wv_stadium.settings.displayZoomControls = false
         wv_stadium.setBackgroundColor(Color.TRANSPARENT)
-        wv_stadium.addJavascriptInterface(AndroidJSInterface(this), "Android")
 
         wv_stadium.settings.loadWithOverviewMode = true
         wv_stadium.settings.useWideViewPort = true
-
-        wv_stadium.loadUrl("file:///android_asset/www/kazan_arena.svg") //kazan_arena.svg
 
         binding.viewModel?.zoomView!!.observe(viewLifecycleOwner, {
            if(it){
@@ -118,15 +116,71 @@ class StadiumFragment : Fragment(){
             }
         })
 
+        binding.apply {
+            pricesAdapter = PricesAdapter(viewModel!!.getListener())
+            rv_full_prices.adapter = pricesAdapter
+            rv_full_prices.layoutManager = LinearLayoutManager(context)
+        }
 
-        binding.viewModel?.priceClick!!.observe(viewLifecycleOwner, {
-            var dialog = PriceFragment()
-            dialog.setViewModel(viewModel)
-            dialog.show(childFragmentManager, "")
+        binding.viewModel?.pricesList!!.observe(viewLifecycleOwner, {
+            cl_bottomsheet.visibility = VISIBLE
+            bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED
+
+            pricesAdapter!!.updateList(it)
+        })
+
+        binding.viewModel?.areaId!!.observe(viewLifecycleOwner, {
+            jsInterface!!.areaId = it
         })
 
         binding.viewModel?.svgArea!!.observe(viewLifecycleOwner, {
+            wv_stadium.addJavascriptInterface(jsInterface!!, "Android")
             wv_stadium.loadUrl(it)
+        })
+
+        initPricesView()
+    }
+
+    private fun initPricesView(){
+        bottomSheetBehavior = BottomSheetBehavior.from(cl_bottomsheet)
+        bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_HIDDEN
+        cl_bottomsheet.visibility = GONE
+
+        bottomSheetBehavior!!.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                // handle onSlide
+            }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when (newState) {
+                    BottomSheetBehavior.STATE_COLLAPSED -> {
+                        cl_bottomsheet.visibility = GONE
+                    }
+                    BottomSheetBehavior.STATE_EXPANDED -> {
+
+                    }
+                    BottomSheetBehavior.STATE_DRAGGING -> {
+
+                    }
+                    BottomSheetBehavior.STATE_SETTLING -> {
+
+                    }
+                }
+            }
+        })
+
+        bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_HIDDEN
+
+        binding.viewModel?.selectedItem!!.observe(viewLifecycleOwner, {
+            if (it) {
+                //todo set to main view
+                pricesAdapter!!.selectedItems
+                cl_bottomsheet.visibility = GONE
+                bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
+            }else{
+                pricesAdapter!!.resetSelectedItems()
+            }
         })
     }
 
@@ -137,16 +191,4 @@ class StadiumFragment : Fragment(){
         civ_logo2.visibility = v
     }
 
-    private fun loadJs(webView: WebView) {
-//        webView.loadUrl(
-//            """javascript:(function f() {
-//                    var sectors = document.querySelectorAll('g');
-//                    for (const sector of sectors) {
-//                      var sectorId = sector.getAttribute('sector_id');
-//                      sector.setAttribute('onclick', 'Android.onClicked(' + sectorId + ')');
-//                    }
-//                  })()"""
-//        )
-//        webView.requestFocus()
-    }
 }

@@ -1,6 +1,5 @@
 package ru.android.romashkaapp.matches
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.android.synthetic.main.fragment_basket.*
 import kotlinx.android.synthetic.main.fragment_matches.*
 import kotlinx.android.synthetic.main.fragment_matches.cl_bottomsheet
 
@@ -127,7 +125,7 @@ class MatchesFragment : Fragment(){
         mb_info.setOnClickListener {
             cl_bottomsheet.visibility = VISIBLE
             bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED
-            mainViewModel.skipNavigationBar()
+            mainViewModel.hideNavigationBar()
         }
 
         ib_back.setOnClickListener {
