@@ -15,6 +15,7 @@ import ru.android.romashkaapp.StartActivity.Companion.REPOSITORY
 import ru.android.romashkaapp.afisha.adapters.MatchesAdapter
 import ru.android.romashkaapp.base.BaseViewModel
 import ru.android.romashkaapp.stadium.ItemClickListener
+import ru.android.romashkaapp.stadium.adapters.FullPricesAdapter
 import ru.android.romashkaapp.utils.SvgFromXmlCreater.Companion.saveHtmlToLocal
 import ru.android.romashkaapp.utils.Utils
 import ru.android.romashkaapp.utils.parseTimeStamp
@@ -34,7 +35,7 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
     private var eventUseCase: EventsUseCase? = null
     private var dictionaryUseCase: DictionaryUseCase? = null
     private var orderUseCase: OrderUseCase? = null
-    val pricesList: MutableLiveData<MutableList<ZoneModel>> = MutableLiveData()
+    val pricesList: MutableLiveData<MutableList<FullPricesAdapter.FullZone>> = MutableLiveData()
     val zoomView = MutableLiveData<Boolean>()
     val title = MutableLiveData<String>()
     val time = MutableLiveData<String>()
@@ -75,7 +76,7 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
             title.value = response.name
             time.value = response.sdate.parseTimeStamp()
             championship.value = championshipTitle
-//            dictionaryUseCase!!.getHall(response.hall_id, HallSubscriber())
+
             eventUseCase!!.getEventAreas(response.id, AreasSubscriber())
         }
     }
@@ -121,19 +122,6 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
         }
     }
 
-    private inner class HallSubscriber: BaseSubscriber<HallModel>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: HallModel) {
-            super.onNext(response)
-            Log.d("ffd", "HallSubscriber")
-            location.value = response.name
-        }
-    }
-
     fun zoomIn(){
         zoomView.value = true
     }
@@ -176,7 +164,43 @@ class StadiumViewModel(application: Application) : BaseViewModel(application), V
 
         override fun onNext(response: MutableList<ZoneModel>) {
             super.onNext(response)
-            pricesList.value = response
+
+            eventUseCase!!.getEventZonePlaces(
+                eventId!!,
+                areaId,
+                ZonePlacesSubscriber(response)
+            )
+        }
+    }
+
+    private inner class ZonePlacesSubscriber: BaseSubscriber<MutableList<ZoneWithFreePlacesModel>> {
+
+        var zones: MutableList<ZoneModel>
+
+        constructor(response: MutableList<ZoneModel>){
+            this.zones = response
+        }
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: MutableList<ZoneWithFreePlacesModel>) {
+            super.onNext(response)
+            if(response.isNotEmpty()){
+                var list: MutableList<FullPricesAdapter.FullZone> = mutableListOf()
+                response.forEach {
+                    zones.forEach { zone ->
+                        if(it.id == zone.id){
+                            var fullZone = FullPricesAdapter.FullZone(zone)
+                            fullZone.free = it.free
+                            list.add(fullZone)
+                        }
+                    }
+                }.apply {
+                    pricesList.value = list
+                }
+            }
         }
     }
 

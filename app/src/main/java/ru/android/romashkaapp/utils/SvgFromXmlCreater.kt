@@ -33,10 +33,6 @@ class SvgFromXmlCreater {
                 "xmlns=\"http://www.w3.org/2000/svg\""
             )
             svgtext = svgtext.replace("</svg id=\"svg\">", "</svg>")
-//            svgtext = svgtext.replace(
-//                "view_id=\".*?\"",
-//                "id=\"$1\" onclick=\"Android.onClicked(id)\""
-//            )
 
             val m: Matcher = Pattern.compile("view_id=\".*?\"").matcher(svgtext)
             while(m.find()) {

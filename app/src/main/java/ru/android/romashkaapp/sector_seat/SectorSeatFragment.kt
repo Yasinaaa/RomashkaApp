@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -44,7 +45,7 @@ class SectorSeatFragment : Fragment() {
         val AREA_ID = "AREA_ID"
         val SECTOR_ID = "SECTOR_ID"
     }
-
+    private var callback: OnBackPressedCallback? = null
     lateinit var binding: FragmentSectorBinding
     private val viewModel: SectorSeatViewModel by viewModels()
     private var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>? = null
@@ -159,6 +160,13 @@ class SectorSeatFragment : Fragment() {
                 }
             }
         })
+
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                parentFragmentManager.popBackStackImmediate()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback!!)
     }
 
     private fun loadJs(webView: WebView) {

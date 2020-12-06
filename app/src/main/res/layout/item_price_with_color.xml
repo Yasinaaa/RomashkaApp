@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="text"
+            type="String" />
+        <variable
+            name="colorVal"
+            type="String" />
+    </data>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mb_price"
+        app:icon="@drawable/ic_circle"
+        app:iconTintMode="multiply"
+        app:iconGravity="textStart"
+        app:iconPadding="7dp"
+        app:image_color="@{colorVal}"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        app:strokeWidth="2dp"
+        app:cornerRadius="8dp"
+        app:strokeColor="@android:color/white"
+        tools:text="500 Р"
+        android:text="@{text}"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="#0C233D"
+        android:textSize="14sp"
+        android:letterSpacing="0"
+        android:paddingTop="7dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="7dp"
+        android:textAllCaps="false"
+        android:backgroundTint="@android:color/white"
+        android:layout_marginStart="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</layout>

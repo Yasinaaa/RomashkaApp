@@ -17,6 +17,7 @@ import ru.android.romashkaapp.afisha.AfishaFragment
 import ru.android.romashkaapp.base.BaseViewModel
 import ru.android.romashkaapp.matches.MatchesFragment
 import ru.android.romashkaapp.sector_seat.SectorSeatFragment
+import ru.android.romashkaapp.stadium.StadiumFragment
 import ru.android.romashkaapp.utils.Utils
 import ru.android.romashkaapp.utils.Utils.Companion.CLIENT_ID
 import ru.android.romashkaapp.utils.Utils.Companion.CLIENT_SECRET
@@ -81,7 +82,7 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
     }
 
     fun setStadiumFragment(bundle: Bundle){
-        var fragment = MatchesFragment()
+        var fragment = StadiumFragment()
         fragment.arguments = bundle
         fragment.setViewModel(this)
         createFragment.value = fragment

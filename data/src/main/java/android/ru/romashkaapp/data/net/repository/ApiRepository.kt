@@ -270,6 +270,14 @@ class ApiRepository: Repository {
         return mAPI.getEventSectorZones(eventId, areaId, accessToken)
     }
 
+    override fun getEventZonePlaces(
+        eventId: Int,
+        areaId: Int,
+        accessToken: String
+    ): Observable<MutableList<ZoneWithFreePlacesModel>> {
+        return mAPI.getEventZonePlaces(eventId, areaId, accessToken)
+    }
+
     override fun getEventSectorStatuses(
         eventId: Int,
         sectorId: Int,

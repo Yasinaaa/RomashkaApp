@@ -75,14 +75,15 @@ class AfishaFragment : Fragment() {
         })
 
         viewModel.nextFragmentOpenClick.observe(viewLifecycleOwner, {
-            findNavController().navigate(
-                R.id.nav_stadium,
-                bundleOf(EVENT_ID to it!!.event.id, CHAMPIONSHIP_TITLE to it.nomTitle),
-                NavOptions.Builder().setPopUpTo(
-                    R.id.nav_main,
-                    true
-                ).build()
-            )
+            mainViewModel.setStadiumFragment(bundleOf(EVENT_ID to it!!.event.id, CHAMPIONSHIP_TITLE to it.nomTitle))
+//            findNavController().navigate(
+//                R.id.nav_stadium,
+//                bundleOf(EVENT_ID to it!!.event.id, CHAMPIONSHIP_TITLE to it.nomTitle),
+//                NavOptions.Builder().setPopUpTo(
+//                    R.id.nav_main,
+//                    true
+//                ).build()
+//            )
         })
         viewModel.getEvents()
     }

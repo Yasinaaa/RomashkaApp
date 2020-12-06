@@ -14,24 +14,31 @@ import android.webkit.WebViewClient
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_stadium.*
 import kotlinx.android.synthetic.main.fragment_stadium.cl_bottomsheet
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import ru.android.romashkaapp.R
+import ru.android.romashkaapp.base.BaseFragment
 import ru.android.romashkaapp.databinding.FragmentStadiumBinding
 import ru.android.romashkaapp.main.MainViewModel
+import ru.android.romashkaapp.sector_seat.SectorSeatFragment
 import ru.android.romashkaapp.sector_seat.SectorSeatFragment.Companion.AREA_ID
 import ru.android.romashkaapp.sector_seat.SectorSeatFragment.Companion.SECTOR_ID
+import ru.android.romashkaapp.stadium.adapters.FullPricesAdapter
 import ru.android.romashkaapp.stadium.adapters.PricesAdapter
 
 /**
  * Created by yasina on 15.10.2020.
  * Copyright (c) 2020 Infomatica. All rights reserved.
  */
-class StadiumFragment : Fragment(){
+class StadiumFragment : BaseFragment(){
 
     companion object{
         val EVENT_ID = "EVENT_ID"
@@ -41,18 +48,19 @@ class StadiumFragment : Fragment(){
     lateinit var binding: FragmentStadiumBinding
     private val viewModel: StadiumViewModel by viewModels()
     private var jsInterface: AndroidJSInterface? = null
+    private var fullPricesAdapter: FullPricesAdapter? = null
     private var pricesAdapter: PricesAdapter? = null
     private lateinit var mainViewModel: MainViewModel
     private var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>? = null
 
     fun setViewModel(viewModel: MainViewModel){
         this.mainViewModel = viewModel
-        jsInterface!!.mainViewModel = viewModel
         mainViewModel.hideNavigationBar()
     }
 
-    class AndroidJSInterface {
+    class AndroidJSInterface(f: StadiumFragment) {
 
+        var fr: StadiumFragment = f
         var mainViewModel: MainViewModel? = null
         var eventId: Int? = null
         var areaId: Int? = null
@@ -60,7 +68,15 @@ class StadiumFragment : Fragment(){
         @JavascriptInterface
         fun onClicked(id: String?) {
             Log.d("TAG12345", "Clicked id=$id")
-            mainViewModel!!.setStadiumFragment(bundleOf(EVENT_ID to eventId, AREA_ID to areaId, SECTOR_ID to id))
+            GlobalScope.launch(Dispatchers.Main) {
+                var fragment = SectorSeatFragment()
+                fragment.arguments = bundleOf(
+                        EVENT_ID to eventId,
+                        AREA_ID to areaId,
+                        SECTOR_ID to id
+                )
+                fr.setFragment(fragment)
+            }
         }
     }
 
@@ -80,7 +96,8 @@ class StadiumFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        jsInterface = AndroidJSInterface()
+        jsInterface = AndroidJSInterface(this)
+        jsInterface!!.mainViewModel = mainViewModel
 
         requireArguments().containsKey(EVENT_ID).let {
             jsInterface!!.eventId = requireArguments().getInt(EVENT_ID)
@@ -117,16 +134,20 @@ class StadiumFragment : Fragment(){
         })
 
         binding.apply {
-            pricesAdapter = PricesAdapter(viewModel!!.getListener())
-            rv_full_prices.adapter = pricesAdapter
+            fullPricesAdapter = FullPricesAdapter(viewModel!!.getListener())
+            rv_full_prices.adapter = fullPricesAdapter
             rv_full_prices.layoutManager = LinearLayoutManager(context)
+
+            pricesAdapter = PricesAdapter(viewModel!!.getListener())
+            rv_prices.adapter = pricesAdapter
+            rv_prices.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
         binding.viewModel?.pricesList!!.observe(viewLifecycleOwner, {
             cl_bottomsheet.visibility = VISIBLE
             bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED
 
-            pricesAdapter!!.updateList(it)
+            fullPricesAdapter!!.updateList(it)
         })
 
         binding.viewModel?.areaId!!.observe(viewLifecycleOwner, {
@@ -134,11 +155,16 @@ class StadiumFragment : Fragment(){
         })
 
         binding.viewModel?.svgArea!!.observe(viewLifecycleOwner, {
+            pb.visibility = GONE
             wv_stadium.addJavascriptInterface(jsInterface!!, "Android")
             wv_stadium.loadUrl(it)
         })
 
         initPricesView()
+
+        ib_back.setOnClickListener {
+            parentFragmentManager.popBackStackImmediate()
+        }
     }
 
     private fun initPricesView(){
@@ -175,17 +201,28 @@ class StadiumFragment : Fragment(){
         binding.viewModel?.selectedItem!!.observe(viewLifecycleOwner, {
             if (it) {
                 //todo set to main view
-                pricesAdapter!!.selectedItems
+                fullPricesAdapter!!.selectedItems
                 cl_bottomsheet.visibility = GONE
                 bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_COLLAPSED
             }else{
-                pricesAdapter!!.resetSelectedItems()
+                fullPricesAdapter!!.resetSelectedItems()
             }
+            pricesAdapter!!.updateList(fullPricesAdapter!!.selectedItems)
         })
     }
 
     private fun setToolbarView(v: Int){
-        tv_event_type.visibility = v
+        if(v == VISIBLE){
+            cl_toolbar.elevation = 10F
+        }else{
+            cl_toolbar.elevation = 0F
+        }
+
+        if(tv_event_type.text.toString() == ""){
+            tv_event_type.visibility = GONE
+        }else
+            tv_event_type.visibility = v
+
         tv_event_place.visibility = v
         civ_logo1.visibility = v
         civ_logo2.visibility = v

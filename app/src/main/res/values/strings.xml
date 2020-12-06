@@ -8,9 +8,10 @@
     <string name="layout">План</string>
     <string name="list">Список</string>
     <string name="filters">Фильтры</string>
-    <string name="prices">Цены</string>
+    <string name="prices">Цены, ₽</string>
     <string name="close">Закрыть</string>
     <string name="unavailable">недоступно</string>
+    <string name="sector">Сектор %s</string>
 
     <string name="boarding_1_title">Смотрите расписание матчей</string>
     <string name="boarding_1_text">Вы попали куда нужно!</string>
@@ -109,5 +110,6 @@
     <string name="events_not_found_title">Матчи не найдены</string>
     <string name="events_not_found_text">По данному запросу матчей нет.\nПопробуйте изменить фильтры.</string>
     <string name="zone_price">%s ₽, свободно %s мест</string>
+    <string name="rub">%s ₽</string>
 
 </resources>

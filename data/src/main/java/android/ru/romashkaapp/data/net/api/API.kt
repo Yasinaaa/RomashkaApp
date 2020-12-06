@@ -75,6 +75,10 @@ interface API {
     fun getEventSectorZones(@Path("event_id") eventId: Int, @Path("area_id") areaId: Int,
                             @Query("accessToken") accessToken: String): Observable<MutableList<ZoneModel>>
 
+    @GET("/yasina/v1/events/{event_id}/areas/{area_id}/zones/places")
+    fun getEventZonePlaces(@Path("event_id") eventId: Int, @Path("area_id") areaId: Int,
+                            @Query("accessToken") accessToken: String): Observable<MutableList<ZoneWithFreePlacesModel>>
+
     @GET("/yasina/v1/events/{event_id}/areas/{area_id}/sectors/{sector_id}/statuses")
     fun getEventSectorStatuses(@Path("event_id") eventId: Int, @Path("sector_id") sectorId: Int,
                                @Path("area_id") areaId: Int,

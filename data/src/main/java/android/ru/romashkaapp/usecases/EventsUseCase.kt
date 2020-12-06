@@ -95,6 +95,14 @@ class EventsUseCase(
             .subscribeWith(useCaseDisposable)
     }
 
+    fun <S> getEventZonePlaces(eventId: Int,
+                                areaId: Int, useCaseDisposable: S) where S : Observer<MutableList<ZoneWithFreePlacesModel>>?, S : Disposable {
+        mRepository.getEventZonePlaces(eventId, areaId, mAccessToken)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(useCaseDisposable)
+    }
+
     fun <S> getEventSectorStatuses(eventId: Int,
                                    sectorId: Int,
                                    areaId: Int, useCaseDisposable: S) where S : Observer<MutableList<StatusModel>>?, S : Disposable {

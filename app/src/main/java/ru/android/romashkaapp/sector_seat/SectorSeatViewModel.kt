@@ -1,21 +1,20 @@
 package ru.android.romashkaapp.sector_seat
 
 import android.app.Application
-import android.ru.romashkaapp.models.CartModel
-import android.ru.romashkaapp.models.SeatModel
-import android.ru.romashkaapp.models.StatusModel
+import android.ru.romashkaapp.models.*
 import android.ru.romashkaapp.usecases.DictionaryUseCase
 import android.ru.romashkaapp.usecases.EventsUseCase
 import android.ru.romashkaapp.usecases.OrderUseCase
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import okhttp3.ResponseBody
 import ru.android.romashkaapp.BaseSubscriber
+import ru.android.romashkaapp.R
 import ru.android.romashkaapp.StartActivity
 import ru.android.romashkaapp.adapter.helpers.SwipeRemoveActionListener
 import ru.android.romashkaapp.base.BaseViewModel
-import ru.android.romashkaapp.utils.SvgFromXmlCreater.Companion.saveHtmlToLocal
 import ru.android.romashkaapp.utils.Utils
 
 /**
@@ -40,6 +39,10 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
     private var eventId: Int = 0
     private var areaId: Int = 0
     private var sectorId: String? = null
+    val sectorLive = MutableLiveData<String>()
+    val sectorPrevLive = MutableLiveData<String?>()
+    val sectorNextLive = MutableLiveData<String?>()
+    var allSectors: MutableList<SectorModel> = mutableListOf()
 
     init {
         eventUseCase = EventsUseCase(StartActivity.REPOSITORY, Utils.getAccessToken(application)!!)
@@ -54,8 +57,28 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
         this.eventId = eventId
         this.areaId = areaId
         this.sectorId = sectorId
-        eventUseCase!!.getEventSectorSeats(eventId=eventId, areaId = areaId, sectorId = sectorId, type = null,
-            useCaseDisposable = SectorSeatsSubscriber(areaId))
+        sectorLive.value = String.format(context.getString(R.string.sector), sectorId)
+
+//        eventUseCase!!.getEventSectorSeats(eventId=eventId, areaId = areaId, sectorId = sectorId.toString(), type = null,
+//                        useCaseDisposable = SectorSeatsSubscriber(areaId))
+
+        eventUseCase!!.getEventArea(eventId, areaId, AreasSubscriber())
+    }
+
+
+    private inner class AreasSubscriber: BaseSubscriber<MutableList<SectorModel>>() {
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: MutableList<SectorModel>) {
+            super.onNext(response)
+            if(response.size != 0){
+                allSectors = response
+                showPrevAndNext()
+            }
+        }
     }
 
     private inner class SectorSeatsSubscriber: BaseSubscriber<MutableList<SeatModel>> {
@@ -72,10 +95,17 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
 
         override fun onNext(response: MutableList<SeatModel>) {
             super.onNext(response)
+            if(response.isNotEmpty()){
+                response.forEachIndexed { index, seatModel ->
+                    if(seatModel.zone_id != null){
+                        Log.d("fdfdgd", "not null")
+                    }
+                }
+            }
 //            svgArea.value = saveHtmlToLocal(context, areaId, response.string())
 //            eventUseCase!!.getEventSectorZones(eventId!!, areaId,  SectorZonesSubscriber(areaId))
 //            eventUseCase!!.getEventSectorStatuses(eventId!!, 1, areaId, SectorStatusesSubscriber())
-//            orderUseCase!!.createOrders(eventId, areaId, response[0].sid!!, CreateOrderSubscriber())
+//            orderUseCase!!.createOrders(eventId, areaId, response[5].sid!!, CreateOrderSubscriber())
         }
     }
 
@@ -110,7 +140,32 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
     }
 
     override fun onClick(view: View?) {
-        TODO("Not yet implemented")
+        if (view!!.id == R.id.mb_prev){
+            sectorId = sectorPrevLive.value
+            showPrevAndNext()
+        }else if (view.id == R.id.mb_next){
+            sectorId = sectorNextLive.value
+            showPrevAndNext()
+        }
+    }
+
+    fun showPrevAndNext(){
+        sectorLive.value = String.format(context.getString(R.string.sector), sectorId)
+        allSectors.forEachIndexed { index, sectorModel ->
+            if(sectorModel.view_id.toString() == sectorId){
+                if(index != 0) {
+                    sectorPrevLive.value = allSectors[index - 1].view_id.toString()
+                }else{
+                    sectorPrevLive.value = null
+                }
+                if (index != allSectors.size - 1)
+                    sectorNextLive.value = allSectors[index + 1].view_id.toString()
+                else{
+                    sectorNextLive.value = null
+                }
+                return@forEachIndexed
+            }
+        }
     }
 
     override fun removeItem(position: Int) {

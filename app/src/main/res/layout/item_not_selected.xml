@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="text"
+            type="String" />
+    </data>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mb_unavailable"
+        app:icon="@drawable/ic_circle"
+        app:iconTint="#E5F1FF"
+        app:iconTintMode="multiply"
+        app:iconGravity="textStart"
+        app:iconPadding="7dp"
+        style="?android:attr/buttonBarButtonStyle"
+        app:strokeColor="@android:color/white"
+        android:text="@string/unavailable"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="#0C233D"
+        android:textSize="14sp"
+        android:letterSpacing="0"
+        android:paddingTop="7dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="7dp"
+        android:textAllCaps="false"
+        android:backgroundTint="@android:color/transparent"
+        android:layout_marginStart="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</layout>

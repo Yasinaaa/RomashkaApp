@@ -6,6 +6,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.fragment_matches.*
 import kotlinx.android.synthetic.main.fragment_matches.cl_bottomsheet
 
 import ru.android.romashkaapp.R
+import ru.android.romashkaapp.base.BaseFragment
 import ru.android.romashkaapp.databinding.FragmentMatchesBinding
 import ru.android.romashkaapp.main.MainViewModel
 import ru.android.romashkaapp.matches.adapters.MatchesAndCalendarAdapter
@@ -27,7 +29,7 @@ import ru.android.romashkaapp.matches.adapters.MatchesAndCalendarAdapter
  * Created by yasina on 15.10.2020.
  * Copyright (c) 2020 Infomatica. All rights reserved.
  */
-class MatchesFragment : Fragment(){
+class MatchesFragment : BaseFragment(){
 
     lateinit var binding: FragmentMatchesBinding
     private val viewModel: MatchesViewModel by viewModels()

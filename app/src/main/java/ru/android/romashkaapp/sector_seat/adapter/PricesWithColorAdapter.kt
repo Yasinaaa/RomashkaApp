@@ -1,23 +1,28 @@
-package ru.android.romashkaapp.stadium.adapters
+package ru.android.romashkaapp.sector_seat.adapter
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.ru.romashkaapp.models.ZoneModel
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
+import ru.android.romashkaapp.BR
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.stadium.ItemClickListener
-import ru.android.romashkaapp.BR
+
 
 /**
  * Created by yasina on 11.11.2020.
  * Copyright (c) 2020 Infomatica. All rights reserved.
  */
 
-class PricesAdapter(l: ItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PricesWithColorAdapter(l: ItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         const val VIEW_TYPE_PRICE = 0
@@ -47,7 +52,7 @@ class PricesAdapter(l: ItemClickListener) : RecyclerView.Adapter<RecyclerView.Vi
             VIEW_TYPE_PRICE -> {
                 PriceViewHolder(
                     LayoutInflater.from(context)
-                        .inflate(R.layout.item_price, parent, false)
+                        .inflate(R.layout.item_price_with_color, parent, false)
                 )
             }
             else -> {
@@ -61,6 +66,7 @@ class PricesAdapter(l: ItemClickListener) : RecyclerView.Adapter<RecyclerView.Vi
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is PriceViewHolder) {
+            holder.binding?.setVariable(BR.colorVal, list[position]!!.color)
             holder.binding?.setVariable(
                 BR.text,
                 String.format(
@@ -73,6 +79,12 @@ class PricesAdapter(l: ItemClickListener) : RecyclerView.Adapter<RecyclerView.Vi
                 notifyDataSetChanged()
             }
         }
+    }
+
+    @BindingAdapter("app:image_color")
+    fun loadColor(mb: MaterialButton, color: String?) {
+        if(color != null)
+            mb.iconTint = ColorStateList.valueOf(Color.parseColor(color))
     }
 
     override fun getItemViewType(position: Int): Int {
