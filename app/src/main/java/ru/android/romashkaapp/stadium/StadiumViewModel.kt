@@ -12,9 +12,7 @@ import androidx.lifecycle.MutableLiveData
 import okhttp3.ResponseBody
 import ru.android.romashkaapp.BaseSubscriber
 import ru.android.romashkaapp.StartActivity.Companion.REPOSITORY
-import ru.android.romashkaapp.afisha.adapters.MatchesAdapter
 import ru.android.romashkaapp.base.BaseViewModel
-import ru.android.romashkaapp.stadium.ItemClickListener
 import ru.android.romashkaapp.stadium.adapters.FullPricesAdapter
 import ru.android.romashkaapp.utils.SvgFromXmlCreater.Companion.saveHtmlToLocal
 import ru.android.romashkaapp.utils.Utils

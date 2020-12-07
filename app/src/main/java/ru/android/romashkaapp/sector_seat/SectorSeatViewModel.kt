@@ -15,13 +15,16 @@ import ru.android.romashkaapp.R
 import ru.android.romashkaapp.StartActivity
 import ru.android.romashkaapp.adapter.helpers.SwipeRemoveActionListener
 import ru.android.romashkaapp.base.BaseViewModel
+import ru.android.romashkaapp.stadium.ItemClickListener
+import ru.android.romashkaapp.stadium.adapters.FullPricesAdapter
 import ru.android.romashkaapp.utils.Utils
 
 /**
  * Created by yasina on 15.10.2020.
  * Copyright (c) 2020 Infomatica. All rights reserved.
  */
-class SectorSeatViewModel(application: Application) : BaseViewModel(application), View.OnClickListener, SwipeRemoveActionListener {
+class SectorSeatViewModel(application: Application) : BaseViewModel(application), View.OnClickListener, SwipeRemoveActionListener,
+    ItemClickListener {
 
     val zoomView = MutableLiveData<Boolean>()
 
@@ -43,6 +46,7 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
     val sectorPrevLive = MutableLiveData<String?>()
     val sectorNextLive = MutableLiveData<String?>()
     var allSectors: MutableList<SectorModel> = mutableListOf()
+    val pricesList: MutableLiveData<MutableList<ZoneModel>> = MutableLiveData()
 
     init {
         eventUseCase = EventsUseCase(StartActivity.REPOSITORY, Utils.getAccessToken(application)!!)
@@ -62,9 +66,9 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
 //        eventUseCase!!.getEventSectorSeats(eventId=eventId, areaId = areaId, sectorId = sectorId.toString(), type = null,
 //                        useCaseDisposable = SectorSeatsSubscriber(areaId))
 
+        eventUseCase!!.getEventSectorZones(eventId, areaId,  SectorZonesSubscriber(areaId))
         eventUseCase!!.getEventArea(eventId, areaId, AreasSubscriber())
     }
-
 
     private inner class AreasSubscriber: BaseSubscriber<MutableList<SectorModel>>() {
 
@@ -103,7 +107,7 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
                 }
             }
 //            svgArea.value = saveHtmlToLocal(context, areaId, response.string())
-//            eventUseCase!!.getEventSectorZones(eventId!!, areaId,  SectorZonesSubscriber(areaId))
+//
 //            eventUseCase!!.getEventSectorStatuses(eventId!!, 1, areaId, SectorStatusesSubscriber())
 //            orderUseCase!!.createOrders(eventId, areaId, response[5].sid!!, CreateOrderSubscriber())
         }
@@ -168,10 +172,35 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
         }
     }
 
+    private inner class SectorZonesSubscriber: BaseSubscriber<MutableList<ZoneModel>> {
+
+        var areaId: Int
+
+        constructor(areaId: Int){
+            this.areaId = areaId
+        }
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: MutableList<ZoneModel>) {
+            super.onNext(response)
+            pricesList.value = response
+        }
+    }
+
     override fun removeItem(position: Int) {
         previousDeletedItem = _list.value?.get(position)
         _list.value?.removeAt(position)
         _deletedPosition.value = position
     }
 
+    override fun click(item: ZoneModel?) {
+
+    }
+
+    fun getListener(): ItemClickListener{
+        return this
+    }
 }

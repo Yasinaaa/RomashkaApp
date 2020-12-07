@@ -20,7 +20,7 @@
         app:iconTintMode="multiply"
         app:iconGravity="textStart"
         app:iconPadding="7dp"
-        app:image_color="@{colorVal}"
+        android:elevation="5dp"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
         app:strokeWidth="2dp"
         app:cornerRadius="8dp"

@@ -19,20 +19,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_sector.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.fragment_sector.cl_bottomsheet
+import kotlinx.android.synthetic.main.fragment_sector.wv_stadium
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.adapter.helpers.SwipeRemoveActionCallback
 import ru.android.romashkaapp.adapter.helpers.SwipeRemoveItemDecoration
 import ru.android.romashkaapp.databinding.FragmentSectorBinding
 import ru.android.romashkaapp.sector_seat.adapter.AnimationOnLastItemAdapter
+import ru.android.romashkaapp.sector_seat.adapter.PricesWithColorAdapter
 import ru.android.romashkaapp.stadium.StadiumFragment
 
 /**
@@ -51,6 +49,7 @@ class SectorSeatFragment : Fragment() {
     private var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>? = null
     private val adapter = AnimationOnLastItemAdapter()
     private lateinit var swipeItemTouchHelper: ItemTouchHelper
+    private var pricesAdapter: PricesWithColorAdapter? = null
 
     private lateinit var background: ColorDrawable
     private var icon: Drawable? = null
@@ -96,6 +95,19 @@ class SectorSeatFragment : Fragment() {
 //            adapter.updateList(it)
         })
 
+        binding.apply {
+            pricesAdapter = PricesWithColorAdapter(viewModel!!.getListener())
+            rv_prices.adapter = pricesAdapter
+            rv_prices.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        }
+
+        binding.viewModel?.pricesList!!.observe(viewLifecycleOwner, {
+            cl_bottomsheet.visibility = View.VISIBLE
+            bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED
+
+            pricesAdapter!!.updateList(it)
+        })
+
         swipeItemTouchHelper = ItemTouchHelper(
             SwipeRemoveActionCallback(
                 background,
@@ -121,8 +133,6 @@ class SectorSeatFragment : Fragment() {
 
         wv_stadium.settings.loadWithOverviewMode = true
         wv_stadium.settings.useWideViewPort = true
-
-        //wv_stadium.loadUrl("file:///android_asset/www/sector203.svg")
 
         binding.viewModel?.zoomView!!.observe(viewLifecycleOwner, Observer {
             if(it){

@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import ru.android.romashkaapp.BR
 import ru.android.romashkaapp.R
+import ru.android.romashkaapp.databinding.ItemCalendarBinding
+import ru.android.romashkaapp.databinding.ItemPriceWithColorBinding
 import ru.android.romashkaapp.stadium.ItemClickListener
 
 
@@ -32,7 +34,7 @@ class PricesWithColorAdapter(l: ItemClickListener) : RecyclerView.Adapter<Recycl
     var listener: ItemClickListener? = l
 
     class PriceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val binding: ViewDataBinding? = DataBindingUtil.bind(view)
+        val binding: ItemPriceWithColorBinding? = DataBindingUtil.bind(view)
     }
 
     class NotSelectedViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -66,7 +68,8 @@ class PricesWithColorAdapter(l: ItemClickListener) : RecyclerView.Adapter<Recycl
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is PriceViewHolder) {
-            holder.binding?.setVariable(BR.colorVal, list[position]!!.color)
+            holder.binding?.mbPrice!!.iconTint = ColorStateList.valueOf(Color.parseColor(list[position]!!.color))
+
             holder.binding?.setVariable(
                 BR.text,
                 String.format(
@@ -81,11 +84,11 @@ class PricesWithColorAdapter(l: ItemClickListener) : RecyclerView.Adapter<Recycl
         }
     }
 
-    @BindingAdapter("app:image_color")
-    fun loadColor(mb: MaterialButton, color: String?) {
-        if(color != null)
-            mb.iconTint = ColorStateList.valueOf(Color.parseColor(color))
-    }
+//    @BindingAdapter("app:image_color")
+//    fun loadColor(mb: MaterialButton, color: String?) {
+//        if(color != null)
+//            mb.iconTint = ColorStateList.valueOf(Color.parseColor(color))
+//    }
 
     override fun getItemViewType(position: Int): Int {
         return if(list[position] != null) VIEW_TYPE_PRICE else VIEW_TYPE_NOT_SELECTED
