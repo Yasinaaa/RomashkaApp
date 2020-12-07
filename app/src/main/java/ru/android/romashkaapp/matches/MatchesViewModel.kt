@@ -70,19 +70,23 @@ class MatchesViewModel(application: Application) : BaseViewModel(application), I
             super.onNext(response)
             Log.d("ffd", "EventsSubscriber")
 
-            val list = mutableListOf<MatchesAdapter.Match?>()
-            for (event in response){
-                val match = MatchesAdapter.Match()
-                match.event = event
-                for(n in noms){
-                    if(event.nom_id == n.id){
-                        match.nomTitle = n.name
-                    }
-                }
-                list.add(match)
-            }
-            list.sortBy{it?.event?.sdate}
-            matchesList.value = list
+//            if(response.isNotEmpty()) {
+//                val list = mutableListOf<MatchesAdapter.Match?>()
+//                for (event in response) {
+//                    val match = MatchesAdapter.Match()
+//                    match.event = event
+//                    for (n in noms) {
+//                        if (event.nom_id == n.id) {
+//                            match.nomTitle = n.name
+//                        }
+//                    }
+//                    list.add(match)
+//                }
+//                list.sortBy { it?.event?.sdate }
+//                matchesList.value = list
+//            }else{
+                matchesList.value = null
+//            }
         }
     }
 

@@ -1,7 +1,6 @@
 package ru.android.romashkaapp.stadium
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,13 +9,12 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.webkit.JavascriptInterface
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_stadium.*
@@ -105,15 +103,26 @@ class StadiumFragment : BaseFragment(){
                 requireArguments().getString(CHAMPIONSHIP_TITLE))
         }
 
-        val webViewClient = WebViewClient()
+        val webViewClient = object : WebViewClient(){
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+
+            }
+        }
         wv_stadium.webViewClient = webViewClient
+        wv_stadium.settings.setSupportZoom(true)
         wv_stadium.settings.javaScriptEnabled = true
         wv_stadium.settings.builtInZoomControls = true
         wv_stadium.settings.displayZoomControls = false
-        wv_stadium.setBackgroundColor(Color.TRANSPARENT)
+        wv_stadium.setBackgroundColor(requireContext().getColor(R.color.background))
 
         wv_stadium.settings.loadWithOverviewMode = true
         wv_stadium.settings.useWideViewPort = true
+        wv_stadium.setInitialScale(70)
+
+        wv_stadium.zoomIn()
+        wv_stadium.zoomIn()
+        wv_stadium.zoomIn()
 
         binding.viewModel?.zoomView!!.observe(viewLifecycleOwner, {
            if(it){

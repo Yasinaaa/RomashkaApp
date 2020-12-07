@@ -38,7 +38,7 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
     private var eventUseCase: EventsUseCase? = null
     private var dictionaryUseCase: DictionaryUseCase? = null
     private var orderUseCase: OrderUseCase? = null
-    val svgArea = MutableLiveData<String>()
+    val seatsCoordinates = MutableLiveData<MutableList<SeatModel>>()
     private var eventId: Int = 0
     private var areaId: Int = 0
     private var sectorId: String? = null
@@ -63,11 +63,11 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
         this.sectorId = sectorId
         sectorLive.value = String.format(context.getString(R.string.sector), sectorId)
 
-//        eventUseCase!!.getEventSectorSeats(eventId=eventId, areaId = areaId, sectorId = sectorId.toString(), type = null,
-//                        useCaseDisposable = SectorSeatsSubscriber(areaId))
+        eventUseCase!!.getEventSectorSeats(eventId=eventId, areaId = areaId, sectorId = sectorId.toString(), type = null,
+                        useCaseDisposable = SectorSeatsSubscriber(areaId))
 
-        eventUseCase!!.getEventSectorZones(eventId, areaId,  SectorZonesSubscriber(areaId))
-        eventUseCase!!.getEventArea(eventId, areaId, AreasSubscriber())
+//        eventUseCase!!.getEventSectorZones(eventId, areaId,  SectorZonesSubscriber(areaId))
+//        eventUseCase!!.getEventArea(eventId, areaId, AreasSubscriber())
     }
 
     private inner class AreasSubscriber: BaseSubscriber<MutableList<SectorModel>>() {
@@ -100,6 +100,7 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
         override fun onNext(response: MutableList<SeatModel>) {
             super.onNext(response)
             if(response.isNotEmpty()){
+                seatsCoordinates.value = response
                 response.forEachIndexed { index, seatModel ->
                     if(seatModel.zone_id != null){
                         Log.d("fdfdgd", "not null")
@@ -109,7 +110,7 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
 //            svgArea.value = saveHtmlToLocal(context, areaId, response.string())
 //
 //            eventUseCase!!.getEventSectorStatuses(eventId!!, 1, areaId, SectorStatusesSubscriber())
-//            orderUseCase!!.createOrders(eventId, areaId, response[5].sid!!, CreateOrderSubscriber())
+            orderUseCase!!.createOrders(eventId, areaId, response[5].sid!!, CreateOrderSubscriber())
         }
     }
 

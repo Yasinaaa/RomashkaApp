@@ -67,20 +67,29 @@ class SvgFromXmlCreater {
             }
         }
 
-        fun createHtmlData(svg: String): String{
+        private fun createHtmlData(svg: String): String{
             var builder = StringBuilder()
             builder.append(
                 "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n" +
                         "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n" +
                         "<head>\n" +
                         "    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n" +
-                        "    <meta name=\"viewport\" content=\"width=device-width, target-densityDpi=device-dpi\" />\n" +
+                        "    <meta name=\"viewport\" content=\"width=device-width, user-scalable=yes,  maximum-scale=10.0, target-densitydpi=device-dpi\">\n" +
                         "    <link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />\n" +
                         "</head>\n" +
-                        "<body>"
+                        "<style> " +
+                        ".center {\n" +
+//                        "  position: absolute;\n" +
+//                        "  top: 10%;\n" +
+////                        "  left: 50%;\n" +
+//                        "  -ms-transform: translate(0%, 0%);\n" +
+//                        "  transform: translate(0%, 0%);\n" +
+                        "}" +
+                        "</style>" +
+                        "<body><div class=\"center\">"
             )
             builder.append(svg)
-            builder.append("</body>\n" + "</html>")
+            builder.append("</div></body>\n" + "</html>")
             return builder.toString()
         }
     }

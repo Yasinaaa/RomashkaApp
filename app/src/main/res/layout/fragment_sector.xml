@@ -135,7 +135,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/rv_prices"
                 android:onClick="@{(view)->viewModel.onClick(view)}"/>
 
-            <WebView
+            <ru.android.romashkaapp.sector_seat.sector.SectorCanvas
                 android:id="@+id/wv_stadium"
                 android:layout_width="0dp"
                 android:layout_height="0dp"

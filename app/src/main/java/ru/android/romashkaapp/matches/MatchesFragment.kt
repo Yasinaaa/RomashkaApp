@@ -62,24 +62,51 @@ class MatchesFragment : BaseFragment(){
         }
 
         viewModel.matchesList.observe(viewLifecycleOwner, {
-            if(it[0] == null){
-                tv_matches.setTextColor(ContextCompat.getColor(requireContext(), R.color.button_next_color))
-                tv_calendar.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
-                mb_info.visibility = GONE
-                cl_toolbar.backgroundTintList = ContextCompat.getColorStateList(requireContext(), android.R.color.white)
+            if(it != null) {
+                if (it[0] == null) {
+                    tv_matches.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.button_next_color
+                        )
+                    )
+                    tv_calendar.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            android.R.color.black
+                        )
+                    )
+                    mb_info.visibility = GONE
+                    cl_toolbar.backgroundTintList =
+                        ContextCompat.getColorStateList(requireContext(), android.R.color.white)
+                } else {
+                    tv_calendar.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.button_next_color
+                        )
+                    )
+                    tv_matches.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            android.R.color.black
+                        )
+                    )
+                    mb_info.visibility = VISIBLE
+                    cl_toolbar.backgroundTintList =
+                        ContextCompat.getColorStateList(requireContext(), R.color.background)
+                }
+
+                if (it[0] == null) {
+                    matchesAdapter!!.updateMatchesList(it)
+                } else
+                    matchesAdapter!!.updateList(it)
+
+                pb.visibility = GONE
             }else{
-                tv_calendar.setTextColor(ContextCompat.getColor(requireContext(), R.color.button_next_color))
-                tv_matches.setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
-                mb_info.visibility = VISIBLE
-                cl_toolbar.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.background)
+                cl_events_not_found.visibility = VISIBLE
+
             }
-
-            if(it[0] == null){
-                matchesAdapter!!.updateMatchesList(it)
-            }else
-                matchesAdapter!!.updateList(it)
-
-            pb.visibility = GONE
         })
 
         viewModel.nextFragmentOpenClick.observe(viewLifecycleOwner, {

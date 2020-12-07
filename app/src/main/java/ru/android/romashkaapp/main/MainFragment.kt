@@ -1,39 +1,25 @@
 package ru.android.romashkaapp.main
 
 import android.Manifest
-import android.app.Activity
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
-import android.util.LogPrinter
 import android.view.*
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.webkit.JavascriptInterface
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.core.view.forEach
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.fragment_afisha.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_sector.*
 import ru.android.romashkaapp.R
-import ru.android.romashkaapp.afisha.AfishaFragment
 import ru.android.romashkaapp.basket.BasketFragment
-import ru.android.romashkaapp.boarding.BoardingViewModel
 import ru.android.romashkaapp.databinding.FragmentMainBinding
-import ru.android.romashkaapp.databinding.FragmentOnboardingBinding
 import ru.android.romashkaapp.login.LoginFragment
-import ru.android.romashkaapp.matches.MatchesFragment
 
 
 class MainFragment : Fragment() {
@@ -56,6 +42,30 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_PHONE_STATE
+            ) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.CAMERA
+                ),
+                0
+            )
+        }else{
+            init()
+        }
+    }
+
+    fun init() {
         viewModel.createFragment.observe(viewLifecycleOwner, {
             setFragment(it)
             changeNavigationStatus(bottom_navigation.menu.getItem(0))
@@ -69,14 +79,42 @@ class MainFragment : Fragment() {
         badge.number = 99
 
         viewModel.bottomBar.observe(viewLifecycleOwner, {
-            if(it){
+            if (it) {
                 bottom_navigation.visibility = VISIBLE
-            }else{
+            } else {
                 bottom_navigation.visibility = GONE
             }
         })
 
         bottom_navigation.itemIconTintList = null
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_PHONE_STATE
+            ) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+        ) {
+            init()
+        } else {
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_PHONE_STATE,
+                    Manifest.permission.CAMERA
+                ),
+                0
+            )
+        }
     }
 
     private fun setFragment(fragment: Fragment){
@@ -88,16 +126,16 @@ class MainFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.play_bill ->{
+            R.id.play_bill -> {
 
             }
-            R.id.basket ->{
+            R.id.basket -> {
 
             }
-            R.id.my_tickets ->{
+            R.id.my_tickets -> {
 
             }
-            R.id.account ->{
+            R.id.account -> {
                 setFragment(LoginFragment())
             }
             else -> {
@@ -110,17 +148,17 @@ class MainFragment : Fragment() {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
         changeNavigationStatus(menuItem)
         when (menuItem.itemId) {
-            R.id.basket ->{
+            R.id.basket -> {
                 setFragment(BasketFragment())
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.play_bill ->{
+            R.id.play_bill -> {
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.my_tickets ->{
+            R.id.my_tickets -> {
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.account ->{
+            R.id.account -> {
                 setFragment(LoginFragment())
                 return@OnNavigationItemSelectedListener true
             }
@@ -132,16 +170,21 @@ class MainFragment : Fragment() {
         R.id.basket to R.drawable.ic_cart_outlined,
         R.id.play_bill to R.drawable.ic_calendar_outlined,
         R.id.my_tickets to R.drawable.ic_ticket_outlined,
-        R.id.account to R.drawable.ic_account_outlined)
+        R.id.account to R.drawable.ic_account_outlined
+    )
 
     var menuImages = mutableMapOf(
         R.id.basket to R.drawable.ic_cart,
         R.id.play_bill to R.drawable.ic_calendar,
         R.id.my_tickets to R.drawable.ic_ticket,
-        R.id.account to R.drawable.ic_account)
+        R.id.account to R.drawable.ic_account
+    )
 
     private fun changeNavigationStatus(menuItem: MenuItem){
-        menuItem.icon = ContextCompat.getDrawable(requireContext(), menuOutlinedImages[menuItem.itemId]!!)
+        menuItem.icon = ContextCompat.getDrawable(
+            requireContext(),
+            menuOutlinedImages[menuItem.itemId]!!
+        )
         bottom_navigation.menu.forEach {
             if(it.itemId != menuItem.itemId){
                 it.icon = ContextCompat.getDrawable(requireContext(), menuImages[it.itemId]!!)

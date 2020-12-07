@@ -118,28 +118,17 @@ class SectorSeatFragment : Fragment() {
         )
         swipeItemTouchHelper.attachToRecyclerView(binding.rvCartItems)
 
-        val webViewClient = object : WebViewClient() {
-            override fun onPageFinished(view: WebView, url: String) {
-                loadJs(view)
-            }
-        }
 
-        wv_stadium.webViewClient = webViewClient
-        wv_stadium.settings.javaScriptEnabled = true
-        wv_stadium.settings.builtInZoomControls = true
-        wv_stadium.settings.displayZoomControls = false
-        wv_stadium.setBackgroundColor(Color.TRANSPARENT)
-        wv_stadium.addJavascriptInterface(AndroidJSInterface(), "Android")
+        binding.viewModel?.zoomView!!.observe(viewLifecycleOwner, {
+//            if(it){
+//                wv_stadium.zoomIn()
+//            }else{
+//                wv_stadium.zoomOut()
+//            }
+        })
 
-        wv_stadium.settings.loadWithOverviewMode = true
-        wv_stadium.settings.useWideViewPort = true
-
-        binding.viewModel?.zoomView!!.observe(viewLifecycleOwner, Observer {
-            if(it){
-                wv_stadium.zoomIn()
-            }else{
-                wv_stadium.zoomOut()
-            }
+        binding.viewModel?.seatsCoordinates!!.observe(viewLifecycleOwner, {
+            wv_stadium.setSeat(it)
         })
 
         bottomSheetBehavior = BottomSheetBehavior.from(cl_bottomsheet)
@@ -177,20 +166,6 @@ class SectorSeatFragment : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback!!)
-    }
-
-    private fun loadJs(webView: WebView) {
-        webView.requestFocus()
-    }
-
-    class AndroidJSInterface() {
-
-        @JavascriptInterface
-        fun onClicked(id: String?) {
-            Log.d("TAG12345", "Clicked id=$id")
-
-
-        }
     }
 
 }

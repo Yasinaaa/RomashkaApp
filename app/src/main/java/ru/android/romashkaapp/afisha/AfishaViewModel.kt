@@ -31,15 +31,22 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
 
     init {
         servicesList.value = arrayListOf(EventModel())
-        dictionaryUseCase = DictionaryUseCase(StartActivity.REPOSITORY, getAccessToken(application.applicationContext)!!)
-        eventUseCase = EventsUseCase(StartActivity.REPOSITORY, getAccessToken(application.applicationContext)!!)
+        dictionaryUseCase = DictionaryUseCase(
+            StartActivity.REPOSITORY,
+            getAccessToken(application.applicationContext)!!
+        )
+        eventUseCase = EventsUseCase(
+            StartActivity.REPOSITORY,
+            getAccessToken(application.applicationContext)!!
+        )
     }
 
-    fun getEvents(){
+    fun getEvents() {
         dictionaryUseCase!!.getNoms(last = null, limit = null, NomsSubscriber())
     }
 
-    private inner class NomsSubscriber: BaseSubscriber<MutableList<NomModel>>() { //MutableList<NomModel>
+    private inner class NomsSubscriber :
+        BaseSubscriber<MutableList<NomModel>>() { //MutableList<NomModel>
 
         override fun onError(e: Throwable) {
             super.onError(e)
@@ -52,11 +59,11 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
         }
     }
 
-    private inner class EventsSubscriber: BaseSubscriber<MutableList<EventModel>>{
+    private inner class EventsSubscriber : BaseSubscriber<MutableList<EventModel>> {
 
         var noms: MutableList<NomModel> = mutableListOf()
 
-        constructor(n: MutableList<NomModel>){
+        constructor(n: MutableList<NomModel>) {
             noms = n
         }
 
@@ -69,18 +76,23 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
             Log.d("ffd", "EventsSubscriber")
 
             val list = mutableListOf<MatchesAdapter.Match?>()
-            for (event in response){
-                val match = MatchesAdapter.Match()
-                match.event = event
-                for(n in noms){
-                    if(event.nom_id == n.id){
-                        match.nomTitle = n.name
+            for (event in response) {
+                if(event.active!!) {
+                    val match = MatchesAdapter.Match()
+                    match.event = event
+                    for (n in noms) {
+                        if (event.nom_id == n.id) {
+                            match.nomTitle = n.name
+                        }
                     }
+                    list.add(match)
                 }
-                list.add(match)
             }
-            list.sortBy{it?.event?.sdate}
-            matchesList.value = list.subList(0, 4)
+            list.sortBy { it?.event?.sdate }
+            if(list.size > 4)
+                matchesList.value = list.subList(0, 4)
+            else
+                matchesList.value = list.subList(0, list.size)
         }
     }
 
@@ -88,7 +100,7 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
 
     }
 
-    fun onViewAllBtnClick(){
+    fun onViewAllBtnClick() {
         viewAllClick.value = true
     }
 
@@ -96,71 +108,8 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
         nextFragmentOpenClick.value = item!!
     }
 
-    fun getListener(): ItemClickListener{
+    fun getListener(): ItemClickListener {
         return this
-    }
-
-    private inner class EventSubscriptionsSubscriber: BaseSubscriber<MutableList<EventModel>>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: MutableList<EventModel>) {
-            super.onNext(response)
-            Log.d("ffd", "EventSubscriptionsSubscriber")
-
-            eventUseCase!!.getEventSector(
-                eventId = response[0].id,
-                sectorId = 1,
-                last= "100",
-                lastSeatsGt = "100",
-                lastAreaGt = "100",
-                EventSectorZonesSubscriber())
-        }
-    }
-
-    private inner class EventSectorZonesSubscriber: BaseSubscriber<SectorModel>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: SectorModel) {
-            super.onNext(response)
-            Log.d("ffd", "EventSectorZonesSubscriber")
-
-        }
-    }
-
-    private inner class EventSectorSeatsSubscriber: BaseSubscriber<MutableList<SeatModel>>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: MutableList<SeatModel>) {
-            super.onNext(response)
-            Log.d("ffd", "EventSectorSeatsSubscriber")
-
-            eventUseCase!!.getEventSectorPoints(
-                eventId = 12,
-                sectorId = 1,
-                limit = 100,
-                EventSectorPointsSubscriber())
-        }
-    }
-
-    private inner class EventSectorPointsSubscriber: BaseSubscriber<MutableList<PointModel>>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: MutableList<PointModel>) {
-            super.onNext(response)
-            Log.d("ffd", "EventSectorPointsSubscriber")
-        }
     }
 
 }
