@@ -1,36 +1,31 @@
 package ru.android.romashkaapp.sector_seat
 
 import android.annotation.SuppressLint
-import android.graphics.Color
+import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.webkit.JavascriptInterface
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.view.*
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_sector.*
-import kotlinx.android.synthetic.main.fragment_sector.cl_bottomsheet
-import kotlinx.android.synthetic.main.fragment_sector.wv_stadium
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.adapter.helpers.SwipeRemoveActionCallback
 import ru.android.romashkaapp.adapter.helpers.SwipeRemoveItemDecoration
 import ru.android.romashkaapp.databinding.FragmentSectorBinding
 import ru.android.romashkaapp.sector_seat.adapter.AnimationOnLastItemAdapter
 import ru.android.romashkaapp.sector_seat.adapter.PricesWithColorAdapter
+import ru.android.romashkaapp.sector_seat.sector.CanvasTouch
+import ru.android.romashkaapp.sector_seat.sector.SeatShape
+import ru.android.romashkaapp.sector_seat.sector.ShapesInteractor
 import ru.android.romashkaapp.stadium.StadiumFragment
 
 /**
@@ -70,11 +65,17 @@ class SectorSeatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        background = ColorDrawable(ContextCompat.getColor(requireContext(), android.R.color.darker_gray))
+        background = ColorDrawable(
+            ContextCompat.getColor(
+                requireContext(),
+                android.R.color.darker_gray
+            )
+        )
         icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_delete)
 
         requireArguments().containsKey(StadiumFragment.EVENT_ID).let {
-            viewModel.getSeats(requireArguments().getInt(StadiumFragment.EVENT_ID),
+            viewModel.getSeats(
+                requireArguments().getInt(StadiumFragment.EVENT_ID),
                 requireArguments().getInt(AREA_ID),
                 requireArguments().getString(SECTOR_ID)
             )
@@ -98,7 +99,11 @@ class SectorSeatFragment : Fragment() {
         binding.apply {
             pricesAdapter = PricesWithColorAdapter(viewModel!!.getListener())
             rv_prices.adapter = pricesAdapter
-            rv_prices.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            rv_prices.layoutManager = LinearLayoutManager(
+                context,
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
         }
 
         binding.viewModel?.pricesList!!.observe(viewLifecycleOwner, {
@@ -166,8 +171,55 @@ class SectorSeatFragment : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback!!)
+
+        initSeats()
+
+        binding.viewModel?.seatsCoordinates!!.observe(viewLifecycleOwner, {
+            it.forEach { seatModel ->
+
+                val shape = SeatShape(seatModel.x!!.toInt()*5, seatModel.y!!.toInt()*5, 30, seatModel.col.toString())
+                shape.type = SeatShape.Type.SQUARE
+                ShapesInteractor.instance.upDateCanvas(shape)
+            }
+        })
     }
 
+    //
+
+    private fun initSeats(){
+        ShapesInteractor.instance.setCanvas(wv_stadium)
+        ShapesInteractor.instance.setContext(context)
+        getCanvasWidthAndHeight()
+    }
+
+    private fun getCanvasWidthAndHeight() {
+//        val viewTreeObserver: ViewTreeObserver = wv_stadium.viewTreeObserver
+//        if (viewTreeObserver.isAlive) {
+//            viewTreeObserver.addOnGlobalLayoutListener(object :
+//                ViewTreeObserver.OnGlobalLayoutListener {
+//                override fun onGlobalLayout() {
+//                    wv_stadium.viewTreeObserver.removeOnGlobalLayoutListener(this)
+//                    var maxY = wv_stadium.width
+//                    var maxX = wv_stadium.height
+//                    //Reduce radius so that shape isn't left incomplete at the edge
+//                    ShapesInteractor.instance.maxX = 100
+//
+//                    ShapesInteractor.instance.maxY = 100
+//                    removeOnGlobalLayoutListener(wv_stadium, this)
+//                    Log.d(
+//                        "TAG",
+//                        " Screen max x= $maxX maxy = $maxY"
+//                    )
+//                }
+//            })
+//        }
+    }
+
+    /*Since global layout listener is called multiple times, remove it once we get the screen width and height
+     */
+    fun removeOnGlobalLayoutListener(v: View, listener: ViewTreeObserver.OnGlobalLayoutListener?) {
+        v.viewTreeObserver.removeOnGlobalLayoutListener(listener)
+    }
 }
 
 
