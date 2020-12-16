@@ -28,7 +28,7 @@ class OrderUseCase(
 
     fun <S> createOrders(eventId: Int,
                          areaId: Int,
-                         sid: String, useCaseDisposable: S) where S : Observer<in ResponseBody>?, S : Disposable {
+                         sid: String, useCaseDisposable: S) where S : Observer<in OrderIdModel>?, S : Disposable {
         if (mAccessToken != null) {
             mRepository.addToCart(eventId, areaId, sid, mAccessToken)
                 .subscribeOn(Schedulers.io())
@@ -37,8 +37,15 @@ class OrderUseCase(
         }
     }
 
-    fun <S> getOrders(status: Int, useCaseDisposable: S) where S : Observer<in MutableList<OrderModel>>?, S : Disposable {
-        mRepository.getUserOrders(status)
+    fun <S> getAllOrders(useCaseDisposable: S) where S : Observer<in MutableList<OrderModel>>?, S : Disposable {
+        mRepository.getAllOrders(mAccessToken!!)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(useCaseDisposable)
+    }
+
+    fun <S> getOrder(orderId:Int, useCaseDisposable: S) where S : Observer<in OrderModel>?, S : Disposable {
+        mRepository.getOrder(orderId, mAccessToken!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)

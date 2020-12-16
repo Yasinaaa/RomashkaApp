@@ -38,7 +38,7 @@ interface Repository {
     fun getEventSectorZones(eventId: Int, areaId: Int, accessToken: String): Observable<MutableList<ZoneModel>>
     fun getEventZonePlaces(eventId: Int, areaId: Int, accessToken: String): Observable<MutableList<ZoneWithFreePlacesModel>>
     fun getEventSectorStatuses(eventId: Int, sectorId: Int, areaId: Int, accessToken: String): Observable<MutableList<StatusModel>>
-    fun addToCart(eventId: Int, areaId: Int, sid: String, accessToken: String): Observable<ResponseBody>
+    fun addToCart(eventId: Int, areaId: Int, sid: String, accessToken: String): Observable<OrderIdModel>
 //    fun getUserOrder(userId: Int, orderId: Int): Observable<OrderModel>
 //    fun createOrder(userId: Int, order: OrderModel): Observable<OrderModel>
 //    fun addSeatToOrder(userId: Int, orderId: Int, sid: String): Observable<CartModel>
@@ -61,7 +61,8 @@ interface Repository {
     fun getEventSector(eventId: Int, sectorId: Int, last: String?, lastSeatsGt: String?, lastAreaGt: String?): Observable<SectorModel>
     fun getEventSectorPoints(eventId: Int, sectorId: Int, limit: Int): Observable<MutableList<PointModel>>
 
-    fun getUserOrders(status: Int): Observable<MutableList<OrderModel>>
+    fun getOrder(orderId:Int, accessToken: String): Observable<OrderModel>
+    fun getAllOrders(accessToken: String): Observable<MutableList<OrderModel>>
     fun getServices(last: String?, limit: String?, active: Boolean?,unitId: Int?): Observable<MutableList<ServiceModel>>
     fun getService(serviceId: Int): Observable<ServiceModel>
 }

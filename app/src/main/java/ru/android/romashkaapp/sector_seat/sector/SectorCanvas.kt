@@ -106,16 +106,16 @@ class SectorCanvas: View{
 //                )
 //                drawRectangle(shape.getxCordinate(), shape.getyCordinate())
                 drawPaint!!.color = Color.RED
-                val rectangle = Rect(
+                shape.rect = Rect(
                     (shape.getxCordinate() - squareSideHalf * RADIUS).toInt(),
                     (shape.getyCordinate() - squareSideHalf * RADIUS).toInt(),
                     (shape.getxCordinate() + squareSideHalf * RADIUS).toInt(),
                     (shape.getyCordinate() + squareSideHalf * RADIUS).toInt()
                 )
-                canvas!!.drawRect(rectangle, drawPaint!!)
+                canvas.drawRect(shape.rect!!, drawPaint!!)
                 canvas.drawText(
-                    shape.title, rectangle.exactCenterX().toFloat(),
-                    rectangle.exactCenterY().toFloat(), textPaint!!
+                    shape.title, shape.rect!!.exactCenterX().toFloat(),
+                    shape.rect!!.exactCenterY().toFloat(), textPaint!!
                 )
             }
         }
@@ -134,7 +134,12 @@ class SectorCanvas: View{
 
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                Log.d(LOG_TAG, " ACTION_DOWN")
+                for (shape in getHistoryList()) {
+                    if(shape.rect!!.contains(x.toInt(), y.toInt())){
+                        Log.d(LOG_TAG, " ACTION_DOWN shape=" + shape.title)
+                    }
+                }
+
                 // Might not be necessary; check out later
                 dragging = true
                 // We want to store the coords of the user's finger as it is before they move

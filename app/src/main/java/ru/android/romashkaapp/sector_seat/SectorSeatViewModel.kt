@@ -110,7 +110,8 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
 //            svgArea.value = saveHtmlToLocal(context, areaId, response.string())
 //
 //            eventUseCase!!.getEventSectorStatuses(eventId!!, 1, areaId, SectorStatusesSubscriber())
-            orderUseCase!!.createOrders(eventId, areaId, response[5].sid!!, CreateOrderSubscriber())
+            //orderUseCase!!.createOrders(eventId, areaId, response[0].sid!!, CreateOrderSubscriber())
+            orderUseCase!!.getAllOrders(AllOrdersSubscriber())
         }
     }
 
@@ -125,14 +126,40 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
         }
     }
 
-    private inner class CreateOrderSubscriber: BaseSubscriber<ResponseBody>() {
+    private inner class CreateOrderSubscriber: BaseSubscriber<OrderIdModel>() {
 
         override fun onError(e: Throwable) {
             super.onError(e)
         }
 
-        override fun onNext(response: ResponseBody) {
+        override fun onNext(response: OrderIdModel) {
             super.onNext(response)
+
+
+        }
+    }
+
+    private inner class AllOrdersSubscriber: BaseSubscriber<MutableList<OrderModel>>() {
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: MutableList<OrderModel>) {
+            super.onNext(response)
+            orderUseCase!!.getOrder(15, OrderSubscriber())
+        }
+    }
+
+    private inner class OrderSubscriber: BaseSubscriber<OrderModel>() {
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: OrderModel) {
+            super.onNext(response)
+
         }
     }
 

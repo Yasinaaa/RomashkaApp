@@ -8,12 +8,15 @@ class OrderModel {
 
     var id: Int = 0
     var user_id: Int = 0
-    var amount: String? = null
+    var count: Int? = null
+    var status_id: Int = 0
+    var default_amount: Int? = null
+    var amount: Int? = null
+    var bonuses: String? = null
     var commision: String? = null
-    var default_amount: String? = null
-    var open_date: String? = null
-    var close_date: String? = null
-    var type: Int = 0
-    var status: Int = 0
-    var carts: MutableList<CartModel>? = null
+    var creatred_at: String? = null
+    var closed_at: String? = null
+    var expired_at: String? = null
+
+//    var carts: MutableList<CartModel>? = null
 }

@@ -212,8 +212,12 @@ class ApiRepository: Repository {
         return mAPI.getEventSectorPoints(eventId, sectorId, limit)
     }
 
-    override fun getUserOrders(status: Int): Observable<MutableList<OrderModel>> {
-        return mAPI.getUserOrders(status)
+    override fun getOrder(orderId: Int, accessToken: String): Observable<OrderModel> {
+        return mAPI.getUserOrder(orderId=orderId, accessToken=accessToken)
+    }
+
+    override fun getAllOrders(accessToken: String): Observable<MutableList<OrderModel>> {
+        return mAPI.getAllOrders(accessToken=accessToken)
     }
 
     override fun getServices(
@@ -292,7 +296,7 @@ class ApiRepository: Repository {
         areaId: Int,
         sid: String,
         accessToken: String
-    ): Observable<ResponseBody> {
+    ): Observable<OrderIdModel> {
         val sidValue = Sid()
         sidValue.sid = sid
         return mAPI.addToCart(eventId, areaId, sidValue, accessToken)

@@ -87,7 +87,7 @@ interface API {
     @POST("/yasina/v1/events/{event_id}/areas/{area_id}/carts")
     fun addToCart(@Path("event_id") eventId: Int, @Path("area_id") areaId: Int,
                   @Body sid: Sid,
-                  @Query("accessToken") accessToken: String): Observable<ResponseBody>
+                  @Query("accessToken") accessToken: String): Observable<OrderIdModel>
 
     //todo
     @GET("/events/{event_id}/subscriptions")
@@ -109,8 +109,11 @@ interface API {
 
 
 
-    @GET("/orders")
-    fun getUserOrders(@Query("status") status: Int): Observable<MutableList<OrderModel>>
+    @GET("/yasina/v1/orders/{order_id}")
+    fun getUserOrder(@Path("order_id") orderId: Int, @Query("accessToken") accessToken: String): Observable<OrderModel>
+
+    @GET("/yasina/v1/orders")
+    fun getAllOrders(@Query("accessToken") accessToken: String): Observable<MutableList<OrderModel>>
 //
 //    @GET("/api/v1/users/{user_id}/orders/{order_id}")
 //    fun getUserOrder(@Path("user_id") userId: Int, @Path("order_id") orderId: Int): Observable<OrderModel>

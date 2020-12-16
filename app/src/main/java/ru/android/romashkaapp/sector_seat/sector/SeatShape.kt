@@ -1,5 +1,6 @@
 package ru.android.romashkaapp.sector_seat.sector
 
+import android.graphics.Rect
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -19,6 +20,7 @@ public class SeatShape() : Parcelable {
         private set
     var actionNumber = 0
     var lastTranformationIndex = -1
+    var rect: Rect? = null
 
     constructor(parcel: Parcel) : this() {
         xCordinate = parcel.readInt()
