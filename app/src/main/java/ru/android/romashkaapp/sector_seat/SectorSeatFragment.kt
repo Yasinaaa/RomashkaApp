@@ -93,7 +93,7 @@ class SectorSeatFragment : Fragment() {
         }
 
         viewModel.list.observe(viewLifecycleOwner, {
-//            adapter.updateList(it)
+            adapter.updateList(it)
         })
 
         binding.apply {
@@ -107,10 +107,15 @@ class SectorSeatFragment : Fragment() {
         }
 
         binding.viewModel?.pricesList!!.observe(viewLifecycleOwner, {
+            pricesAdapter!!.updateList(it)
+        })
+
+        binding.viewModel?.cart!!.observe(viewLifecycleOwner, {
             cl_bottomsheet.visibility = View.VISIBLE
             bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED
 
-            pricesAdapter!!.updateList(it)
+            tv_total_price.text = String.format(getString(R.string.rub), it.amount.plus(it.commision).toString())
+            tv_total_tickets_count.text = String.format(getString(R.string.tickets_count), it.count)
         })
 
         swipeItemTouchHelper = ItemTouchHelper(
@@ -183,8 +188,6 @@ class SectorSeatFragment : Fragment() {
             }
         })
     }
-
-    //
 
     private fun initSeats(){
         ShapesInteractor.instance.setCanvas(wv_stadium)

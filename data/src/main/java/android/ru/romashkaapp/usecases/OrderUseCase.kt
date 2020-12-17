@@ -26,11 +26,31 @@ class OrderUseCase(
             .subscribeWith(useCaseDisposable)
     }
 
-    fun <S> createOrders(eventId: Int,
+    fun <S> addToCart(eventId: Int,
+                      areaId: Int,
+                      sid: String, useCaseDisposable: S) where S : Observer<in OrderIdModel>?, S : Disposable {
+        if (mAccessToken != null) {
+            mRepository.addToCart(eventId, areaId, sid, mAccessToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(useCaseDisposable)
+        }
+    }
+
+    fun <S> deleteOrder(eventId: Int,
                          areaId: Int,
                          sid: String, useCaseDisposable: S) where S : Observer<in OrderIdModel>?, S : Disposable {
         if (mAccessToken != null) {
-            mRepository.addToCart(eventId, areaId, sid, mAccessToken)
+            mRepository.deleteSeatFromCart(eventId, areaId, sid, mAccessToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(useCaseDisposable)
+        }
+    }
+
+    fun <S> payOrder(orderId: Int, useCaseDisposable: S) where S : Observer<in ResponseBody>?, S : Disposable {
+        if (mAccessToken != null) {
+            mRepository.payOrder(orderId, mAccessToken)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(useCaseDisposable)
@@ -46,6 +66,13 @@ class OrderUseCase(
 
     fun <S> getOrder(orderId:Int, useCaseDisposable: S) where S : Observer<in OrderModel>?, S : Disposable {
         mRepository.getOrder(orderId, mAccessToken!!)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(useCaseDisposable)
+    }
+
+    fun <S> getUserOrderCarts(orderId:Int, useCaseDisposable: S) where S : Observer<in MutableList<CartModel>>?, S : Disposable {
+        mRepository.getUserOrderCarts(orderId, mAccessToken!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)

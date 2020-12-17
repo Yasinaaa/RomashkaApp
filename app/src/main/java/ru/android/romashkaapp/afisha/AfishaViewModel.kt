@@ -45,8 +45,7 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
         dictionaryUseCase!!.getNoms(last = null, limit = null, NomsSubscriber())
     }
 
-    private inner class NomsSubscriber :
-        BaseSubscriber<MutableList<NomModel>>() { //MutableList<NomModel>
+    private inner class NomsSubscriber : BaseSubscriber<MutableList<NomModel>>() { //MutableList<NomModel>
 
         override fun onError(e: Throwable) {
             super.onError(e)

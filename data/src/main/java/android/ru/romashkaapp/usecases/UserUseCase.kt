@@ -41,13 +41,6 @@ class UserUseCase(
             .subscribeWith(useCaseDisposable)
     }
 
-    fun <S> getUsers(accessToken: String, useCaseDisposable: S) where S : Observer<in MutableList<UserModel>>?, S : Disposable {
-        mRepository.getUsers(accessToken)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(useCaseDisposable)
-    }
-
     fun <S> addUser(user: UserRequestModel, useCaseDisposable: S) where S : Observer<in ResponseBody>?, S : Disposable {
         if (mAccessToken != null) {
             mRepository.addUser(user, mAccessToken)
@@ -57,17 +50,10 @@ class UserUseCase(
         }
     }
 
-    fun <S> getUser(useCaseDisposable: S) where S : Observer<in UserModel>?, S : Disposable {
-         mRepository.getUser(5)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(useCaseDisposable)
-    }
-
-    fun <S> editUser(userId: Long, user: UserModel, useCaseDisposable: S) where S : Observer<ResponseBody>?, S : Disposable {
-        mRepository.editUser(userId, user)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(useCaseDisposable)
-    }
+//    fun <S> editUser(userId: Long, user: UserModel, useCaseDisposable: S) where S : Observer<ResponseBody>?, S : Disposable {
+//        mRepository.editUser(userId, user)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribeWith(useCaseDisposable)
+//    }
 }

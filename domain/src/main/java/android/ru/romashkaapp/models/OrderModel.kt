@@ -11,10 +11,10 @@ class OrderModel {
     var count: Int? = null
     var status_id: Int = 0
     var default_amount: Int? = null
-    var amount: Int? = null
+    var amount: Float = 0f
     var bonuses: String? = null
-    var commision: String? = null
-    var creatred_at: String? = null
+    var commision: Float = 0f
+    var created_at: String? = null
     var closed_at: String? = null
     var expired_at: String? = null
 

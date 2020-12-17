@@ -81,7 +81,7 @@ class EventsUseCase(
                                 sectorId: String?,
                                 areaId: Int,
                                 type: String?, useCaseDisposable: S) where S : Observer<MutableList<SeatModel>>?, S : Disposable {
-        mRepository.getEventSectorSeats(eventId, sectorId, areaId, type, mAccessToken)
+        mRepository.getEventSectorSeats(eventId = eventId, sectorId = sectorId, areaId = areaId, type = type, mAccessToken)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)
@@ -107,36 +107,6 @@ class EventsUseCase(
                                    sectorId: Int,
                                    areaId: Int, useCaseDisposable: S) where S : Observer<MutableList<StatusModel>>?, S : Disposable {
         mRepository.getEventSectorStatuses(eventId, sectorId, areaId, mAccessToken)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(useCaseDisposable)
-    }
-
-    fun <S> getEventSubscriptions(eventId: Int, useCaseDisposable: S) where S : Observer<MutableList<EventModel>>?, S : Disposable {
-        mRepository.getEventSubscriptions(eventId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(useCaseDisposable)
-    }
-
-    fun <S> getEventSector(eventId: Int,
-                           sectorId: Int,
-                           last: String?,
-                           lastSeatsGt: String?,
-                           lastAreaGt: String?, useCaseDisposable: S) where S : Observer<SectorModel>?, S : Disposable {
-        mRepository.getEventSector(eventId, sectorId, last, lastSeatsGt, lastAreaGt)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(useCaseDisposable)
-    }
-
-
-
-
-    fun <S> getEventSectorPoints(eventId: Int,
-                                sectorId: Int,
-                                limit: Int, useCaseDisposable: S) where S : Observer<MutableList<PointModel>>?, S : Disposable {
-        mRepository.getEventSectorPoints(eventId, sectorId, limit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)

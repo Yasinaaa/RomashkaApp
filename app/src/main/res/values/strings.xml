@@ -111,5 +111,6 @@
     <string name="events_not_found_text">По данному запросу матчей нет.\nПопробуйте изменить фильтры.</string>
     <string name="zone_price">%s ₽, свободно %s мест</string>
     <string name="rub">%s ₽</string>
+    <string name="tickets_count">%s билета</string>
 
 </resources>

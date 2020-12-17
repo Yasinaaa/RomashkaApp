@@ -68,24 +68,12 @@ class ApiRepository: Repository {
         return mAPI.getClientToken(clientToken)
     }
 
-    override fun getUsers(accessToken: String): Observable<MutableList<UserModel>> {
-        return mAPI.getUsers(accessToken)
-    }
-
     override fun addUser(user: UserRequestModel, accessToken: String): Observable<ResponseBody> {
-        return mAPI.addUser(user, "Bearer " + accessToken)
-    }
-
-    override fun getUser(userId: Long): Observable<UserModel> {
-        return mAPI.getUser(userId)
-    }
-
-    override fun editUser(userId: Long, user: UserModel): Observable<ResponseBody> {
-        return mAPI.editUser(userId, user)
+        return mAPI.addUser(user, "Bearer $accessToken")
     }
 
     override fun getEvents(accessToken: String, page: Int?, perPage: Int?): Observable<MutableList<EventModel>> {
-        return mAPI.getEvents(accessToken= accessToken, page = page, perPage = perPage)
+        return mAPI.getEvents(accessToken= "Bearer $accessToken", page = page, perPage = perPage)
     }
 
     override fun getEvents(last: String?, limit: String?,
@@ -99,145 +87,30 @@ class ApiRepository: Repository {
     }
 
     override fun getEvent(accessToken: String, eventId: Int): Observable<EventModel> {
-        return mAPI.getEvent(eventId, accessToken)
-    }
-
-//    override fun getSector(eventId: Int, sectorId: Int): Observable<SectorModel> {
-//        return mAPI.getSector(eventId, sectorId)
-//    }
-//
-//    override fun getSectorPlaces(eventId: Int, sectorId: Int): Observable<SeatModel> {
-//        return mAPI.getSectorPlaces(eventId, sectorId)
-//    }
-//
-//    override fun getSectorSvg(eventId: Int, sectorId: Int): Observable<SectorSvgModel> {
-//        return mAPI.getSectorSvg(eventId, sectorId)
-//    }
-//
-//    override fun getUserOrders(userId: Int): Observable<MutableList<OrderModel>> {
-//        return mAPI.getUserOrders(userId)
-//    }
-//
-//    override fun getUserOrder(userId: Int, orderId: Int): Observable<OrderModel> {
-//        return mAPI.getUserOrder(userId, orderId)
-//    }
-//
-//    override fun createOrder(userId: Int, order: OrderModel): Observable<OrderModel> {
-//        return mAPI.createOrder(userId, order)
-//    }
-//
-//    override fun addSeatToOrder(userId: Int, orderId: Int, sid: String): Observable<CartModel> {
-//        return mAPI.addSeatToOrder(userId, orderId, sid)
-//    }
-//
-//    override fun deleteSeatFromCart(
-//        userId: Int,
-//        orderId: Int,
-//        cartId: Int
-//    ): Observable<ResponseBody> {
-//        return mAPI.deleteSeatFromCart(userId, orderId, cartId)
-//    }
-//
-//    override fun payOrder(orderId: Int): Observable<ResponseBody> {
-//        return mAPI.payOrder(orderId)
-//    }
-
-    override fun getUnits(last: String?, limit: String?): Observable<MutableList<UnitModel>> {
-        return mAPI.getUnits(last, limit)
-    }
-
-    override fun getUnit(id: Int): Observable<UnitModel> {
-        return mAPI.getUnit(id)
-    }
-
-    override fun getHalls(last: String?, limit: String?): Observable<MutableList<HallModel>> {
-        return mAPI.getHalls(last, limit)
+        return mAPI.getEvent(eventId, "Bearer $accessToken")
     }
 
     override fun getHall(accessToken: String, id: Int): Observable<HallModel> {
-        return mAPI.getHall(id, accessToken)
-    }
-
-    override fun getCities(last: String?, limit: String?): Observable<MutableList<CityModel>> {
-        return mAPI.getCities(last, limit)
-    }
-
-    override fun getCity(id: Int): Observable<CityModel> {
-        return mAPI.getCity(id)
-    }
-
-    override fun getCategories(accessToken: String, last: String?, limit: String?): Observable<MutableList<CategoryModel>> {
-        return mAPI.getCategories(accessToken, last, limit)
-    }
-
-    override fun getCategory(categoryId: Int): Observable<CategoryModel> {
-        return mAPI.getCategory(categoryId)
-    }
-
-    override fun getActions(accessToken: String): Observable<MutableList<ActionModel>> {
-        return mAPI.getActions(accessToken)
-    }
-
-    override fun getAction(id: Int): Observable<ActionModel> {
-        return mAPI.getAction(id)
+        return mAPI.getHall(id, "Bearer $accessToken")
     }
 
     override fun getNoms(accessToken: String, last: String?, limit: String?): Observable<MutableList<NomModel>> {
-        return mAPI.getNoms(accessToken, null, null)
-    }
-
-    override fun getNom(nomId: Int): Observable<NomModel> {
-        return mAPI.getNom(nomId)
-    }
-
-    override fun getEventSubscriptions(eventId: Int): Observable<MutableList<EventModel>> {
-        return mAPI.getEventSubscriptions(eventId)
-    }
-
-    override fun getEventSector(
-        eventId: Int,
-        sectorId: Int,
-        last: String?,
-        lastSeatsGt: String?,
-        lastAreaGt: String?
-    ): Observable<SectorModel> {
-        return mAPI.getEventSector(eventId, sectorId, last, lastSeatsGt, lastAreaGt)
-    }
-
-    override fun getEventSectorPoints(
-        eventId: Int,
-        sectorId: Int,
-        limit: Int
-    ): Observable<MutableList<PointModel>> {
-        return mAPI.getEventSectorPoints(eventId, sectorId, limit)
+        return mAPI.getNoms("Bearer $accessToken", null, null)
     }
 
     override fun getOrder(orderId: Int, accessToken: String): Observable<OrderModel> {
-        return mAPI.getUserOrder(orderId=orderId, accessToken=accessToken)
+        return mAPI.getUserOrder(orderId=orderId, accessToken="Bearer $accessToken")
     }
 
     override fun getAllOrders(accessToken: String): Observable<MutableList<OrderModel>> {
-        return mAPI.getAllOrders(accessToken=accessToken)
-    }
-
-    override fun getServices(
-        last: String?,
-        limit: String?,
-        active: Boolean?,
-        unitId: Int?
-    ): Observable<MutableList<ServiceModel>> {
-        return mAPI.getServices(last, limit, active, unitId)
-    }
-
-    override fun getService(serviceId: Int): Observable<ServiceModel> {
-        return mAPI.getService(serviceId)
+        return mAPI.getAllOrders(accessToken="Bearer $accessToken")
     }
 
     override fun getEventAreas(
         eventId: Int,
         accessToken: String
     ): Observable<MutableList<AreaModel>> {
-        return mAPI.getEventAreas(eventId, accessToken)
+        return mAPI.getEventAreas(eventId, "Bearer $accessToken")
     }
 
     override fun getEventArea(
@@ -245,7 +118,7 @@ class ApiRepository: Repository {
         areaId: Int,
         accessToken: String
     ): Observable<MutableList<SectorModel>> {
-        return mAPI.getEventArea(eventId, areaId, accessToken)
+        return mAPI.getEventArea(eventId, areaId, "Bearer $accessToken")
     }
 
     override fun getEventAreaPlan(
@@ -253,7 +126,7 @@ class ApiRepository: Repository {
         areaId: Int,
         accessToken: String
     ): Observable<ResponseBody> {
-        return mAPI.getEventAreaPlan(eventId, areaId, "svg", accessToken)
+        return mAPI.getEventAreaPlan(eventId, areaId, "svg", "Bearer $accessToken")
     }
 
     override fun getEventSectorSeats(
@@ -263,7 +136,7 @@ class ApiRepository: Repository {
         type: String?,
         accessToken: String
     ): Observable<MutableList<SeatModel>> {
-        return mAPI.getEventSectorSeats(eventId, sectorId, areaId, type, accessToken)
+        return mAPI.getEventSectorSeats(eventId = eventId, sectorId = sectorId, areaId = areaId, type = type, "Bearer $accessToken")
     }
 
     override fun getEventSectorZones(
@@ -271,7 +144,7 @@ class ApiRepository: Repository {
         areaId: Int,
         accessToken: String
     ): Observable<MutableList<ZoneModel>> {
-        return mAPI.getEventSectorZones(eventId, areaId, accessToken)
+        return mAPI.getEventSectorZones(eventId, areaId, "Bearer $accessToken")
     }
 
     override fun getEventZonePlaces(
@@ -279,7 +152,7 @@ class ApiRepository: Repository {
         areaId: Int,
         accessToken: String
     ): Observable<MutableList<ZoneWithFreePlacesModel>> {
-        return mAPI.getEventZonePlaces(eventId, areaId, accessToken)
+        return mAPI.getEventZonePlaces(eventId, areaId, "Bearer $accessToken")
     }
 
     override fun getEventSectorStatuses(
@@ -288,7 +161,7 @@ class ApiRepository: Repository {
         areaId: Int,
         accessToken: String
     ): Observable<MutableList<StatusModel>> {
-        return mAPI.getEventSectorStatuses(eventId, sectorId, areaId, accessToken)
+        return mAPI.getEventSectorStatuses(eventId, sectorId, areaId, "Bearer $accessToken")
     }
 
     override fun addToCart(
@@ -299,6 +172,28 @@ class ApiRepository: Repository {
     ): Observable<OrderIdModel> {
         val sidValue = Sid()
         sidValue.sid = sid
-        return mAPI.addToCart(eventId, areaId, sidValue, accessToken)
+        return mAPI.addToCart(eventId, areaId, sidValue, "Bearer $accessToken")
+    }
+
+    override fun deleteSeatFromCart(
+        eventId: Int,
+        areaId: Int,
+        sid: String,
+        accessToken: String
+    ): Observable<OrderIdModel> {
+        val sidValue = Sid()
+        sidValue.sid = sid
+        return mAPI.deleteSeatFromCart(eventId, areaId, sidValue, "Bearer $accessToken")
+    }
+
+    override fun payOrder(orderId: Int, accessToken: String): Observable<ResponseBody> {
+        return mAPI.payOrder(orderId, "Bearer $accessToken")
+    }
+
+    override fun getUserOrderCarts(
+        orderId: Int,
+        accessToken: String
+    ): Observable<MutableList<CartModel>> {
+        return mAPI.getUserOrderCarts(orderId, "Bearer $accessToken")
     }
 }

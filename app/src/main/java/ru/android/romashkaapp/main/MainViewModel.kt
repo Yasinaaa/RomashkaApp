@@ -126,240 +126,30 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
         }
     }
 
-    private inner class UserSubscriber(): BaseSubscriber<UserModel>() {
-        override fun onComplete() {
-            super.onComplete()
-        }
+//    private inner class ServicesSubscriber: BaseSubscriber<MutableList<ServiceModel>>() {
+//
+//        override fun onError(e: Throwable) {
+//            super.onError(e)
+//        }
+//
+//        override fun onNext(response: MutableList<ServiceModel>) {
+//            super.onNext(response)
+//            Log.d("ffd", "ServicesSubscriber")
+//
+//            dictionaryUseCase!!.getService(response[0].id, ServiceSubscriber())
+//        }
+//    }
+//
+//    private inner class ServiceSubscriber: BaseSubscriber<ServiceModel>() {
+//
+//        override fun onError(e: Throwable) {
+//            super.onError(e)
+//        }
+//
+//        override fun onNext(response: ServiceModel) {
+//            super.onNext(response)
+//            Log.d("ffd", "ServiceSubscriber")
+//        }
+//    }
 
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: UserModel) {
-            super.onNext(response)
-            Log.d("ffd", response.email)
-
-            var id = response.id
-            var user = UserModel()
-            user.photo = "R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-
-            userUseCase!!.editUser(id, user, PatchUserSubscriber())
-        }
-    }
-
-    private inner class PatchUserSubscriber(): BaseSubscriber<ResponseBody>() {
-        override fun onComplete() {
-            super.onComplete()
-        }
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: ResponseBody) {
-            super.onNext(response)
-            Log.d("ffd", "ss")
-            picture.value = "R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-
-        }
-    }
-
-    private inner class AllUsersSubscriber(): BaseSubscriber<MutableList<UserModel>>() {
-        override fun onComplete() {
-            super.onComplete()
-        }
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: MutableList<UserModel>) {
-            super.onNext(response)
-            Log.d("ffd", "fd")
-//            dictionaryUseCase!!.getCategories(accessToken!!, last = null, limit = "100", CategoriesSubscriber())
-        }
-    }
-
-    private inner class CategoriesSubscriber: BaseSubscriber<MutableList<CategoryModel>>() {
-        override fun onComplete() {
-            super.onComplete()
-        }
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: MutableList<CategoryModel>) {
-            super.onNext(response)
-            Log.d("ffd", "CategoriesSubscriber")
-//            dictionaryUseCase!!.getActions(accessToken!!, ActionsSubscriber())
-
-//            dictionaryUseCase!!.getCategory(response[0].id, CategorySubscriber())
-        }
-    }
-
-    private inner class CategorySubscriber: BaseSubscriber<CategoryModel>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: CategoryModel) {
-            super.onNext(response)
-            Log.d("ffd", "CategorySubscriber")
-
-
-        }
-    }
-
-    private inner class ActionsSubscriber: BaseSubscriber<MutableList<ActionModel>>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: MutableList<ActionModel>) {
-            super.onNext(response)
-            Log.d("ffd", "ActionsSubscriber")
-//            dictionaryUseCase!!.getNoms(accessToken=accessToken!!, last = response.last().last, limit = "100", NomsSubscriber())
-//            dictionaryUseCase!!.getAction(response[0].id, ActionSubscriber())
-        }
-    }
-
-    private inner class ActionSubscriber: BaseSubscriber<ActionModel>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: ActionModel) {
-            super.onNext(response)
-            Log.d("ffd", "ActionSubscriber")
-
-//            dictionaryUseCase!!.getNoms(last = response.last, limit = "100", NomsSubscriber())
-        }
-    }
-
-
-
-    private inner class NomSubscriber: BaseSubscriber<NomModel>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: NomModel) {
-            super.onNext(response)
-            Log.d("ffd", "CitiesSubscriber")
-
-            dictionaryUseCase!!.getCities(last = response.last, limit = "100", CitiesSubscriber())
-        }
-    }
-
-    private inner class CitiesSubscriber(): BaseSubscriber<MutableList<CityModel>>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: MutableList<CityModel>) {
-            super.onNext(response)
-            Log.d("ffd", "CitySubscriber")
-
-            dictionaryUseCase!!.getCity(response[0].id, CitySubscriber())
-        }
-    }
-
-    private inner class CitySubscriber: BaseSubscriber<CityModel>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: CityModel) {
-            super.onNext(response)
-            Log.d("ffd", "CitySubscriber")
-
-            dictionaryUseCase!!.getUnits(last = response.last, limit = "100", UnitsSubscriber())
-        }
-    }
-
-    private inner class UnitsSubscriber(): BaseSubscriber<MutableList<UnitModel>>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: MutableList<UnitModel>) {
-            super.onNext(response)
-            Log.d("ffd", "UnitSubscriber")
-
-            dictionaryUseCase!!.getUnit(response[0].id, UnitSubscriber())
-        }
-    }
-
-    private inner class UnitSubscriber: BaseSubscriber<UnitModel>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: UnitModel) {
-            super.onNext(response)
-            Log.d("ffd", "UnitSubscriber")
-
-            dictionaryUseCase!!.getHalls(last = response.last, limit = "100", HallsSubscriber())
-        }
-    }
-
-    private inner class HallsSubscriber(): BaseSubscriber<MutableList<HallModel>>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: MutableList<HallModel>) {
-            super.onNext(response)
-            Log.d("ffd", "UnitSubscriber")
-
-        }
-    }
-
-    private inner class ServicesSubscriber: BaseSubscriber<MutableList<ServiceModel>>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: MutableList<ServiceModel>) {
-            super.onNext(response)
-            Log.d("ffd", "ServicesSubscriber")
-
-            dictionaryUseCase!!.getService(response[0].id, ServiceSubscriber())
-        }
-    }
-
-    private inner class ServiceSubscriber: BaseSubscriber<ServiceModel>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: ServiceModel) {
-            super.onNext(response)
-            Log.d("ffd", "ServiceSubscriber")
-        }
-    }
-
-    private inner class OrdersSubscriber: BaseSubscriber<MutableList<OrderModel>>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: MutableList<OrderModel>) {
-            super.onNext(response)
-            Log.d("ffd", "OrdersSubscriber")
-        }
-    }
 }

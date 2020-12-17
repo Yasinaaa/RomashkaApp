@@ -6,5 +6,5 @@ package android.ru.romashkaapp.models
 class StatusModel {
 
     var sid: String? = null
-    var state: String? = null
+    var state: Int = 0
 }
