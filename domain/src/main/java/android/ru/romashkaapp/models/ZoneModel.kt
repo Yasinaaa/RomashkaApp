@@ -7,7 +7,7 @@ package android.ru.romashkaapp.models
 class ZoneModel {
 
     var id: Int = 0
-    var price: String? = null
+    var price: Float = 0f
     var color: String? = null
     var all: String? = null
 

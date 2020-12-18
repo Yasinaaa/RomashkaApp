@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="android.text.TextUtils"/>
+        <variable
+            name="match"
+            type="ru.android.romashkaapp.afisha.adapters.MatchesAdapter.Match" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cl_main_game_card"
+        android:paddingBottom="18dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rectangle_white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_event_date"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:textAlignment="viewStart"
+            android:text="@{match.date}"
+            tools:text="17 ОКТЯБРЯ  ЧТ 18:00"
+            android:fontFamily="@font/roboto_bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:drawablePadding="10dp"
+            app:drawableRightCompat="@drawable/ic_calendar" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_event_championship_title"
+            android:textSize="14sp"
+            android:textColor="@color/button_next_color"
+            android:textAlignment="viewStart"
+            android:visibility="@{TextUtils.isEmpty(match.nomTitle) ? View.GONE : View.VISIBLE}"
+            android:text="@{match.nomTitle}"
+            android:fontFamily="@font/roboto"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_event_date"/>
+
+        <include
+            layout="@layout/two_circle_images"/>
+
+        <TextView
+            android:id="@+id/tv_event_title1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/pfbeauaanspro_reg"
+            android:lineSpacingExtra="0dp"
+            android:text="@{match.firstLine}"
+            android:textAlignment="textStart"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/civ_logo2"
+            app:layout_constraintTop_toTopOf="@+id/civ_logo1"
+            tools:text="Лион" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_event_title2"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:textAlignment="textStart"
+            android:lineSpacingExtra="0dp"
+            android:text="@{match.secondLine}"
+            tools:text="Лион"
+            android:fontFamily="@font/pfbeauaanspro_reg"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/civ_logo2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_event_title1"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -180,7 +180,7 @@ class ApiRepository: Repository {
         areaId: Int,
         sid: String,
         accessToken: String
-    ): Observable<OrderIdModel> {
+    ): Observable<ResponseBody> {
         val sidValue = Sid()
         sidValue.sid = sid
         return mAPI.deleteSeatFromCart(eventId, areaId, sidValue, "Bearer $accessToken")
@@ -194,6 +194,7 @@ class ApiRepository: Repository {
         orderId: Int,
         accessToken: String
     ): Observable<MutableList<CartModel>> {
-        return mAPI.getUserOrderCarts(orderId, "Bearer $accessToken")
+        //Content-Type: application/json; charset=UTF-8
+        return mAPI.getUserOrderCarts(orderId, "Bearer $accessToken", "ru")
     }
 }

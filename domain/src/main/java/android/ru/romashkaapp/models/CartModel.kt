@@ -7,15 +7,15 @@ package android.ru.romashkaapp.models
 class CartModel {
 
     var id: Int = 0
-    var price: String? = null
+    var price: Float = 0f
     var commission: String? = null
-    var default_price: String? = null
-    var occup_begin: String? = null
-    var occup_end: String? = null
+    var bonuses: String? = null
+    var created_at: String? = null
     var sid: String? = null
     var row: String? = null
     var col: String? = null
     var sector: String? = null
+    var level: String? = null
     var name: String? = null
-    var eventId: Int = 0
+    var event_id: String? = null
 }

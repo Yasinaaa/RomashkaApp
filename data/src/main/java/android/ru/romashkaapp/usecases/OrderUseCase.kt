@@ -39,7 +39,7 @@ class OrderUseCase(
 
     fun <S> deleteOrder(eventId: Int,
                          areaId: Int,
-                         sid: String, useCaseDisposable: S) where S : Observer<in OrderIdModel>?, S : Disposable {
+                         sid: String, useCaseDisposable: S) where S : Observer<in ResponseBody>?, S : Disposable {
         if (mAccessToken != null) {
             mRepository.deleteSeatFromCart(eventId, areaId, sid, mAccessToken)
                 .subscribeOn(Schedulers.io())

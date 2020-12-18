@@ -93,7 +93,7 @@ interface API {
     @HTTP(method = "DELETE", path = "/yasina/v1/events/{event_id}/areas/{area_id}/carts", hasBody = true)
     fun deleteSeatFromCart(@Path("event_id") eventId: Int, @Path("area_id") areaId: Int,
                            @Body sid: Sid,
-                           @Header("Authorization") accessToken: String): Observable<OrderIdModel>
+                           @Header("Authorization") accessToken: String): Observable<ResponseBody>
 
     @Headers("Content-Type: application/json; charset=UTF-8")
     @GET("/yasina/v1/pay/{order_id}")
@@ -105,7 +105,8 @@ interface API {
 
     @Headers("Content-Type: application/json; charset=UTF-8")
     @GET("/yasina/v1/orders/{order_id}/carts")
-    fun getUserOrderCarts(@Path("order_id") orderId: Int, @Header("Authorization") accessToken: String): Observable<MutableList<CartModel>>
+    fun getUserOrderCarts(@Path("order_id") orderId: Int, @Header("Authorization") accessToken: String,
+                          @Header("Accept-Language") lang: String): Observable<MutableList<CartModel>>
 
     @Headers("Content-Type: application/json; charset=UTF-8")
     @GET("/yasina/v1/orders")

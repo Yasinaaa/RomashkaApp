@@ -10,5 +10,6 @@
     <color name="button_next_color">#828282</color>
     <color name="green">#72BF44</color>
     <color name="red">#D90000</color>
+    <color name="light_grey">#D0D7EA</color>
 
 </resources>

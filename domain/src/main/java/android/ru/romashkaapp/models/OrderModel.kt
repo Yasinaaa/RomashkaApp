@@ -8,7 +8,7 @@ class OrderModel {
 
     var id: Int = 0
     var user_id: Int = 0
-    var count: Int? = null
+    var count: Int = 0
     var status_id: Int = 0
     var default_amount: Int? = null
     var amount: Float = 0f

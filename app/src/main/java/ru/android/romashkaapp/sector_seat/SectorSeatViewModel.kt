@@ -7,6 +7,8 @@ import android.ru.romashkaapp.usecases.EventsUseCase
 import android.ru.romashkaapp.usecases.OrderUseCase
 import android.util.Log
 import android.view.View
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import okhttp3.ResponseBody
@@ -15,6 +17,8 @@ import ru.android.romashkaapp.R
 import ru.android.romashkaapp.StartActivity
 import ru.android.romashkaapp.adapter.helpers.SwipeRemoveActionListener
 import ru.android.romashkaapp.base.BaseViewModel
+import ru.android.romashkaapp.basket.BasketFragment
+import ru.android.romashkaapp.basket.BasketFragment.Companion.ORDER_ID
 import ru.android.romashkaapp.stadium.ItemClickListener
 import ru.android.romashkaapp.utils.Utils
 
@@ -36,7 +40,6 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
     val list: MutableLiveData<MutableList<CartModel>> = MutableLiveData()
 
     private val _deletedPosition: MutableLiveData<Int> = MutableLiveData()
-    val removedItemIndex: LiveData<Int> = _deletedPosition
     private var previousDeletedItem: CartModel? = null
 
     private var eventUseCase: EventsUseCase? = null
@@ -45,11 +48,13 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
     val seatsCoordinates = MutableLiveData<MutableList<SeatModel>>()
     private var eventId: Int = 0
     private var areaId: Int = 0
+    private var currentOrderId: Int = 0
     private var sectorId: String? = null
     val sectorLive = MutableLiveData<String>()
     val sectorPrevLive = MutableLiveData<String?>()
     val sectorNextLive = MutableLiveData<String?>()
     val cart = MutableLiveData<OrderModel>()
+    val nextFragment = MutableLiveData<Fragment>()
     var allSectors: MutableList<SectorModel> = mutableListOf()
     val pricesList: MutableLiveData<MutableList<ZoneModel>> = MutableLiveData()
 
@@ -139,6 +144,7 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
 
         override fun onNext(response: OrderIdModel) {
             super.onNext(response)
+            currentOrderId = response.order_id
             orderUseCase!!.getOrder(response.order_id, OrderSubscriber())
         }
     }
@@ -147,8 +153,8 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
 
         var orderId: Int
 
-        constructor(orderid: Int){
-            this.orderId = orderid
+        constructor(order: Int){
+            this.orderId = order
         }
 
         override fun onError(e: Throwable) {
@@ -157,22 +163,6 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
 
         override fun onNext(response: MutableList<OrderModel>) {
             super.onNext(response)
-        }
-    }
-
-    fun deleteSid(sid: String){
-        orderUseCase!!.deleteOrder(eventId, areaId, sid, DeleteOrderSubscriber())
-    }
-
-    private inner class DeleteOrderSubscriber: BaseSubscriber<OrderIdModel>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: OrderIdModel) {
-            super.onNext(response)
-
         }
     }
 
@@ -226,12 +216,22 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
     }
 
     override fun onClick(view: View?) {
-        if (view!!.id == R.id.mb_prev){
-            sectorId = sectorPrevLive.value
-            showPrevAndNext()
-        }else if (view.id == R.id.mb_next){
-            sectorId = sectorNextLive.value
-            showPrevAndNext()
+        when {
+            view!!.id == R.id.mb_prev -> {
+                sectorId = sectorPrevLive.value
+                showPrevAndNext()
+            }
+            view.id == R.id.mb_next -> {
+                sectorId = sectorNextLive.value
+                showPrevAndNext()
+            }
+            view.id == R.id.mb_cart -> {
+                var fragment = BasketFragment()
+                fragment.arguments = bundleOf(
+                    ORDER_ID to currentOrderId,
+                )
+                nextFragment.value = fragment
+            }
         }
     }
 
@@ -273,9 +273,30 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
     }
 
     override fun removeItem(position: Int) {
-//        previousDeletedItem = _list.value?.get(position)
-//        _list.value?.removeAt(position)
-//        _deletedPosition.value = position
+        var sid = list.value!![position].sid
+        if(sid != null){
+            orderUseCase!!.deleteOrder(eventId, areaId, sid, DeleteOrderSubscriber(position))
+        }
+    }
+
+    private inner class DeleteOrderSubscriber: BaseSubscriber<ResponseBody> {
+
+        var pos: Int
+
+        constructor(pos: Int){
+            this.pos = pos
+        }
+
+        override fun onError(e: Throwable) {
+            super.onError(e)
+        }
+
+        override fun onNext(response: ResponseBody) {
+            super.onNext(response)
+            previousDeletedItem = list.value?.get(pos)
+            list.value?.removeAt(pos)
+            _deletedPosition.value = pos
+        }
     }
 
     override fun click(item: ZoneModel?) {

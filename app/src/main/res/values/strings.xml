@@ -54,7 +54,7 @@
 
     <string name="clean">Очистить</string>
     <string name="tickets_expires_in">Билеты доступны в корзине</string>
-    <string name="order">Заказ</string>
+    <string name="order">Заказ №%s</string>
     <string name="i_have_a_promocode">У меня есть промокод</string>
     <string name="to_pay">К оплате</string>
     <string name="pay">Оплатить</string>
@@ -112,5 +112,7 @@
     <string name="zone_price">%s ₽, свободно %s мест</string>
     <string name="rub">%s ₽</string>
     <string name="tickets_count">%s билета</string>
+    <string name="one_ticket_count">%s билет</string>
+    <string name="zero_ticket_count">%s билетов</string>
 
 </resources>

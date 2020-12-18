@@ -6,7 +6,9 @@ import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import ru.android.romashkaapp.R
 import ru.android.romashkaapp.afisha.adapters.MatchesAdapter
+import java.text.DecimalFormat
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -57,4 +59,27 @@ fun String?.toLocalDate(): LocalDate?{
             .toLocalDate()
     }
     return null
+}
+
+fun Float.removeZero(): String{
+    val format = DecimalFormat()
+    format.isDecimalSeparatorAlwaysShown = false
+    return format.format(this)
+}
+
+fun Int.ticketsCount(context: Context): String{
+    return when {
+        this == 1 -> {
+            String.format(context.getString(R.string.one_ticket_count), this)
+        }
+        this == 0 -> {
+            String.format(context.getString(R.string.zero_ticket_count), this)
+        }
+        this == 2 || this == 3 || this == 4 -> {
+            String.format(context.getString(R.string.tickets_count), this)
+        }
+        else -> {
+            String.format(context.getString(R.string.zero_ticket_count), this)
+        }
+    }
 }

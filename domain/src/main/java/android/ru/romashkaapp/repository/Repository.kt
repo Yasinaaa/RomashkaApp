@@ -32,7 +32,7 @@ interface Repository {
     fun getEventZonePlaces(eventId: Int, areaId: Int, accessToken: String): Observable<MutableList<ZoneWithFreePlacesModel>>
     fun getEventSectorStatuses(eventId: Int, sectorId: Int, areaId: Int, accessToken: String): Observable<MutableList<StatusModel>>
     fun addToCart(eventId: Int, areaId: Int, sid: String, accessToken: String): Observable<OrderIdModel>
-    fun deleteSeatFromCart(eventId: Int, areaId: Int, sid: String, accessToken: String): Observable<OrderIdModel>
+    fun deleteSeatFromCart(eventId: Int, areaId: Int, sid: String, accessToken: String): Observable<ResponseBody>
     fun getUserOrderCarts(orderId: Int, accessToken: String): Observable<MutableList<CartModel>>
     fun payOrder(orderId: Int, accessToken: String): Observable<ResponseBody>
     fun getHall(accessToken: String, id: Int): Observable<HallModel>

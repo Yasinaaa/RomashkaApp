@@ -1,11 +1,9 @@
 package ru.android.romashkaapp.sector_seat
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -20,19 +18,21 @@ import kotlinx.android.synthetic.main.fragment_sector.*
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.adapter.helpers.SwipeRemoveActionCallback
 import ru.android.romashkaapp.adapter.helpers.SwipeRemoveItemDecoration
+import ru.android.romashkaapp.base.BaseFragment
 import ru.android.romashkaapp.databinding.FragmentSectorBinding
-import ru.android.romashkaapp.sector_seat.adapter.AnimationOnLastItemAdapter
+import ru.android.romashkaapp.sector_seat.adapter.CartBottomBarAdapter
 import ru.android.romashkaapp.sector_seat.adapter.PricesWithColorAdapter
-import ru.android.romashkaapp.sector_seat.sector.CanvasTouch
 import ru.android.romashkaapp.sector_seat.sector.SeatShape
 import ru.android.romashkaapp.sector_seat.sector.ShapesInteractor
 import ru.android.romashkaapp.stadium.StadiumFragment
+import ru.android.romashkaapp.utils.removeZero
+import ru.android.romashkaapp.utils.ticketsCount
 
 /**
  * Created by yasina on 15.10.2020.
  * Copyright (c) 2020 Infomatica. All rights reserved.
  */
-class SectorSeatFragment : Fragment() {
+class SectorSeatFragment : BaseFragment() {
 
     companion object{
         val AREA_ID = "AREA_ID"
@@ -42,7 +42,7 @@ class SectorSeatFragment : Fragment() {
     lateinit var binding: FragmentSectorBinding
     private val viewModel: SectorSeatViewModel by viewModels()
     private var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>? = null
-    private val adapter = AnimationOnLastItemAdapter()
+    private val adapter = CartBottomBarAdapter()
     private lateinit var swipeItemTouchHelper: ItemTouchHelper
     private var pricesAdapter: PricesWithColorAdapter? = null
 
@@ -68,7 +68,7 @@ class SectorSeatFragment : Fragment() {
         background = ColorDrawable(
             ContextCompat.getColor(
                 requireContext(),
-                android.R.color.darker_gray
+                R.color.red
             )
         )
         icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_delete)
@@ -114,8 +114,12 @@ class SectorSeatFragment : Fragment() {
             cl_bottomsheet.visibility = View.VISIBLE
             bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED
 
-            tv_total_price.text = String.format(getString(R.string.rub), it.amount.plus(it.commision).toString())
-            tv_total_tickets_count.text = String.format(getString(R.string.tickets_count), it.count)
+            tv_total_price.text = String.format(getString(R.string.rub), it.amount.plus(it.commision).removeZero())
+            tv_total_tickets_count.text = it.count.ticketsCount(requireContext())
+        })
+
+        binding.viewModel?.nextFragment!!.observe(viewLifecycleOwner, {
+            setFragment(it)
         })
 
         swipeItemTouchHelper = ItemTouchHelper(
@@ -181,7 +185,6 @@ class SectorSeatFragment : Fragment() {
 
         binding.viewModel?.seatsCoordinates!!.observe(viewLifecycleOwner, {
             it.forEach { seatModel ->
-
                 val shape = SeatShape(seatModel.x!!.toInt()*5, seatModel.y!!.toInt()*5, 30, seatModel.col.toString())
                 shape.type = SeatShape.Type.SQUARE
                 ShapesInteractor.instance.upDateCanvas(shape)

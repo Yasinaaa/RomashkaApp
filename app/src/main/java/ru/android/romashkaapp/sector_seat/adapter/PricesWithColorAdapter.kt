@@ -7,16 +7,15 @@ import android.ru.romashkaapp.models.ZoneModel
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
 import ru.android.romashkaapp.BR
 import ru.android.romashkaapp.R
-import ru.android.romashkaapp.databinding.ItemCalendarBinding
 import ru.android.romashkaapp.databinding.ItemPriceWithColorBinding
 import ru.android.romashkaapp.stadium.ItemClickListener
+import ru.android.romashkaapp.utils.removeZero
+import java.text.DecimalFormat
 
 
 /**
@@ -70,15 +69,15 @@ class PricesWithColorAdapter(l: ItemClickListener) : RecyclerView.Adapter<Recycl
         if (holder is PriceViewHolder) {
             holder.binding?.mbPrice!!.iconTint = ColorStateList.valueOf(Color.parseColor(list[position]!!.color))
 
-            holder.binding?.setVariable(
+            holder.binding.setVariable(
                 BR.text,
                 String.format(
                     context.getString(R.string.rub),
-                    list[position]!!.price
+                    list[position]!!.price.removeZero()
                 )
             )
-            holder.binding?.executePendingBindings()
-            holder.binding?.root?.setOnClickListener {
+            holder.binding.executePendingBindings()
+            holder.binding.root.setOnClickListener {
                 notifyDataSetChanged()
             }
         }
