@@ -146,8 +146,6 @@ class MatchesFragment : BaseFragment(){
             }
         })
 
-        bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_HIDDEN
-
         mb_info.setOnClickListener {
             cl_bottomsheet.visibility = VISIBLE
             bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED

@@ -10,11 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.getColor
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.fragment_basket.*
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.basket.adapters.CartAdapter
@@ -35,6 +37,7 @@ class BasketFragment : Fragment() {
     private val viewModel: BasketViewModel by viewModels()
     private lateinit var mainViewModel: MainViewModel
     private var adapter: CartAdapter? = null
+    private var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>? = null
 
     fun setViewModel(viewModel: MainViewModel) {
         this.mainViewModel = viewModel
@@ -70,6 +73,39 @@ class BasketFragment : Fragment() {
         viewModel.list.observe(viewLifecycleOwner, {
             adapter!!.updateList(it)
         })
+
+        bottomSheetBehavior = BottomSheetBehavior.from(cl_bottomsheet)
+        bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_HIDDEN
+        cl_bottomsheet.visibility = View.GONE
+
+        bottomSheetBehavior!!.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                // handle onSlide
+            }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when (newState) {
+                    BottomSheetBehavior.STATE_COLLAPSED -> {
+                        cl_bottomsheet.visibility = View.GONE
+                    }
+                    BottomSheetBehavior.STATE_EXPANDED -> {
+
+                    }
+                    BottomSheetBehavior.STATE_DRAGGING -> {
+
+                    }
+                    BottomSheetBehavior.STATE_SETTLING -> {
+
+                    }
+                }
+            }
+        })
+
+        tv_order_promocode.setOnClickListener {
+            cl_bottomsheet.visibility = View.VISIBLE
+            bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED
+        }
     }
 
     private fun setExpirationDate(){

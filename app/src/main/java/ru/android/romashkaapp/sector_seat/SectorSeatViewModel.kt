@@ -54,7 +54,7 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
     val sectorPrevLive = MutableLiveData<String?>()
     val sectorNextLive = MutableLiveData<String?>()
     val cart = MutableLiveData<OrderModel>()
-    val nextFragment = MutableLiveData<Fragment>()
+    val nextFragment = MutableLiveData<BasketFragment>()
     var allSectors: MutableList<SectorModel> = mutableListOf()
     val pricesList: MutableLiveData<MutableList<ZoneModel>> = MutableLiveData()
 

@@ -114,5 +114,9 @@
     <string name="tickets_count">%s билета</string>
     <string name="one_ticket_count">%s билет</string>
     <string name="zero_ticket_count">%s билетов</string>
+    <string name="input_promocode">Введите промокод</string>
+    <string name="promocode">Промокод</string>
+    <string name="you_are_in_a_payment_page">Вы находитесь на странице оплаты покупки</string>
+    <string name="test_payment_text">Так как сейчас приложение является демонстрационным, никакие денежные средства не списываются! Для получения билета нажмите кнопку «‎Оплатить».</string>
 
 </resources>
