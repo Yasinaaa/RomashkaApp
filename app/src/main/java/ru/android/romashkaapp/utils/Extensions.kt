@@ -3,11 +3,11 @@ package ru.android.romashkaapp.utils
 import android.content.Context
 import android.util.TypedValue
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import ru.android.romashkaapp.R
-import ru.android.romashkaapp.afisha.adapters.MatchesAdapter
 import java.text.DecimalFormat
 import java.time.Instant
 import java.time.LocalDate
@@ -82,4 +82,9 @@ fun Int.ticketsCount(context: Context): String{
             String.format(context.getString(R.string.zero_ticket_count), this)
         }
     }
+}
+
+fun View.hideKeyboard(context: Context) {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(windowToken, 0)
 }

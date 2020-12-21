@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,6 +25,9 @@ import ru.android.romashkaapp.base.BaseFragment
 import ru.android.romashkaapp.databinding.FragmentMatchesBinding
 import ru.android.romashkaapp.main.MainViewModel
 import ru.android.romashkaapp.matches.adapters.MatchesAndCalendarAdapter
+import ru.android.romashkaapp.stadium.StadiumFragment
+import ru.android.romashkaapp.stadium.StadiumFragment.Companion.EVENT_ID
+import ru.android.romashkaapp.utils.hideKeyboard
 
 /**
  * Created by yasina on 15.10.2020.
@@ -110,14 +114,7 @@ class MatchesFragment : BaseFragment(){
         })
 
         viewModel.nextFragmentOpenClick.observe(viewLifecycleOwner, {
-            findNavController().navigate(
-                R.id.nav_stadium,
-                null,
-                NavOptions.Builder().setPopUpTo(
-                    R.id.nav_main,
-                    true
-                ).build()
-            )
+            mainViewModel.setStadiumFragment(bundleOf(EVENT_ID to it!!.event.id, StadiumFragment.CHAMPIONSHIP_TITLE to it.nomTitle))
         })
 
         bottomSheetBehavior = BottomSheetBehavior.from(cl_bottomsheet)
@@ -158,6 +155,7 @@ class MatchesFragment : BaseFragment(){
         }
 
         ib_back.setOnClickListener {
+            binding.root.hideKeyboard(requireContext())
             parentFragmentManager.popBackStackImmediate()
         }
     }

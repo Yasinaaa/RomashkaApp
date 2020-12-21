@@ -94,8 +94,8 @@ class ApiRepository: Repository {
         return mAPI.getHall(id, "Bearer $accessToken")
     }
 
-    override fun getNoms(accessToken: String, last: String?, limit: String?): Observable<MutableList<NomModel>> {
-        return mAPI.getNoms("Bearer $accessToken", null, null)
+    override fun getNoms(accessToken: String, perPage: Int?, page: Int?): Observable<MutableList<NomModel>> {
+        return mAPI.getNoms("Bearer $accessToken", perPage, page)
     }
 
     override fun getOrder(orderId: Int, accessToken: String): Observable<OrderModel> {

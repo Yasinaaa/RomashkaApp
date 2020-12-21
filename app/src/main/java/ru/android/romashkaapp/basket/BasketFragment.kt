@@ -17,7 +17,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_basket.*
 import ru.android.romashkaapp.R
-import ru.android.romashkaapp.adapter.helpers.SwipeRemoveItemDecoration
+import ru.android.romashkaapp.basket.adapters.CartAdapter
 import ru.android.romashkaapp.databinding.FragmentBasketBinding
 import ru.android.romashkaapp.main.MainViewModel
 

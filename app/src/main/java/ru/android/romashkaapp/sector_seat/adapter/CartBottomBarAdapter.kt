@@ -40,6 +40,7 @@ class CartBottomBarAdapter : SwipeRemoveItemAdapter() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ItemViewHolder) {
+            holder.binding?.setVariable(BR.line, View.VISIBLE)
             holder.binding?.setVariable(BR.item, list!![position])
             holder.binding?.setVariable(
                 BR.price,

@@ -118,6 +118,6 @@ interface API {
 
     @Headers("Content-Type: application/json; charset=UTF-8")
     @GET("/yasina/v1/noms")
-    fun getNoms(@Header("Authorization") accessToken: String, @Query("last_gt") last: String?, @Query("limit") limit: String?): Observable<MutableList<NomModel>>
+    fun getNoms(@Header("Authorization") accessToken: String, @Query("per-page") perPage: Int?, @Query("page") page: Int?): Observable<MutableList<NomModel>>
 
 }

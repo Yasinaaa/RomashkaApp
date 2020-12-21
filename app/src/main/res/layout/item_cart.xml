@@ -10,6 +10,9 @@
         <variable
             name="price"
             type="String" />
+        <variable
+            name="line"
+            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -90,7 +93,7 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <View
-            android:visibility="visible"
+            android:visibility="@{line}"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:id="@+id/view1"

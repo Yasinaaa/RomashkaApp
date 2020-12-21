@@ -20,10 +20,12 @@ class DictionaryUseCase(
     private val mAccessToken: String
 ): ApiUseCase () {
 
-    fun <S> getNoms(last: String?, limit: String?, useCaseDisposable: S) where S : Observer<in MutableList<NomModel>>?, S : Disposable {
-        var observer: Observable<MutableList<NomModel>>? = null
-        observer = mRepository.getNoms(mAccessToken, last, limit)
-        observer
+    fun <S> getNoms(perPage: Int?, useCaseDisposable: S) where S : Observer<in MutableList<NomModel>>?, S : Disposable {
+        getNoms(perPage, null, useCaseDisposable)
+    }
+
+    fun <S> getNoms(perPage: Int?, page: Int?, useCaseDisposable: S) where S : Observer<in MutableList<NomModel>>?, S : Disposable {
+        mRepository.getNoms(mAccessToken, perPage, page)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(useCaseDisposable)

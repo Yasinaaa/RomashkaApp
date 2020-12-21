@@ -38,7 +38,7 @@ class MatchesViewModel(application: Application) : BaseViewModel(application), I
     }
 
     private fun getEvents(){
-        dictionaryUseCase!!.getNoms(last = "100", limit = "100", NomsSubscriber())
+        dictionaryUseCase!!.getNoms(1000, NomsSubscriber())
     }
 
     private inner class NomsSubscriber(): BaseSubscriber<MutableList<NomModel>>() { //MutableList<NomModel>
@@ -70,23 +70,23 @@ class MatchesViewModel(application: Application) : BaseViewModel(application), I
             super.onNext(response)
             Log.d("ffd", "EventsSubscriber")
 
-//            if(response.isNotEmpty()) {
-//                val list = mutableListOf<MatchesAdapter.Match?>()
-//                for (event in response) {
-//                    val match = MatchesAdapter.Match()
-//                    match.event = event
-//                    for (n in noms) {
-//                        if (event.nom_id == n.id) {
-//                            match.nomTitle = n.name
-//                        }
-//                    }
-//                    list.add(match)
-//                }
-//                list.sortBy { it?.event?.sdate }
-//                matchesList.value = list
-//            }else{
+            if(response.isNotEmpty()) {
+                val list = mutableListOf<MatchesAdapter.Match?>()
+                for (event in response) {
+                    val match = MatchesAdapter.Match()
+                    match.event = event
+                    for (n in noms) {
+                        if (event.nom_id == n.id) {
+                            match.nomTitle = n.name
+                        }
+                    }
+                    list.add(match)
+                }
+                list.sortBy { it?.event?.sdate }
+                matchesList.value = list
+            }else{
                 matchesList.value = null
-//            }
+            }
         }
     }
 

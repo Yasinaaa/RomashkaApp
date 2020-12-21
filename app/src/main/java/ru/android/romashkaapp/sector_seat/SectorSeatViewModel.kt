@@ -107,11 +107,13 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
         override fun onNext(response: MutableList<SeatModel>) {
             super.onNext(response)
             if(response.isNotEmpty()){
-                seatsCoordinates.value = response
-                response.forEachIndexed { index, seatModel ->
+                var list = mutableListOf<SeatModel>()
+                response.forEach{ seatModel ->
                     if(seatModel.zone_id != null){
-                        Log.d("fdfdgd", "not null")
+                        list.add(seatModel)
                     }
+                }.also {
+                    seatsCoordinates.value = list
                 }
             }
             eventUseCase!!.getEventSectorStatuses(eventId, sectorId = sectorId!!.toInt(), areaId = areaId, SectorStatusesSubscriber())
@@ -176,6 +178,7 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
             super.onNext(response)
             cart.value = response
             orderUseCase!!.getUserOrderCarts(response.id, OrderCartsSubscriber())
+            //payOrder(response.id)
         }
     }
 
@@ -191,8 +194,8 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
         }
     }
 
-    private fun payOrder(sid: String){
-        orderUseCase!!.payOrder(sid.toInt(), PayOrderSubscriber())
+    private fun payOrder(orderId: Int){
+        orderUseCase!!.payOrder(orderId, PayOrderSubscriber())
     }
 
     private inner class PayOrderSubscriber: BaseSubscriber<ResponseBody>() {

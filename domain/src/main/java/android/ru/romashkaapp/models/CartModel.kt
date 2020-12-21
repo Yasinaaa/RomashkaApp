@@ -17,5 +17,5 @@ class CartModel {
     var sector: String? = null
     var level: String? = null
     var name: String? = null
-    var event_id: String? = null
+    var event_id: Int = 0
 }

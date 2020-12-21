@@ -42,7 +42,7 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
     }
 
     fun getEvents() {
-        dictionaryUseCase!!.getNoms(last = null, limit = null, NomsSubscriber())
+        dictionaryUseCase!!.getNoms(perPage = 1000, NomsSubscriber())
     }
 
     private inner class NomsSubscriber : BaseSubscriber<MutableList<NomModel>>() { //MutableList<NomModel>

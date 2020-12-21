@@ -65,7 +65,8 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
 //        }else{
             userUseCase!!.getClientToken(clientId = Utils.CLIENT_ID_USER, clientSecret = Utils.CLIENT_SECRET_USER,
                 grantType = Utils.GRANT_TYPE_PASSWORD,
-                username = "bla435@gmail.com",
+                username = "radikPadlo1@gmail.com",
+//                username = "bla435@gmail.com",
                 password = "3435gfdd",
                 scope = Utils.CLIENT_SCOPES,
                 ClientTokenSubscriber())
@@ -81,7 +82,7 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
         createFragment.value = fragment
     }
 
-    fun setStadiumFragment(bundle: Bundle){
+    fun setStadiumFragment(bundle: Bundle?){
         var fragment = StadiumFragment()
         fragment.arguments = bundle
         fragment.setViewModel(this)

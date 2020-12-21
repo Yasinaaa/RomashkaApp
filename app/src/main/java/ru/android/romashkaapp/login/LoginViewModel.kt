@@ -37,7 +37,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application), Vie
 
     fun createUser(){
         var user = UserRequestModel()
-        user.email = "radi12k@gmail.com"
+        user.email = "radikPadlo1@gmail.com"
         user.phone = "11111111111"
         user.second = "second"
         user.first = "first"

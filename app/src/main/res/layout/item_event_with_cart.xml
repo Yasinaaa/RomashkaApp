@@ -8,57 +8,55 @@
         <import type="android.text.TextUtils"/>
         <variable
             name="match"
-            type="ru.android.romashkaapp.afisha.adapters.MatchesAdapter.Match" />
+            type="ru.android.romashkaapp.basket.adapters.CartAdapter.OrderEventWithSeats" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/cl_main_game_card"
-        android:paddingBottom="18dp"
+        android:paddingBottom="17dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/rectangle_white">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_event_date"
-            android:textSize="14sp"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            android:textAlignment="viewStart"
-            android:text="@{match.date}"
-            tools:text="17 ОКТЯБРЯ  ЧТ 18:00"
-            android:fontFamily="@font/roboto_bold"
-            android:layout_marginTop="16dp"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/civ_logo1"
+            app:srcCompat="@drawable/ic_lenta"
+            android:scaleType="centerInside"
+            app:strokeColor="#F3F5FB"
+            app:strokeWidth="2dp"
+            app:shapeAppearanceOverlay="@style/circleImageView"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:layout_marginTop="15dp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:drawablePadding="10dp"
-            app:drawableRightCompat="@drawable/ic_calendar" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_event_championship_title"
-            android:textSize="14sp"
-            android:textColor="@color/button_next_color"
-            android:textAlignment="viewStart"
-            android:visibility="@{TextUtils.isEmpty(match.nomTitle) ? View.GONE : View.VISIBLE}"
-            android:text="@{match.nomTitle}"
-            android:fontFamily="@font/roboto"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/civ_logo2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerInside"
+            android:background="@android:color/white"
+            app:strokeColor="#F3F5FB"
+            app:strokeWidth="2dp"
+            app:srcCompat="@android:color/darker_gray"
+            app:shapeAppearanceOverlay="@style/circleImageView"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
+            android:paddingStart="1dp"
+            android:paddingEnd="1dp"
+            android:layout_marginStart="67dp"
+            android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_event_date"/>
-
-        <include
-            layout="@layout/two_circle_images"/>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/tv_event_title1"
@@ -94,6 +92,52 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/civ_logo2"
             app:layout_constraintTop_toBottomOf="@+id/tv_event_title1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_event_date"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:textAlignment="viewStart"
+            android:text="@{match.date}"
+            tools:text="17 ОКТЯБРЯ  ЧТ 18:00"
+            android:fontFamily="@font/roboto_bold"
+            android:layout_marginTop="7dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/civ_logo1"
+            android:drawablePadding="10dp"
+            app:drawableRightCompat="@drawable/ic_calendar" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_event_place"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:textAlignment="textStart"
+            tools:text="Казань Арена, г. Казань"
+            android:text="@{match.location}"
+            android:fontFamily="@font/pfbeauaanspro_reg"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_event_date"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/rv_seats"
+            android:layout_marginTop="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_event_place"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
