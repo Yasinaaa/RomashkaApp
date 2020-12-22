@@ -120,4 +120,8 @@ interface API {
     @GET("/yasina/v1/noms")
     fun getNoms(@Header("Authorization") accessToken: String, @Query("per-page") perPage: Int?, @Query("page") page: Int?): Observable<MutableList<NomModel>>
 
+    @Headers("Content-Type: application/pdf")
+    @GET("/yasina/v1/orders/{order_id}/ticket")
+    fun getTickets(@Path("order_id") orderId: Int, @Header("Authorization") accessToken: String): Observable<ResponseBody>
+
 }

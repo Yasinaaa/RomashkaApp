@@ -178,7 +178,6 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
             super.onNext(response)
             cart.value = response
             orderUseCase!!.getUserOrderCarts(response.id, OrderCartsSubscriber())
-            //payOrder(response.id)
         }
     }
 
@@ -191,22 +190,6 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
         override fun onNext(response: MutableList<CartModel>) {
             super.onNext(response)
             list.value = response
-        }
-    }
-
-    private fun payOrder(orderId: Int){
-        orderUseCase!!.payOrder(orderId, PayOrderSubscriber())
-    }
-
-    private inner class PayOrderSubscriber: BaseSubscriber<ResponseBody>() {
-
-        override fun onError(e: Throwable) {
-            super.onError(e)
-        }
-
-        override fun onNext(response: ResponseBody) {
-            super.onNext(response)
-
         }
     }
 

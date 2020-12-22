@@ -194,7 +194,10 @@ class ApiRepository: Repository {
         orderId: Int,
         accessToken: String
     ): Observable<MutableList<CartModel>> {
-        //Content-Type: application/json; charset=UTF-8
         return mAPI.getUserOrderCarts(orderId, "Bearer $accessToken", "ru")
+    }
+
+    override fun getTickets(orderId: Int, accessToken: String): Observable<ResponseBody> {
+        return mAPI.getTickets(orderId, "Bearer $accessToken")
     }
 }

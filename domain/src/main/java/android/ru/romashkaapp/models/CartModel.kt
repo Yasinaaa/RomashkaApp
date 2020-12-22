@@ -8,7 +8,7 @@ class CartModel {
 
     var id: Int = 0
     var price: Float = 0f
-    var commission: String? = null
+    var commission: Float = 0f
     var bonuses: String? = null
     var created_at: String? = null
     var sid: String? = null

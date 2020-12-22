@@ -78,4 +78,12 @@ class OrderUseCase(
             .subscribeWith(useCaseDisposable)
     }
 
+    fun <S> getTickets(orderId: Int, useCaseDisposable: S) where S : Observer<in ResponseBody>?, S : Disposable {
+        if (mAccessToken != null) {
+            mRepository.getTickets(orderId, mAccessToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(useCaseDisposable)
+        }
+    }
 }

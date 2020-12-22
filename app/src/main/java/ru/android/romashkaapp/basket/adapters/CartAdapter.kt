@@ -17,8 +17,10 @@ import ru.android.romashkaapp.R
 import ru.android.romashkaapp.BR
 import ru.android.romashkaapp.basket.ItemClickListener
 import ru.android.romashkaapp.databinding.ItemEventWithCartBinding
-import ru.android.romashkaapp.sector_seat.adapter.CartBottomBarAdapter
+import ru.android.romashkaapp.databinding.ItemOrderTotalDataBinding
 import ru.android.romashkaapp.utils.parseTimeStamp
+import ru.android.romashkaapp.utils.removeZero
+import ru.android.romashkaapp.utils.ticketsCount
 
 
 /**
@@ -29,40 +31,82 @@ open class CartAdapter(var listener: ItemClickListener) : RecyclerView.Adapter<R
 
     private lateinit var mContext: Context
 
+    companion object {
+        const val VIEW_TYPE_EVENT = 0
+        const val VIEW_TYPE_TOTAL = 1
+    }
+
     class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val bindingItem: ItemEventWithCartBinding? = DataBindingUtil.bind(view)
     }
 
-    private var list: MutableList<OrderEventWithSeats> = mutableListOf()
+    class TotalViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val bindingItem: ItemOrderTotalDataBinding? = DataBindingUtil.bind(view)
+    }
+
+    private var list: MutableList<OrderEventWithSeats?> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         mContext = parent.context
-        return ItemViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_event_with_cart, parent, false)
-        )
+
+        return when(viewType) {
+            VIEW_TYPE_EVENT -> {
+                ItemViewHolder(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_event_with_cart, parent, false)
+                )
+            }
+            else -> {
+                TotalViewHolder(
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.item_order_total_data, parent, false)
+                )
+            }
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ItemViewHolder) {
-            parseName(list[position])
-            setDate(list[position])
-            setRivalImage(holder, list[position].event!!.thumbnail)
+            if (list[position] != null) {
+                parseName(list[position]!!)
+                setDate(list[position]!!)
+                setRivalImage(holder, list[position]!!.event!!.thumbnail)
 
-            val adapter = SeatAdapter()
-            adapter.updateList(list[position].seats)
-            holder.bindingItem?.rvSeats!!.adapter = adapter
-            holder.bindingItem.rvSeats.layoutManager = LinearLayoutManager(mContext)
+                val adapter = SeatAdapter()
+                adapter.updateList(list[position]!!.seats)
+                holder.bindingItem?.rvSeats!!.adapter = adapter
+                holder.bindingItem.rvSeats.layoutManager = LinearLayoutManager(mContext)
 
 
-            holder.bindingItem.setVariable(BR.match, list[position])
-            holder.bindingItem.executePendingBindings()
-            holder.bindingItem.root.setOnClickListener { listener.click(list[position]) }
+                holder.bindingItem.setVariable(BR.match, list[position])
+                holder.bindingItem.executePendingBindings()
+                holder.bindingItem.root.setOnClickListener { listener.click(list[position]!!) }
+            }
+        }else if (holder is TotalViewHolder){
+            var ticketCount = 0
+            var ticketsTotalPrice = 0f
+            var ticketsTotalCommision = 0f
+
+            list.forEach {
+                if(it != null) {
+                    ticketCount += it.seats.size
+                    it.seats.forEach { seat ->
+                        ticketsTotalPrice += seat.price
+                        ticketsTotalCommision += seat.commission
+                    }
+                }
+            }.apply {
+                holder.bindingItem!!.tvItemSeat.text = ticketCount.ticketsCount(mContext)
+                holder.bindingItem.tvItemPrice.text = String.format(mContext.getString(R.string.rub), ticketsTotalPrice.removeZero())
+                holder.bindingItem.tvOrderCommissionPrice.text = String.format(mContext.getString(R.string.rub), ticketsTotalCommision.removeZero())
+            }
         }
     }
 
-    open fun updateList(list: MutableList<OrderEventWithSeats>) {
-        this.list = list
+    open fun updateList(list: MutableList<OrderEventWithSeats?>) {
+        this.list = mutableListOf()
+        this.list.addAll(list)
+        this.list.add(null)
         notifyDataSetChanged()
     }
 
@@ -123,6 +167,10 @@ open class CartAdapter(var listener: ItemClickListener) : RecyclerView.Adapter<R
                 match.secondLine = lines[1]
             }
         }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (list[position] == null) VIEW_TYPE_TOTAL else VIEW_TYPE_EVENT
     }
 
     class OrderEventWithSeats{

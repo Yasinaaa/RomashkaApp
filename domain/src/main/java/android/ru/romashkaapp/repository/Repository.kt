@@ -39,6 +39,7 @@ interface Repository {
     fun getNoms(accessToken: String, perPage: Int?, page: Int?): Observable<MutableList<NomModel>>
     fun getOrder(orderId:Int, accessToken: String): Observable<OrderModel>
     fun getAllOrders(accessToken: String): Observable<MutableList<OrderModel>>
+    fun getTickets(orderId: Int, accessToken: String): Observable<ResponseBody>
 //    fun getServices(last: String?, limit: String?, active: Boolean?,unitId: Int?): Observable<MutableList<ServiceModel>>
 //    fun getService(serviceId: Int): Observable<ServiceModel>
 }

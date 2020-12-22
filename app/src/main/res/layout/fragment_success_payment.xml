@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingConstraints">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="ru.android.romashkaapp.success_payment.SuccessPaymentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_80"
+        tools:context=".ru.android.romashkaapp.success_payment.SuccessPaymentFragment">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:id="@+id/tv_order_price"
+                    android:textSize="24sp"
+                    android:textColor="@color/green"
+                    tools:text="1100 ₽"
+                    android:fontFamily="@font/pfbeauaanspro_reg"
+                    android:textStyle="bold"
+                    android:layout_marginTop="52dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_order_successfully_paid"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black"
+                    android:text="@string/order_successfully_paid"
+                    android:fontFamily="@font/pfbeauaanspro_reg"
+                    android:textStyle="bold"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_order_price"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_we_send_tickets_to_the_email"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="center"
+                    android:text="@string/we_send_tickets_to_the_email"
+                    android:fontFamily="@font/pfbeauaanspro_reg"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_order_successfully_paid"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mb_add_to_g_pay"
+                    app:icon="@drawable/ic_gpay_logo_with_grey_text"
+                    app:iconTint="@android:color/transparent"
+                    app:iconTintMode="src_atop"
+                    app:iconPadding="6dp"
+                    app:iconGravity="textEnd"
+                    android:text="@string/add_to"
+                    android:textAllCaps="false"
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/pfbeauaanspro_reg"
+                    android:letterSpacing="0"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:backgroundTint="@android:color/transparent"
+                    app:cornerRadius="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@android:color/transparent"
+                    android:layout_marginStart="31dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_we_send_tickets_to_the_email"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:onClick="@{(view)->viewModel.onClick(view)}"/>
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:id="@+id/mb_download"
+                    app:icon="@drawable/ic_download"
+                    app:iconTint="@android:color/transparent"
+                    app:iconTintMode="src_atop"
+                    app:iconPadding="6dp"
+                    app:iconGravity="textStart"
+                    android:text="@string/download"
+                    android:textAllCaps="false"
+                    android:textColor="@color/grey"
+                    android:fontFamily="@font/pfbeauaanspro_reg"
+                    android:letterSpacing="0"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:backgroundTint="@android:color/transparent"
+                    app:cornerRadius="0dp"
+                    app:strokeWidth="1dp"
+                    app:strokeColor="@android:color/transparent"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="11dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/mb_add_to_g_pay"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_we_send_tickets_to_the_email"
+                    app:layout_constraintBottom_toBottomOf="@+id/mb_add_to_g_pay"
+                    android:onClick="@{(view)->viewModel.onClick(view)}"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:id="@+id/iv_success"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_success_payment"
+            android:elevation="2dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/cv"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/mb_back_to_afisha"
+            android:text="@string/back_to_afisha"
+            android:textAllCaps="false"
+            android:textColor="@color/grey"
+            android:fontFamily="@font/pfbeauaanspro_reg"
+            android:letterSpacing="0"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            app:cornerRadius="8dp"
+            android:backgroundTint="@android:color/white"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cv"
+            android:onClick="@{(view)->viewModel.onClick(view)}"/>
+
+        <ImageButton
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:id="@+id/mb_cart"
+            android:background="@drawable/ic_close_in_rect"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:onClick="@{(view)->viewModel.onClick(view)}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

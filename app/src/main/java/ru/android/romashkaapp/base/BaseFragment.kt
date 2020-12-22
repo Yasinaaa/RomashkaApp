@@ -32,4 +32,5 @@ open class BaseFragment: Fragment() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+
 }

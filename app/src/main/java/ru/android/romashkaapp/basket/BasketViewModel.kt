@@ -7,11 +7,18 @@ import android.ru.romashkaapp.usecases.EventsUseCase
 import android.ru.romashkaapp.usecases.OrderUseCase
 import android.util.Log
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
 import ru.android.romashkaapp.BaseSubscriber
+import ru.android.romashkaapp.R
 import ru.android.romashkaapp.StartActivity
 import ru.android.romashkaapp.base.BaseViewModel
+import ru.android.romashkaapp.basket.BasketFragment.Companion.ORDER_ID
 import ru.android.romashkaapp.basket.adapters.CartAdapter
+import ru.android.romashkaapp.payment.PaymentFragment
+import ru.android.romashkaapp.success_payment.SuccessPaymentFragment
+import ru.android.romashkaapp.success_payment.SuccessPaymentFragment.Companion.ORDER_EMAIL
+import ru.android.romashkaapp.success_payment.SuccessPaymentFragment.Companion.ORDER_SUM
 import ru.android.romashkaapp.utils.Utils
 
 /**
@@ -26,10 +33,14 @@ public interface ItemClickListener{
 class BasketViewModel(application: Application) : BaseViewModel(application), View.OnClickListener, ItemClickListener {
 
     private var currentOrderId: Int = 0
+    private var currentOrderSum: Float = 0f
+    private var currentEmail: String = ""
     private var orderUseCase: OrderUseCase? = null
     private var eventUseCase: EventsUseCase? = null
     private var dictionaryUseCase: DictionaryUseCase? = null
-    val list: MutableLiveData<MutableList<CartAdapter.OrderEventWithSeats>> = MutableLiveData()
+    val list: MutableLiveData<MutableList<CartAdapter.OrderEventWithSeats?>> = MutableLiveData()
+    val paymentFragment = MutableLiveData<PaymentFragment>()
+    val successPaymentFragment = MutableLiveData<SuccessPaymentFragment>()
 
     init {
         orderUseCase = OrderUseCase(StartActivity.REPOSITORY, Utils.getAccessToken(application)!!)
@@ -89,16 +100,18 @@ class BasketViewModel(application: Application) : BaseViewModel(application), Vi
             super.onNext(response)
             Log.d("ffd", "EventsSubscriber")
 
-            val matches: MutableList<CartAdapter.OrderEventWithSeats> = mutableListOf()
+            val matches: MutableList<CartAdapter.OrderEventWithSeats?> = mutableListOf()
             carts.forEach { c ->
                 var newMatch = true
 
                 matches.forEach { m ->
-                    if(m.event != null) {
-                        if (m.event!!.id == c.event_id) {
-                            newMatch = false
-                            m.seats.add(c)
-                            return@forEach
+                    if (m != null) {
+                        if (m.event != null) {
+                            if (m.event!!.id == c.event_id) {
+                                newMatch = false
+                                m.seats.add(c)
+                                return@forEach
+                            }
                         }
                     }
                 }
@@ -145,9 +158,11 @@ class BasketViewModel(application: Application) : BaseViewModel(application), Vi
 
                 var l = list.value
                 l!!.forEach {
-                    if(it.event!!.id == cart.event!!.id){
-                        it.location = response[0].name
-                        return@forEach
+                    if(it != null) {
+                        if (it.event!!.id == cart.event!!.id) {
+                            it.location = response[0].name
+                            return@forEach
+                        }
                     }
                 }.also {
                     list.value = l
@@ -164,6 +179,7 @@ class BasketViewModel(application: Application) : BaseViewModel(application), Vi
 
         override fun onNext(response: OrderModel) {
             super.onNext(response)
+            currentOrderSum = response.amount + response.commision
             orderUseCase!!.getUserOrderCarts(response.id, OrderCartsSubscriber())
         }
     }
@@ -181,7 +197,14 @@ class BasketViewModel(application: Application) : BaseViewModel(application), Vi
     }
 
     override fun onClick(view: View?) {
-        TODO("Not yet implemented")
+        if(R.id.mb_go_to_pay == view!!.id){
+
+            var fragment = PaymentFragment()
+            fragment.arguments = bundleOf(
+                ORDER_ID to currentOrderId,
+            )
+            paymentFragment.value = fragment
+        }
     }
 
     fun getListener(): ItemClickListener {
@@ -189,6 +212,16 @@ class BasketViewModel(application: Application) : BaseViewModel(application), Vi
     }
 
     override fun click(item: CartAdapter.OrderEventWithSeats) {
-        TODO("Not yet implemented")
+
+    }
+
+    fun openSuccessPaymentView(){
+
+        currentEmail = "radikPadlo1@gmail.com" //todo fix
+
+        var fragment = SuccessPaymentFragment()
+        fragment.arguments = bundleOf(ORDER_ID to currentOrderId, ORDER_EMAIL to currentEmail, ORDER_SUM to currentOrderSum)
+
+        successPaymentFragment.value = fragment
     }
 }

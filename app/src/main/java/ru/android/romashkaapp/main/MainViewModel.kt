@@ -10,18 +10,13 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import okhttp3.ResponseBody
 import ru.android.romashkaapp.BaseSubscriber
 import ru.android.romashkaapp.StartActivity.Companion.REPOSITORY
 import ru.android.romashkaapp.afisha.AfishaFragment
 import ru.android.romashkaapp.base.BaseViewModel
 import ru.android.romashkaapp.matches.MatchesFragment
-import ru.android.romashkaapp.sector_seat.SectorSeatFragment
 import ru.android.romashkaapp.stadium.StadiumFragment
 import ru.android.romashkaapp.utils.Utils
-import ru.android.romashkaapp.utils.Utils.Companion.CLIENT_ID
-import ru.android.romashkaapp.utils.Utils.Companion.CLIENT_SECRET
-import ru.android.romashkaapp.utils.Utils.Companion.GRANT_TYPE
 import ru.android.romashkaapp.utils.Utils.Companion.saveAccessToken
 import ru.android.romashkaapp.utils.Utils.Companion.saveUserToken
 
@@ -99,10 +94,6 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
             super.onNext(response)
             Log.d("ffd", "ss=${response.access_token}")
             saveAccessToken(context, response.access_token)
-
-            var fragment = AfishaFragment()
-            fragment.setViewModel(this@MainViewModel)
-            createFragment.value = fragment
         }
     }
 
