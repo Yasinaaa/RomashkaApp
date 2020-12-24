@@ -1,7 +1,5 @@
 package ru.android.romashkaapp.basket
 
-import android.app.Activity.RESULT_OK
-import android.content.Intent
 import android.graphics.Typeface.BOLD
 import android.os.Bundle
 import android.text.Spannable
@@ -10,15 +8,12 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -28,7 +23,7 @@ import ru.android.romashkaapp.base.BaseFragment
 import ru.android.romashkaapp.basket.adapters.CartAdapter
 import ru.android.romashkaapp.databinding.FragmentBasketBinding
 import ru.android.romashkaapp.main.MainViewModel
-import ru.android.romashkaapp.success_payment.SuccessPaymentFragment
+import ru.android.romashkaapp.payment.PaymentFragment
 
 /**
  * Created by yasina on 05.11.2020.
@@ -38,7 +33,7 @@ class BasketFragment : BaseFragment() {
 
     companion object{
         val ORDER_ID = "ORDER_ID"
-        val SUCCESS_PAYMENT = "SUCCESS_PAYMENT"
+        val IS_SUCCESS_PAYMENT = "IS_SUCCESS_PAYMENT"
     }
 
     lateinit var binding: FragmentBasketBinding
@@ -54,8 +49,12 @@ class BasketFragment : BaseFragment() {
     override fun setArguments(args: Bundle?) {
         super.setArguments(args)
         if (args != null){
-            if (args.containsKey(SUCCESS_PAYMENT)){
-                viewModel.openSuccessPaymentView()
+            if (args.containsKey(IS_SUCCESS_PAYMENT)){
+                if(args.getBoolean(IS_SUCCESS_PAYMENT)){
+                    viewModel.openSuccessPaymentView()
+                }else{
+                    viewModel.openFailedPaymentView()
+                }
             }
         }
     }
@@ -128,17 +127,29 @@ class BasketFragment : BaseFragment() {
             }
         })
 
-//        tv_order_promocode.setOnClickListener {
-//            cl_bottomsheet.visibility = View.VISIBLE
-//            bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED
-//        } todo
-
-        binding.viewModel?.paymentFragment!!.observe(viewLifecycleOwner) {
+        binding.viewModel?.successPaymentFragment!!.observe(viewLifecycleOwner) {
             setFragment(it)
         }
 
-        binding.viewModel?.successPaymentFragment!!.observe(viewLifecycleOwner) {
+        binding.viewModel?.failedPaymentFragment!!.observe(viewLifecycleOwner) {
             setFragment(it)
+        }
+
+        binding.viewModel?.pay!!.observe(viewLifecycleOwner) {
+            var fragment = PaymentFragment()
+            fragment.arguments = bundleOf(
+                ORDER_ID to it,
+            )
+            setFragment(fragment)
+        }
+
+        binding.viewModel?.googlePay!!.observe(viewLifecycleOwner) {
+            //todo
+        }
+
+        binding.viewModel?.promocode!!.observe(viewLifecycleOwner) {
+            cl_bottomsheet.visibility = View.VISIBLE
+            bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED
         }
     }
 

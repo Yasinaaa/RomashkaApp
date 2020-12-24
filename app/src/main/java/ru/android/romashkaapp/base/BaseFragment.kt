@@ -33,4 +33,10 @@ open class BaseFragment: Fragment() {
         transaction.commit()
     }
 
+    fun removeFragment(fragment: Fragment){
+        val transaction = parentFragmentManager.beginTransaction()
+        transaction.remove(fragment)
+        transaction.commit()
+    }
+
 }

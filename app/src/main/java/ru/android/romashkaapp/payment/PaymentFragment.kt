@@ -1,5 +1,6 @@
 package ru.android.romashkaapp.payment
 
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
@@ -42,38 +43,25 @@ class PaymentFragment : BaseFragment() {
         return binding.root
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         requireArguments().containsKey(BasketFragment.ORDER_ID).let {
             orderId = requireArguments().getInt(BasketFragment.ORDER_ID)
             binding.viewModel!!.setOrderId(orderId)
         }
 
-        parentFragmentManager.fragments.forEach {
-            if(it::class.java.name.contains("BasketFragment")){
-                childFragmentManager.popBackStack()
-                it.arguments = bundleOf(BasketFragment.SUCCESS_PAYMENT to true)
-                return@forEach
-            }
-        }
-
         val webViewClient = object : WebViewClient() {
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
                 if(url!!.contains("success?Order_ID=$orderId")){ //700506
-
-                    parentFragmentManager.fragments.forEach {
-                        if(it::class.java.name.contains("BasketFragment")){
-                            childFragmentManager.popBackStack()
-                            it.arguments = bundleOf(BasketFragment.SUCCESS_PAYMENT to true)
-                            return@forEach
-                        }
-                    }
+                    returnBack(true)
                 }
+//                else if(url.contains("Error")) {
+//                    returnBack(false)
+//                }
             }
-
         }
 
         wv.settings.javaScriptEnabled = true
@@ -90,5 +78,15 @@ class PaymentFragment : BaseFragment() {
             wv.webViewClient = webViewClient
             wv.loadUrl(it)
         })
+    }
+
+    private fun returnBack(isSuccess: Boolean){
+        parentFragmentManager.fragments.forEach {
+            if(it::class.java.name.contains("PaymentFragment")){
+                removeFragment(this)
+            }else if(it::class.java.name.contains("BasketFragment")){
+                it.arguments = bundleOf(BasketFragment.IS_SUCCESS_PAYMENT to isSuccess)
+            }
+        }
     }
 }

@@ -1,6 +1,7 @@
 package ru.android.romashkaapp.basket.adapters
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.ru.romashkaapp.models.CartModel
 import android.ru.romashkaapp.models.EventModel
 import android.util.Base64
@@ -12,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestBuilder
 import com.google.android.material.imageview.ShapeableImageView
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.BR
@@ -80,25 +82,34 @@ open class CartAdapter(var listener: ItemClickListener) : RecyclerView.Adapter<R
 
                 holder.bindingItem.setVariable(BR.match, list[position])
                 holder.bindingItem.executePendingBindings()
-                holder.bindingItem.root.setOnClickListener { listener.click(list[position]!!) }
             }
         }else if (holder is TotalViewHolder){
             var ticketCount = 0
             var ticketsTotalPrice = 0f
-            var ticketsTotalCommision = 0f
+            var ticketsTotalCommission = 0f
 
             list.forEach {
                 if(it != null) {
                     ticketCount += it.seats.size
                     it.seats.forEach { seat ->
                         ticketsTotalPrice += seat.price
-                        ticketsTotalCommision += seat.commission
+                        ticketsTotalCommission += seat.commission
                     }
                 }
             }.apply {
                 holder.bindingItem!!.tvItemSeat.text = ticketCount.ticketsCount(mContext)
                 holder.bindingItem.tvItemPrice.text = String.format(mContext.getString(R.string.rub), ticketsTotalPrice.removeZero())
-                holder.bindingItem.tvOrderCommissionPrice.text = String.format(mContext.getString(R.string.rub), ticketsTotalCommision.removeZero())
+                holder.bindingItem.tvOrderCommissionPrice.text = String.format(mContext.getString(R.string.rub), ticketsTotalCommission.removeZero())
+
+                holder.bindingItem.tvOrderPromocode.setOnClickListener {
+                    listener.onPromocodeClick()
+                }
+                holder.bindingItem.mbGPay.setOnClickListener {
+                    listener.onGPayClick()
+                }
+                holder.bindingItem.mbGoToPay.setOnClickListener {
+                    listener.onPayClick()
+                }
             }
         }
     }
@@ -119,7 +130,10 @@ open class CartAdapter(var listener: ItemClickListener) : RecyclerView.Adapter<R
     }
 
     private fun setRivalImage(holder: ItemViewHolder, thumbnail: String?){
-        var circleImage = holder.bindingItem!!.root.findViewById(R.id.civ_logo2) as ShapeableImageView
+        val circleImage = holder.bindingItem!!.root.findViewById(R.id.civ_logo2) as ShapeableImageView
+        val glide = Glide.with(mContext)
+        var requestBuilder: RequestBuilder<Drawable?>? = null
+
         if(!thumbnail.isNullOrEmpty()){
             var image = thumbnail
             if (thumbnail.contains("data:")){
@@ -127,16 +141,13 @@ open class CartAdapter(var listener: ItemClickListener) : RecyclerView.Adapter<R
                 image = list[1]
             }
             val imageByteArray: ByteArray = Base64.decode(image, Base64.DEFAULT)
-            Glide.with(mContext)
-                .load(imageByteArray)
-                .centerInside()
-                .into(circleImage)
+            requestBuilder = glide.load(imageByteArray)
         }else{
-            Glide.with(mContext)
-                .load(ContextCompat.getDrawable(mContext, R.drawable.ic_soccer))
-                .centerInside()
-                .into(circleImage)
+            requestBuilder = glide.load(ContextCompat.getDrawable(mContext, R.drawable.ic_soccer))
         }
+
+        if(requestBuilder != null)
+            requestBuilder.centerInside().into(circleImage)
     }
 
     private fun parseName(match: OrderEventWithSeats){
@@ -160,7 +171,7 @@ open class CartAdapter(var listener: ItemClickListener) : RecyclerView.Adapter<R
     }
 
     private fun splitText(match: OrderEventWithSeats, condition: String){
-        var lines = match.event!!.name!!.split(condition, limit = 2)
+        val lines = match.event!!.name!!.split(condition, limit = 2)
         if(lines.isNotEmpty()) {
             match.firstLine = lines[0]
             if (lines.size >= 2) {

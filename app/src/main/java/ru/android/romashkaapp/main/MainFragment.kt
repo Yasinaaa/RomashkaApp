@@ -20,6 +20,7 @@ import ru.android.romashkaapp.R
 import ru.android.romashkaapp.basket.BasketFragment
 import ru.android.romashkaapp.databinding.FragmentMainBinding
 import ru.android.romashkaapp.login.LoginFragment
+import ru.android.romashkaapp.tickets.TicketsFragment
 
 
 class MainFragment : Fragment() {
@@ -42,6 +43,7 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //todo fix bug
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -124,27 +126,6 @@ class MainFragment : Fragment() {
         transaction.commit()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.play_bill -> {
-
-            }
-            R.id.basket -> {
-
-            }
-            R.id.my_tickets -> {
-
-            }
-            R.id.account -> {
-                setFragment(LoginFragment())
-            }
-            else -> {
-
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { menuItem ->
         changeNavigationStatus(menuItem)
         when (menuItem.itemId) {
@@ -156,6 +137,7 @@ class MainFragment : Fragment() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.my_tickets -> {
+                setFragment(TicketsFragment())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.account -> {

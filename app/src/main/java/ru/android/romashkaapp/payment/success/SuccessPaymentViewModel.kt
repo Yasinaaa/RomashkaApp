@@ -1,10 +1,9 @@
-package ru.android.romashkaapp.success_payment
+package ru.android.romashkaapp.payment.success
 
 import android.app.Application
 import android.ru.romashkaapp.usecases.OrderUseCase
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.MutableLiveData
 import okhttp3.ResponseBody
 import ru.android.romashkaapp.BaseSubscriber
 import ru.android.romashkaapp.R

@@ -12,6 +12,9 @@
     <string name="close">Закрыть</string>
     <string name="unavailable">недоступно</string>
     <string name="sector">Сектор %s</string>
+    <string name="sector_title">Сектор</string>
+    <string name="row">Ряд</string>
+    <string name="seat">Место</string>
 
     <string name="boarding_1_title">Смотрите расписание матчей</string>
     <string name="boarding_1_text">Вы попали куда нужно!</string>
@@ -126,5 +129,10 @@
     <string name="empty_basket">В корзине пока пусто</string>
     <string name="go_to_afisha_and_choose_seats">Перейдите на Афишу и выберите билет на матч</string>
     <string name="go_to_buy_something">Перейти к покупкам</string>
+    <string name="order_wasnt_paid">Заказ не оплачен</string>
+    <string name="return_back_to_payment">Перейти к оплате</string>
+    <string name="share">Поделиться</string>
+    <string name="there_are_would_be_your_tickets">Здесь хранятся Ваши билеты</string>
+    <string name="there_are_would_be_your_tickets_after_pay">После оплаты заказа, на этой странице появятся Ваши билеты на матч</string>
 
 </resources>

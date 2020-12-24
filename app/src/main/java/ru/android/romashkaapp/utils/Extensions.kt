@@ -33,7 +33,11 @@ fun View.makeInVisible() {
 
 internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
 
-internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(context.getColorCompat(color))
+internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(
+    context.getColorCompat(
+        color
+    )
+)
 
 fun String?.parseTimeStamp(): String{
     return if(this != null){
@@ -87,4 +91,8 @@ fun Int.ticketsCount(context: Context): String{
 fun View.hideKeyboard(context: Context) {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(windowToken, 0)
+}
+
+fun String.createQrCode(){
+
 }
