@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_afisha.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.fragment_sector.*
 import ru.android.romashkaapp.R
+import ru.android.romashkaapp.afisha.AfishaFragment
 import ru.android.romashkaapp.basket.BasketFragment
 import ru.android.romashkaapp.databinding.FragmentMainBinding
 import ru.android.romashkaapp.login.LoginFragment
@@ -134,6 +135,9 @@ class MainFragment : Fragment() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.play_bill -> {
+                var fragment = AfishaFragment()
+                fragment.setViewModel(viewModel)
+                setFragment(fragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.my_tickets -> {

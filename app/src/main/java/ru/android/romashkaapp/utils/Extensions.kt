@@ -50,10 +50,33 @@ fun String?.parseTimeStamp(): String{
         )
         val formattedString: String = stamp.format(formatter)
         formattedString.toUpperCase()
-    }else{
-        ""
-//            match.firstLine = context.getString(R.string.no_event_title)
-    }
+    }else ""
+}
+
+fun String?.getDay(): String{
+    return if(this != null){
+        val stamp = this.toLocalDate()
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern(
+            "dd MMMM",
+            Locale("ru")
+        )
+        val formattedString: String = stamp!!.format(formatter)
+        formattedString.toUpperCase()
+    }else ""
+}
+
+fun String?.getTime(): String{
+    return if(this != null){
+        val stamp = Instant.ofEpochSecond(this.toLong())
+            .atZone(ZoneId.systemDefault())
+            .toLocalDateTime()
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern(
+            "hh:mm",
+            Locale("ru")
+        )
+        val formattedString: String = stamp.format(formatter)
+        formattedString.toUpperCase()
+    }else ""
 }
 
 fun String?.toLocalDate(): LocalDate?{
@@ -93,6 +116,3 @@ fun View.hideKeyboard(context: Context) {
     imm.hideSoftInputFromWindow(windowToken, 0)
 }
 
-fun String.createQrCode(){
-
-}

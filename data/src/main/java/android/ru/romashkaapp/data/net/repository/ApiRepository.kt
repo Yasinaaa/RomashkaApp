@@ -200,4 +200,19 @@ class ApiRepository: Repository {
     override fun getTickets(orderId: Int, accessToken: String): Observable<ResponseBody> {
         return mAPI.getTickets(orderId, "Bearer $accessToken")
     }
+
+    override fun getTicketBarcodes(
+        orderId: Int,
+        accessToken: String
+    ): Observable<MutableList<BarcodeModel>> {
+        return mAPI.getTicketBarcodes(orderId, "Bearer $accessToken")
+    }
+
+    override fun getTicketBarcode(
+        orderId: Int,
+        cartId: Int,
+        accessToken: String
+    ): Observable<BarcodeModel> {
+        return mAPI.getTicketBarcode(orderId, cartId, "Bearer $accessToken")
+    }
 }

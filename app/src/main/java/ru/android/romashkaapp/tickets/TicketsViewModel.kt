@@ -19,7 +19,9 @@ import ru.android.romashkaapp.utils.Utils
  * Created by yasina on 23.12.2020
 */
 public interface ItemClickListener{
-    fun click(item: TicketsAdapter.Ticket)
+    fun setYear(year: String)
+    fun onGooglePayClick(item: TicketsAdapter.Ticket)
+    fun onShareClick(item: TicketsAdapter.Ticket)
 }
 
 class TicketsViewModel(application: Application) : BaseViewModel(application), View.OnClickListener, ItemClickListener {
@@ -29,6 +31,7 @@ class TicketsViewModel(application: Application) : BaseViewModel(application), V
     private var eventUseCase: EventsUseCase? = null
     private var dictionaryUseCase: DictionaryUseCase? = null
     val list: MutableLiveData<MutableList<TicketsAdapter.Ticket?>> = MutableLiveData()
+    val year: MutableLiveData<String> = MutableLiveData()
 
     init {
         orderUseCase = OrderUseCase(StartActivity.REPOSITORY, Utils.getAccessToken(application)!!)
@@ -53,19 +56,14 @@ class TicketsViewModel(application: Application) : BaseViewModel(application), V
         override fun onNext(response: MutableList<OrderModel>) {
             super.onNext(response)
 
-            for (i in response){
+
+            for (i in response){//todo for several orders
                 if (i.status_id == 2){
+                    currentOrderId = i.id
                     orderUseCase!!.getUserOrderCarts(i.id, OrderCartsSubscriber())
                     break
                 }
             }
-
-//            response.forEach {//todo for several orders
-//                if (it.status_id == 2){
-//                    orderUseCase!!.getUserOrderCarts(it.id, OrderCartsSubscriber())
-//                    return@forEach
-//                }
-//            }
         }
     }
 
@@ -73,13 +71,10 @@ class TicketsViewModel(application: Application) : BaseViewModel(application), V
         dictionaryUseCase!!.getNoms(perPage = 1000, page = 2, NomsSubscriber(carts)) //todo right way
     }
 
-    private inner class NomsSubscriber : BaseSubscriber<MutableList<NomModel>> {
+    private inner class NomsSubscriber(l: MutableList<CartModel>) :
+        BaseSubscriber<MutableList<NomModel>>() {
 
-        var carts: MutableList<CartModel>
-
-        constructor(l: MutableList<CartModel>){
-            carts = l
-        }
+        var carts: MutableList<CartModel> = l
 
         override fun onError(e: Throwable) {
             super.onError(e)
@@ -92,15 +87,11 @@ class TicketsViewModel(application: Application) : BaseViewModel(application), V
         }
     }
 
-    private inner class EventsSubscriber : BaseSubscriber<MutableList<EventModel>> {
+    private inner class EventsSubscriber(n: MutableList<NomModel>, c: MutableList<CartModel>) :
+        BaseSubscriber<MutableList<EventModel>>() {
 
-        var noms: MutableList<NomModel> = mutableListOf()
-        var carts: MutableList<CartModel>
-
-        constructor(n: MutableList<NomModel>, c: MutableList<CartModel>) {
-            noms = n
-            carts = c
-        }
+        var noms: MutableList<NomModel> = n
+        var carts: MutableList<CartModel> = c
 
         override fun onError(e: Throwable) {
             super.onError(e)
@@ -115,6 +106,7 @@ class TicketsViewModel(application: Application) : BaseViewModel(application), V
                 val match = TicketsAdapter.Ticket()
                 response.forEach { event ->
                     if(event.id == c.event_id) {
+                        getBarcode(c.id)
                         match.cart = c
                         match.event = event
                         for (n in noms) {
@@ -134,13 +126,33 @@ class TicketsViewModel(application: Application) : BaseViewModel(application), V
         }
     }
 
-    private inner class AreasSubscriber: BaseSubscriber<MutableList<AreaModel>> {
+    private fun getBarcode(cartId: Int){
+        orderUseCase!!.getBarcode(currentOrderId, cartId, BarcodeSubscriber(cartId))
+    }
 
-        var cart: TicketsAdapter.Ticket
+    private inner class BarcodeSubscriber(var cartId: Int): BaseSubscriber<BarcodeModel>() {
 
-        constructor(cart: TicketsAdapter.Ticket){
-            this.cart = cart
+        override fun onError(e: Throwable) {
+            super.onError(e)
         }
+
+        override fun onNext(response: BarcodeModel) {
+            super.onNext(response)
+            var l = list.value
+            l!!.forEach {
+                if(it != null) {
+                    if (it.cart.id == cartId) {
+                        it.qrCode = response.barcode
+                        return@forEach
+                    }
+                }
+            }.also {
+                list.value = l
+            }
+        }
+    }
+
+    private inner class AreasSubscriber(var cart: TicketsAdapter.Ticket) : BaseSubscriber<MutableList<AreaModel>>() {
 
         override fun onError(e: Throwable) {
             super.onError(e)
@@ -153,7 +165,7 @@ class TicketsViewModel(application: Application) : BaseViewModel(application), V
                 var l = list.value
                 l!!.forEach {
                     if(it != null) {
-                        if (it.event!!.id == cart.event!!.id) {
+                        if (it.event.id == cart.event.id) {
                             it.location = response[0].name
                             return@forEach
                         }
@@ -177,6 +189,22 @@ class TicketsViewModel(application: Application) : BaseViewModel(application), V
         }
     }
 
+//    private fun getTickets(){
+//        orderUseCase!!.getBarcodes(currentOrderId, BarcodesSubscriber())
+//    }
+//
+//    private inner class BarcodesSubscriber: BaseSubscriber<MutableList<BarcodeModel>>() {
+//
+//        override fun onError(e: Throwable) {
+//            super.onError(e)
+//        }
+//
+//        override fun onNext(response: MutableList<BarcodeModel>) {
+//            super.onNext(response)
+//            getTickets()
+//        }
+//    }
+
     override fun onClick(view: View?) {
         TODO("Not yet implemented")
     }
@@ -185,9 +213,15 @@ class TicketsViewModel(application: Application) : BaseViewModel(application), V
         return this
     }
 
-    override fun click(item: TicketsAdapter.Ticket) {
+    override fun setYear(y: String) {
+        year.value = y
+    }
+
+    override fun onGooglePayClick(item: TicketsAdapter.Ticket) {
         TODO("Not yet implemented")
     }
 
-
+    override fun onShareClick(item: TicketsAdapter.Ticket) {
+        TODO("Not yet implemented")
+    }
 }

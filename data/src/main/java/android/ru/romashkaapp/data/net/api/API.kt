@@ -124,4 +124,12 @@ interface API {
     @GET("/yasina/v1/orders/{order_id}/tickets")
     fun getTickets(@Path("order_id") orderId: Int, @Header("Authorization") accessToken: String): Observable<ResponseBody>
 
+    @Headers("Content-Type: application/json; charset=UTF-8")
+    @GET("/yasina/v1/orders/{order_id}/barcodes")
+    fun getTicketBarcodes(@Path("order_id") orderId: Int, @Header("Authorization") accessToken: String): Observable<MutableList<BarcodeModel>>
+
+    @Headers("Content-Type: application/json; charset=UTF-8")
+    @GET("/yasina/v1/orders/{order_id}/carts/{cart_id}/barcode")
+    fun getTicketBarcode(@Path("order_id") orderId: Int, @Path("cart_id") cartId: Int, @Header("Authorization") accessToken: String): Observable<BarcodeModel>
+
 }

@@ -9,6 +9,7 @@ import ru.android.romashkaapp.BaseSubscriber
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.StartActivity
 import ru.android.romashkaapp.base.BaseViewModel
+import ru.android.romashkaapp.utils.SvgFromXmlCreater.Companion.savePdfToTheDevice
 import ru.android.romashkaapp.utils.Utils
 
 /*
@@ -41,7 +42,7 @@ class SuccessPaymentViewModel(application: Application) : BaseViewModel(applicat
 
         override fun onNext(response: ResponseBody) {
             super.onNext(response)
-            Log.d("f", response.string())
+            Log.d("f", "is=" + savePdfToTheDevice(context, response, currentOrderId))
         }
     }
 

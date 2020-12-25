@@ -186,7 +186,8 @@ class BasketViewModel(application: Application) : BaseViewModel(application), It
         override fun onNext(response: OrderModel) {
             super.onNext(response)
             currentOrderSum = response.amount + response.commision
-            orderUseCase!!.getUserOrderCarts(response.id, OrderCartsSubscriber())
+            openSuccessPaymentView()
+            //todo orderUseCase!!.getUserOrderCarts(response.id, OrderCartsSubscriber())
         }
     }
 

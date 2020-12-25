@@ -48,7 +48,9 @@ class TicketsFragment : Fragment() {
     }
 
     private fun setAdapter(){
-        binding.visibilityOfBasket = true //todo empty mode
+        binding.visibilityOfProgressBar = View.VISIBLE
+        binding.visibilityOfEmptyBasket = View.GONE
+        binding.visibilityOfBasket = View.GONE //todo empty mode
 
         adapter = TicketsAdapter(viewModel.getListener())
 
@@ -81,6 +83,8 @@ class TicketsFragment : Fragment() {
 
         binding.viewModel!!.list.observe(viewLifecycleOwner, {
             adapter.updateList(it)
+            binding.visibilityOfProgressBar = View.GONE
+            binding.visibilityOfBasket = View.VISIBLE
         })
     }
 }

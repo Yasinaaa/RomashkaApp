@@ -40,6 +40,8 @@ interface Repository {
     fun getOrder(orderId:Int, accessToken: String): Observable<OrderModel>
     fun getAllOrders(accessToken: String): Observable<MutableList<OrderModel>>
     fun getTickets(orderId: Int, accessToken: String): Observable<ResponseBody>
+    fun getTicketBarcodes(orderId: Int, accessToken: String): Observable<MutableList<BarcodeModel>>
+    fun getTicketBarcode(orderId: Int, cartId: Int, accessToken: String): Observable<BarcodeModel>
 //    fun getServices(last: String?, limit: String?, active: Boolean?,unitId: Int?): Observable<MutableList<ServiceModel>>
 //    fun getService(serviceId: Int): Observable<ServiceModel>
 }

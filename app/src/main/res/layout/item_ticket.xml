@@ -26,7 +26,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="@{match.date}"
+            android:text="@{match.day}"
             android:textAlignment="viewStart"
             android:textColor="@color/colorPrimary"
             android:textSize="14sp"
@@ -43,7 +43,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto_bold"
-
+            android:text="@{match.price}"
             android:textAlignment="viewStart"
             android:textColor="@color/colorPrimary"
             android:textSize="14sp"
@@ -59,7 +59,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto"
-
+            android:text="@{match.time}"
             android:textAlignment="viewStart"
             android:textColor="@color/button_next_color"
             android:textSize="12sp"
@@ -164,6 +164,7 @@
             android:textAlignment="textStart"
             android:textColor="@android:color/black"
             android:textSize="14sp"
+            android:text="@{match.location}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/civ_logo2"
             tools:text="Казань Арена, г. Казань" />
@@ -225,6 +226,7 @@
             android:layout_marginTop="4dp"
             android:fontFamily="@font/pfbeauaanspro_reg"
             tools:text="116"
+            android:text="@{match.cart.sector}"
             android:textAlignment="textStart"
             android:textColor="@android:color/black"
             android:textSize="12sp"
@@ -242,6 +244,7 @@
             android:layout_marginTop="4dp"
             android:fontFamily="@font/pfbeauaanspro_reg"
             tools:text="4"
+            android:text="@{match.cart.row}"
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="12sp"
@@ -260,6 +263,7 @@
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/pfbeauaanspro_reg"
             tools:text="6"
+            android:text="@{match.cart.col}"
             android:textAlignment="textEnd"
             android:textColor="@android:color/black"
             android:textSize="12sp"
@@ -278,6 +282,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_ticket_seat_value"
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:elevation="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_qr_code"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="11dp"
+            app:imageBitmap="@{match.qrCode}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_dots"
             tools:ignore="MissingConstraints" />
 
         <ImageView

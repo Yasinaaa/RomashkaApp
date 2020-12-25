@@ -4,8 +4,8 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
-import java.io.File
-import java.io.FileOutputStream
+import okhttp3.ResponseBody
+import java.io.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -79,11 +79,6 @@ class SvgFromXmlCreater {
                         "</head>\n" +
                         "<style> " +
                         ".center {\n" +
-//                        "  position: absolute;\n" +
-//                        "  top: 10%;\n" +
-////                        "  left: 50%;\n" +
-//                        "  -ms-transform: translate(0%, 0%);\n" +
-//                        "  transform: translate(0%, 0%);\n" +
                         "}" +
                         "</style>" +
                         "<body><div class=\"center\">"
@@ -91,6 +86,50 @@ class SvgFromXmlCreater {
             builder.append(svg)
             builder.append("</div></body>\n" + "</html>")
             return builder.toString()
+        }
+
+        open fun savePdfToTheDevice(context: Context, body: ResponseBody, orderId: Int): Boolean {
+            return try {
+
+                if (ActivityCompat.checkSelfPermission(
+                        context,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) != PackageManager.PERMISSION_GRANTED) {
+                    //todo show error
+                    return false
+                }else{
+                    val path = context.getExternalFilesDir(null)
+                    val letDirectory = File(path, "tickets")
+                    letDirectory.mkdirs()
+                    val futureFile = File(letDirectory, "Order$orderId.pdf")
+                    var inputStream: InputStream? = null
+                    var outputStream: OutputStream? = null
+                    try {
+                        val fileReader = ByteArray(4096)
+                        var fileSizeDownloaded: Long = 0
+                        inputStream = body.byteStream()
+                        outputStream = FileOutputStream(futureFile)
+                        while (true) {
+                            val read: Int = inputStream.read(fileReader)
+                            if (read == -1) {
+                                break
+                            }
+                            outputStream.write(fileReader, 0, read)
+                            fileSizeDownloaded += read.toLong()
+                        }
+                        outputStream.flush()
+                        true
+                    } catch (e: IOException) {
+                        false
+                    } finally {
+                        inputStream?.close()
+                        outputStream?.close()
+                    }
+                }
+
+            } catch (e: IOException) {
+                false
+            }
         }
     }
 

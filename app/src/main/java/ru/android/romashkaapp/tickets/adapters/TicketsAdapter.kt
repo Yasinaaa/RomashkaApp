@@ -1,22 +1,35 @@
 package ru.android.romashkaapp.tickets.adapters
 
 import android.content.Context
+import android.content.Context.WINDOW_SERVICE
+import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.Point
 import android.ru.romashkaapp.models.CartModel
 import android.ru.romashkaapp.models.EventModel
 import android.util.Base64
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.ImageView
+import androidmads.library.qrgenearator.QRGContents
+import androidmads.library.qrgenearator.QRGEncoder
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
+import com.google.zxing.WriterException
 import ru.android.romashkaapp.BR
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.tickets.ItemClickListener
-import ru.android.romashkaapp.utils.parseTimeStamp
+import ru.android.romashkaapp.utils.getDay
+import ru.android.romashkaapp.utils.getTime
+import ru.android.romashkaapp.utils.removeZero
+import java.time.Instant
+import java.time.ZoneId
+import java.util.*
 
 
 /**
@@ -25,7 +38,7 @@ import ru.android.romashkaapp.utils.parseTimeStamp
  */
 open class TicketsAdapter(var listener: ItemClickListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    protected lateinit var mContext: Context
+    lateinit var mContext: Context
 
     class ItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val bindingItem: ViewDataBinding? = DataBindingUtil.bind(view)
@@ -46,7 +59,10 @@ open class TicketsAdapter(var listener: ItemClickListener) : RecyclerView.Adapte
             if(list[position] != null){
                 parseName(list[position]!!)
                 setDate(list[position]!!)
+                setPrice(list[position]!!)
                 setRivalImage(holder, list[position]!!.event.thumbnail)
+
+                list[position]!!.qrCode = list[position]!!.qrCode //"7254780087325"
 
                 holder.bindingItem?.setVariable(BR.match, list[position])
                 holder.bindingItem?.executePendingBindings()
@@ -58,11 +74,41 @@ open class TicketsAdapter(var listener: ItemClickListener) : RecyclerView.Adapte
         }
     }
 
-    fun setDate(match: Ticket){
-        match.date = match.event.sdate.parseTimeStamp()
+    companion object {
+        @JvmStatic
+        @BindingAdapter("app:imageBitmap")
+        open fun loadImage(iv: ImageView, img: String?) {
+            if (img != null) {
+                iv.setImageBitmap(createQrCode(img)!!)
+            }
+        }
+
+        private fun createQrCode(text: String): Bitmap? {
+            val qrgEncoder = QRGEncoder(text, null, QRGContents.Type.TEXT, 330)
+            qrgEncoder.colorWhite = Color.TRANSPARENT
+            return try {
+                qrgEncoder.bitmap
+            } catch (e: WriterException) {
+                null
+            }
+        }
     }
 
-    fun setRivalImage(holder: ItemViewHolder, thumbnail: String?){
+    private fun setPrice(match: Ticket){
+        match.price = String.format(mContext.getString(R.string.rub), match.cart.price.removeZero())
+    }
+
+    private fun setDate(match: Ticket){
+        val stamp = Instant.ofEpochSecond(match.event.sdate!!.toLong())
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate()
+
+        listener.setYear(stamp.year.toString())
+        match.day = match.event.sdate!!.getDay()
+        match.time = match.event.sdate!!.getTime()
+    }
+
+    private fun setRivalImage(holder: ItemViewHolder, thumbnail: String?){
         var circleImage = holder.bindingItem!!.root.findViewById(R.id.civ_logo2) as ShapeableImageView
         if(!thumbnail.isNullOrEmpty()){
             var image = thumbnail
@@ -83,7 +129,7 @@ open class TicketsAdapter(var listener: ItemClickListener) : RecyclerView.Adapte
         }
     }
 
-    fun parseName(match: Ticket){
+    private fun parseName(match: Ticket){
         if(match.event.name != null){
             when {
                 match.event.name!!.contains(" - ") -> {
@@ -112,7 +158,6 @@ open class TicketsAdapter(var listener: ItemClickListener) : RecyclerView.Adapte
     }
 
     open fun updateList(list: MutableList<Ticket?>) {
-        list.add(1, null)
         this.list = list
         notifyDataSetChanged()
     }
@@ -121,14 +166,16 @@ open class TicketsAdapter(var listener: ItemClickListener) : RecyclerView.Adapte
         return list.size
     }
 
-    public class Ticket{
+    class Ticket{
         lateinit var cart: CartModel
         lateinit var event: EventModel
-        var barcode: String? = null
+        var qrCode: String? = null
         var location: String? = null
         var nomTitle: String? = null
         var firstLine: String? = null
         var secondLine: String? = null
-        var date: String? = null
+        var day: String? = null
+        var time: String? = null
+        var price: String? = null
     }
 }

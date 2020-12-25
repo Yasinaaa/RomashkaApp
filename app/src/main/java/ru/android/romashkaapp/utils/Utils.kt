@@ -27,7 +27,7 @@ class Utils {
 
         val CLIENT_ID_USER = "user"
         val CLIENT_SECRET_USER =  "YOl_BXKysP9QhGmzea"
-        val CLIENT_SCOPES = "get_events get_noms get_areas get_dictionaries crud_carts get_personal_orders"
+        val CLIENT_SCOPES = "rud_user get_events get_noms get_areas get_dictionaries get_personal_orders crud_carts get_personal_tickets"
         
         fun hideKeyboardFrom(context: Context, view: View) {
             val imm: InputMethodManager =

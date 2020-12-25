@@ -86,4 +86,22 @@ class OrderUseCase(
                 .subscribeWith(useCaseDisposable)
         }
     }
+
+    fun <S> getBarcodes(orderId: Int, useCaseDisposable: S) where S : Observer<in MutableList<BarcodeModel>>?, S : Disposable {
+        if (mAccessToken != null) {
+            mRepository.getTicketBarcodes(orderId, mAccessToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(useCaseDisposable)
+        }
+    }
+
+    fun <S> getBarcode(orderId: Int, cartId: Int, useCaseDisposable: S) where S : Observer<in BarcodeModel>?, S : Disposable {
+        if (mAccessToken != null) {
+            mRepository.getTicketBarcode(orderId, cartId, mAccessToken)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(useCaseDisposable)
+        }
+    }
 }
