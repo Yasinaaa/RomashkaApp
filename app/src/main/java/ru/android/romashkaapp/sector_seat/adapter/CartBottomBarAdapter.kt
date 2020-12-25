@@ -42,6 +42,10 @@ class CartBottomBarAdapter : SwipeRemoveItemAdapter() {
         if (holder is ItemViewHolder) {
             holder.binding?.setVariable(BR.line, View.VISIBLE)
             holder.binding?.setVariable(BR.item, list!![position])
+            holder.binding?.setVariable(BR.row_and_seat,
+                String.format(context.getString(R.string.row_and_seat), list!![position].row.toString(), list!![position].col.toString()))
+            holder.binding?.setVariable(BR.sector,
+                String.format(context.getString(R.string.sector), list!![position].sector.toString()))
             holder.binding?.setVariable(
                 BR.price,
                 String.format(

@@ -93,6 +93,7 @@ class SectorSeatFragment : BaseFragment() {
         }
 
         viewModel.list.observe(viewLifecycleOwner, {
+
             adapter.updateList(it)
         })
 

@@ -13,6 +13,12 @@
         <variable
             name="line"
             type="Integer" />
+        <variable
+            name="row_and_seat"
+            type="String" />
+        <variable
+            name="sector"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +36,7 @@
             android:textAlignment="viewStart"
             android:letterSpacing="0"
             android:gravity="center"
-            android:text="@{item.name}"
+            android:text="@{row_and_seat}"
             tools:text="Ряд 4, Место 6"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
@@ -53,7 +59,7 @@
             android:textAlignment="viewStart"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:text="@{item.sector}"
+            android:text="@{sector}"
             app:layout_constraintEnd_toStartOf="@+id/tv_item_ticket_type"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_seat"
             app:layout_constraintStart_toStartOf="parent"/>

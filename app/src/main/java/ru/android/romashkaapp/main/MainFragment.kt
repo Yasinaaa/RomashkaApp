@@ -20,7 +20,7 @@ import ru.android.romashkaapp.R
 import ru.android.romashkaapp.afisha.AfishaFragment
 import ru.android.romashkaapp.basket.BasketFragment
 import ru.android.romashkaapp.databinding.FragmentMainBinding
-import ru.android.romashkaapp.login.LoginFragment
+import ru.android.romashkaapp.signin.SignInFragment
 import ru.android.romashkaapp.tickets.TicketsFragment
 
 
@@ -145,7 +145,7 @@ class MainFragment : Fragment() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.account -> {
-                setFragment(LoginFragment())
+                setFragment(SignInFragment())
                 return@OnNavigationItemSelectedListener true
             }
         }

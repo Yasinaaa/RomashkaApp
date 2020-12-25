@@ -126,11 +126,12 @@ open class MatchesAdapter(var listener: ItemClickListener) : RecyclerView.Adapte
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if(position == 1) VIEW_TEXT_TYPE else VIEW_TYPE_MATCH
+        return if(position == 1 && list.size > 4) VIEW_TEXT_TYPE else VIEW_TYPE_MATCH
     }
 
     open fun updateList(list: MutableList<Match?>) {
-        list.add(1, null)
+        if(list.size > 4)
+            list.add(1, null)
         this.list = list
         notifyDataSetChanged()
     }

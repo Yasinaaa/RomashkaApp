@@ -53,6 +53,7 @@ class AfishaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
+            binding.visibilityOfEmptyAfisha = GONE
             matchesAdapter = MatchesAdapter(viewModel!!.getListener())
             rv_matches.adapter = matchesAdapter
             rv_matches.layoutManager = LinearLayoutManager(context)
@@ -61,11 +62,17 @@ class AfishaFragment : Fragment() {
         }
 
         viewModel.matchesList.observe(viewLifecycleOwner, {
-            pb.visibility = GONE
-            view_title_line.visibility = VISIBLE
-            tv_title.visibility = VISIBLE
-            mb_view_all_matches.visibility = VISIBLE
-            matchesAdapter.updateList(it)
+            binding.visibilityOfProgressBar = GONE
+            if(it != null) {
+                binding.visibilityOfAfisha = VISIBLE
+                binding.visibilityOfEmptyAfisha = GONE
+                if (it.size > 4)
+                    mb_view_all_matches.visibility = VISIBLE
+                matchesAdapter.updateList(it)
+            }else{
+                binding.visibilityOfEmptyAfisha = VISIBLE
+                binding.visibilityOfAfisha = GONE
+            }
         })
         viewModel.servicesList.observe(viewLifecycleOwner, {
             servicesAdapter.updateList(it)

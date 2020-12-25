@@ -1,4 +1,4 @@
-package ru.android.romashkaapp.login
+package ru.android.romashkaapp.signin
 
 import android.app.Application
 import android.ru.romashkaapp.models.ClientTokenResponse
@@ -18,7 +18,7 @@ import ru.android.romashkaapp.utils.Utils
  * Created by yasina on 05.10.2020.
  * Copyright (c) 2018 Infomatica. All rights reserved.
  */
-class LoginViewModel(application: Application) : BaseViewModel(application), View.OnClickListener {
+class SignInViewModel(application: Application) : BaseViewModel(application), View.OnClickListener {
 
     var login = MutableLiveData<String>()
     var password = MutableLiveData<String>()
@@ -32,7 +32,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application), Vie
 
     init {
         userUseCase = UserUseCase(StartActivity.REPOSITORY, Utils.getAccessToken(application.applicationContext)!!)
-        createUser()
+        //createUser()
     }
 
     fun createUser(){

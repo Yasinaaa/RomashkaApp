@@ -75,23 +75,27 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
             Log.d("ffd", "EventsSubscriber")
 
             val list = mutableListOf<MatchesAdapter.Match?>()
-            for (event in response) {
-                if(event.active!!) {
-                    val match = MatchesAdapter.Match()
-                    match.event = event
-                    for (n in noms) {
-                        if (event.nom_id == n.id) {
-                            match.nomTitle = n.name
+            if(response.size > 0 ) {
+                for (event in response) {
+                    if (event.active!!) {
+                        val match = MatchesAdapter.Match()
+                        match.event = event
+                        for (n in noms) {
+                            if (event.nom_id == n.id) {
+                                match.nomTitle = n.name
+                            }
                         }
+                        list.add(match)
                     }
-                    list.add(match)
                 }
+                list.sortBy { it?.event?.sdate }
+                if (list.size > 4)
+                    matchesList.value = list.subList(0, 4)
+                else
+                    matchesList.value = list.subList(0, list.size)
+            }else{
+                matchesList.value = null
             }
-            list.sortBy { it?.event?.sdate }
-            if(list.size > 4)
-                matchesList.value = list.subList(0, 4)
-            else
-                matchesList.value = list.subList(0, list.size)
         }
     }
 
