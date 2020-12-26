@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -186,7 +187,7 @@ class SectorSeatFragment : BaseFragment() {
 
         binding.viewModel?.seatsCoordinates!!.observe(viewLifecycleOwner, {
             it.forEach { seatModel ->
-                val shape = SeatShape(seatModel.x!!.toInt()*5, seatModel.y!!.toInt()*5, 30, seatModel.col.toString())
+                val shape = SeatShape(seatModel)
                 shape.type = SeatShape.Type.SQUARE
                 ShapesInteractor.instance.upDateCanvas(shape)
             }

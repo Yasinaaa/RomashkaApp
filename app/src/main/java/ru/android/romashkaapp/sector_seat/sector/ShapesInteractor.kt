@@ -19,13 +19,12 @@ class ShapesInteractor private constructor() {
     var maxY = 0
     private var actionSequence = 0
 
-
     private fun deleteShape(oldShape: SeatShape, i: Int) {
         oldShape.setVisibility(false)
         oldShape.actionNumber = actionSequence++
         historyList[i] = oldShape
         Log.d(LOG_TAG, "askForDeleteShape =  " + oldShape.type)
-        canvas!!.setHistoryList(historyList)
+        canvas!!.initHistoryList(historyList)
         canvas!!.invalidate()
     }
 
@@ -41,46 +40,46 @@ class ShapesInteractor private constructor() {
         for (i in list.indices.reversed()) {
             val oldShape: SeatShape = list[i]
             if (oldShape.isVisible) {
-                oldX = oldShape.getxCordinate()
-                oldY = oldShape.getyCordinate()
+                oldX = oldShape.x
+                oldY = oldShape.y
 
                 //Find an existing shape where the user has clicked on the canvas
-                if (25 >= calculateDistanceBetweenPoints(
-                        oldX.toDouble(),
-                        oldY.toDouble(),
-                        touchX.toDouble(),
-                        touchY.toDouble()
-                    )
-                ) {
-                    if (changeStatus == 12) addTransformShape(
-                        oldShape,
-                        i,
-                        oldX,
-                        oldY
-                    )
-                    break
-                }
+//                if (25 >= calculateDistanceBetweenPoints(
+//                        oldX.toDouble(),
+//                        oldY.toDouble(),
+//                        touchX.toDouble(),
+//                        touchY.toDouble()
+//                    )
+//                ) {
+//                    if (changeStatus == 12) addTransformShape(
+//                        oldShape,
+//                        i,
+//                        oldX,
+//                        oldY
+//                    )
+//                    break
+//                }
             }
         }
     }
 
-    private fun addTransformShape(oldShape: SeatShape, index: Int, newX: Int, newY: Int) {
-        Log.d(LOG_TAG, " oldShape =  " + oldShape.type)
-        oldShape.setVisibility(false)
-        historyList[index] = oldShape
-        Log.d(LOG_TAG, " HIDE oldShape =  " + oldShape.type)
-
-        //transform object , rotate into available objects
-        val newShapeType: Int =
-            (oldShape.type!!.value + 1) % 3
-        val newshapeType: SeatShape.Type = SeatShape.Type.values().get(newShapeType)
-        Log.d(LOG_TAG, " newshape =  $newshapeType")
-
-        val newShape: SeatShape = SeatShape(newX, newY, 50, oldShape.title)
-        newShape.type = SeatShape.Type.CIRCLE
-        newShape.lastTranformationIndex = index
-        upDateCanvas(newShape)
-    }
+//    private fun addTransformShape(oldShape: SeatShape, index: Int, newX: Int, newY: Int) {
+//        Log.d(LOG_TAG, " oldShape =  " + oldShape.type)
+//        oldShape.setVisibility(false)
+//        historyList[index] = oldShape
+//        Log.d(LOG_TAG, " HIDE oldShape =  " + oldShape.type)
+//
+//        //transform object , rotate into available objects
+//        val newShapeType: Int =
+//            (oldShape.type!!.value + 1) % 3
+//        val newshapeType: SeatShape.Type = SeatShape.Type.values().get(newShapeType)
+//        Log.d(LOG_TAG, " newshape =  $newshapeType")
+//
+//        val newShape: SeatShape = SeatShape(newX, newY, 50, oldShape.title)
+//        newShape.type = SeatShape.Type.CIRCLE
+//        newShape.lastTranformationIndex = index
+//        upDateCanvas(newShape)
+//    }
 
     fun calculateDistanceBetweenPoints(
         x1: Double,
@@ -106,7 +105,7 @@ class ShapesInteractor private constructor() {
                 }
             }
             historyList.removeLast()
-            canvas!!.setHistoryList(historyList)
+            canvas!!.initHistoryList(historyList)
             canvas!!.invalidate()
         }
     }
@@ -118,7 +117,7 @@ class ShapesInteractor private constructor() {
         )
         shape.actionNumber = actionSequence++
         historyList.add(shape)
-        canvas!!.setHistoryList(historyList)
+        canvas!!.initHistoryList(historyList)
         canvas!!.invalidate()
     }
 

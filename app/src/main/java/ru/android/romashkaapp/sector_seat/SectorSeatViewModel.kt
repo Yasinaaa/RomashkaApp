@@ -106,6 +106,17 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
 
         override fun onNext(response: MutableList<SeatModel>) {
             super.onNext(response)
+
+            var list = mutableListOf<SeatModel>()
+
+//            response.forEach {
+//                if (it.row == 1){
+//                    list.add(it)
+//                }
+//            }.also {
+//                seatsCoordinates.value = list
+//            }
+
             if(response.isNotEmpty()){
                 var list = mutableListOf<SeatModel>()
                 response.forEach{ seatModel ->
@@ -116,7 +127,7 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
                     seatsCoordinates.value = list
                 }
             }
-            eventUseCase!!.getEventSectorStatuses(eventId, sectorId = sectorId!!.toInt(), areaId = areaId, SectorStatusesSubscriber())
+//            eventUseCase!!.getEventSectorStatuses(eventId, sectorId = sectorId!!.toInt(), areaId = areaId, SectorStatusesSubscriber())
         }
     }
 

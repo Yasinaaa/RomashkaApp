@@ -155,7 +155,6 @@ class StadiumFragment : BaseFragment(){
         binding.viewModel?.pricesList!!.observe(viewLifecycleOwner, {
             cl_bottomsheet.visibility = VISIBLE
             bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED
-
             fullPricesAdapter!!.updateList(it)
         })
 
@@ -167,6 +166,9 @@ class StadiumFragment : BaseFragment(){
             pb.visibility = GONE
             wv_stadium.addJavascriptInterface(jsInterface!!, "Android")
             wv_stadium.loadUrl(it)
+
+            //todo
+            jsInterface!!.onClicked("65")
         })
 
         initPricesView()
