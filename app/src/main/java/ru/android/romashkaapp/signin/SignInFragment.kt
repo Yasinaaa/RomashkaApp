@@ -4,18 +4,16 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import kotlinx.android.synthetic.main.fragment_basket.*
-import kotlinx.android.synthetic.main.fragment_sign_in.*
+import kotlinx.android.synthetic.main.fragment_account.*
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.databinding.FragmentSignInBinding
 import ru.android.romashkaapp.main.MainViewModel
@@ -40,7 +38,7 @@ class SignInFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_in, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_account, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.executePendingBindings()

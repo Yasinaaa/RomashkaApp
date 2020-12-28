@@ -192,6 +192,10 @@ class SectorSeatFragment : BaseFragment() {
                 ShapesInteractor.instance.upDateCanvas(shape)
             }
         })
+
+        binding.viewModel?.vr!!.observe(viewLifecycleOwner, {
+
+        })
     }
 
     private fun initSeats(){

@@ -140,7 +140,6 @@
     <string name="share">Поделиться</string>
     <string name="there_are_would_be_your_tickets">Здесь хранятся Ваши билеты</string>
     <string name="there_are_would_be_your_tickets_after_pay">После оплаты заказа, на этой странице появятся Ваши билеты на матч</string>
-
     <string name="sign_in_or_sign_up">Войдите или создайте аккаунт</string>
     <string name="create_account">Создать аккаунт</string>
     <string name="help">Помощь</string>
@@ -152,11 +151,20 @@
     <string name="delete_a_photo">Удалить фотографию</string>
     <string name="cancel">Отмена</string>
     <string name="my_data">Мои данные</string>
-
     <string name="how_to_buy">Как купить?</string>
     <string name="purchase_rules">Правила покупки</string>
     <string name="return_tickets">Возврат билетов</string>
     <string name="contacts">Контакты</string>
-
+    <string name="welcome">Добро пожаловать!</string>
+    <string name="restore_password_title">Восстановление пароля</string>
+    <string name="enter_your_email_for_restore_passwords">Укажите адрес электронной почты, который Вы использовали при регистрации в приложении. Мы отправим инструкцию по восстановлению пароля.</string>
+    <string name="restore_password">Восстановить пароль</string>
+    <string name="letter_is_send">Письмо отправлено</string>
+    <string name="we_send_letter">Мы отправили письмо с инструкцией по восстановлению пароля на почту\n%s</string>
+    <string name="return_back">Вернуться</string>
+    <string name="important_field">*Поле должно быть заполнено</string>
+    <string name="privacy_policy"><![CDATA[<font color=#ff000000>Нажимая на кнопку «Создать аккаунт», я соглашаюсь на</font><font color=#015BAA>обработку персональных данных</font> и принимаю<font color=#015BAA>Политику конфиденциальности</font>]]></string>
+    <string name="account_created">Аккаунт успешно создан</string>
+    <string name="lets_go_for_tickets">Вперед, за билетами!</string>
 
 </resources>

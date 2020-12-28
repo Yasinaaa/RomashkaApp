@@ -54,6 +54,7 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
     val sectorPrevLive = MutableLiveData<String?>()
     val sectorNextLive = MutableLiveData<String?>()
     val cart = MutableLiveData<OrderModel>()
+    val vr = MutableLiveData<String>()
     val nextFragment = MutableLiveData<BasketFragment>()
     var allSectors: MutableList<SectorModel> = mutableListOf()
     val pricesList: MutableLiveData<MutableList<ZoneModel>> = MutableLiveData()
@@ -87,6 +88,12 @@ class SectorSeatViewModel(application: Application) : BaseViewModel(application)
             super.onNext(response)
             if(response.size != 0){
                 allSectors = response
+
+                response.forEach {
+                    if(it.view_id == areaId){
+                        vr.value = it.vr
+                    }
+                }
                 showPrevAndNext()
             }
         }
