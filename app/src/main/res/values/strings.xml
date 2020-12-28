@@ -163,7 +163,7 @@
     <string name="we_send_letter">Мы отправили письмо с инструкцией по восстановлению пароля на почту\n%s</string>
     <string name="return_back">Вернуться</string>
     <string name="important_field">*Поле должно быть заполнено</string>
-    <string name="privacy_policy"><![CDATA[<font color=#ff000000>Нажимая на кнопку «Создать аккаунт», я соглашаюсь на</font><font color=#015BAA>обработку персональных данных</font> и принимаю<font color=#015BAA>Политику конфиденциальности</font>]]></string>
+    <string name="privacy_policy"><![CDATA[<font color=#ff000000>Нажимая на кнопку «Создать аккаунт», я соглашаюсь на</font><font color=#015BAA> обработку персональных данных</font> и принимаю<font color=#015BAA> Политику конфиденциальности</font>]]></string>
     <string name="account_created">Аккаунт успешно создан</string>
     <string name="lets_go_for_tickets">Вперед, за билетами!</string>
 

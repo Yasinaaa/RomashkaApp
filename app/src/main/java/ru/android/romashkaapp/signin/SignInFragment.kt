@@ -2,6 +2,7 @@ package ru.android.romashkaapp.signin
 
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
@@ -14,8 +15,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import kotlinx.android.synthetic.main.fragment_basket.*
 import kotlinx.android.synthetic.main.fragment_account.*
+import kotlinx.android.synthetic.main.fragment_user_data.*
 import ru.android.romashkaapp.R
 import ru.android.romashkaapp.databinding.FragmentSignInBinding
+import ru.android.romashkaapp.databinding.FragmentUserDataBinding
 import ru.android.romashkaapp.main.MainViewModel
 
 /**
@@ -24,7 +27,7 @@ import ru.android.romashkaapp.main.MainViewModel
  */
 class SignInFragment : Fragment() {
 
-    lateinit var binding: FragmentSignInBinding
+    lateinit var binding: FragmentUserDataBinding
     private val viewModel: SignInViewModel by viewModels()
     private lateinit var mainViewModel: MainViewModel
     private var isReadyToSave = mutableMapOf("login" to false, "password" to false)
@@ -38,7 +41,7 @@ class SignInFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_account, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user_data, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.executePendingBindings()
@@ -47,9 +50,9 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setSupportFieldView()
-        binding.visibilityOfNewUser = View.GONE
-        binding.visibilityOfExistUser = View.VISIBLE
+//        setSupportFieldView()
+//        binding.visibilityOfNewUser = View.GONE
+//        binding.visibilityOfExistUser = View.VISIBLE
 
 //        viewModel.login.observe(viewLifecycleOwner, {
 //            if(it.isNotEmpty()) {
@@ -75,6 +78,10 @@ class SignInFragment : Fragment() {
 //            Utils.hideKeyboardFrom(requireContext(), binding.root)
 //            Utils.showSnackBar(requireContext(), requireView(), it)
 //        })
+
+
+        //user data
+        tv_create_account.setText(Html.fromHtml(getString(R.string.privacy_policy)))
     }
 
     private fun setSupportFieldView(){

@@ -94,7 +94,7 @@ class AfishaViewModel(application: Application) : BaseViewModel(application), Vi
                 else
                     matchesList.value = list.subList(0, list.size)
 
-                click(list[0])
+                //click(list[0])
             }else{
                 matchesList.value = null
             }
