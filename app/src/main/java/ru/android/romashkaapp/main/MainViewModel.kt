@@ -14,6 +14,7 @@ import ru.android.romashkaapp.BaseSubscriber
 import ru.android.romashkaapp.StartActivity.Companion.REPOSITORY
 import ru.android.romashkaapp.afisha.AfishaFragment
 import ru.android.romashkaapp.base.BaseViewModel
+import ru.android.romashkaapp.howtobuy.HowToBuyFragment
 import ru.android.romashkaapp.matches.MatchesFragment
 import ru.android.romashkaapp.stadium.StadiumFragment
 import ru.android.romashkaapp.utils.Utils
@@ -112,9 +113,13 @@ class MainViewModel(application: Application) : BaseViewModel(application), View
             Log.d("ffd", "ss=${response.access_token}")
             saveUserToken(context, response.access_token)
 
-            var fragment = AfishaFragment()
-            fragment.setViewModel(this@MainViewModel)
-            createFragment.value = fragment
+//            var fragment = AfishaFragment()
+//            fragment.setViewModel(this@MainViewModel)
+//            createFragment.value = fragment
+
+            //todo
+            var f = HowToBuyFragment()
+            createFragment.value = f
         }
     }
 

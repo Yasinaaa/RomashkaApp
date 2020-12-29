@@ -166,5 +166,23 @@
     <string name="privacy_policy"><![CDATA[<font color=#ff000000>Нажимая на кнопку «Создать аккаунт», я соглашаюсь на</font><font color=#015BAA> обработку персональных данных</font> и принимаю<font color=#015BAA> Политику конфиденциальности</font>]]></string>
     <string name="account_created">Аккаунт успешно создан</string>
     <string name="lets_go_for_tickets">Вперед, за билетами!</string>
+    <string name="step_1">Шаг 1.</string>
+    <string name="step_2">Шаг 2.</string>
+    <string name="step_3">Шаг 3.</string>
+    <string name="step_4">Шаг 4.</string>
+    <string name="step_5">Шаг 5.</string>
+    <string name="step_6">Шаг 6.</string>
+    <string name="step_1_text">Регистрация</string>
+    <string name="step_2_text">Выбор мероприятия</string>
+    <string name="step_3_text">Бронирование билетов</string>
+    <string name="step_4_text">Подготовка к оплате</string>
+    <string name="step_5_text">Оплата</string>
+    <string name="step_6_text">Билеты</string>
+    <string name="step_1_body"><![CDATA[<body>
+    <li><font color=\'#015BAA\'><b>01<b/></font></li>
+    <li><font color=\'#ff000000\'>Для покупки билета зарегистрируйтесь в приложении</font><br>
+    <font color=\'#8D95A9\'> В связи с тем, что фамилия и имя, указанные при регистрации, печатаются на электронном билете, мы рекомендуем Вам сразу регистрироваться с Вашими реальными данными. Обязательно укажите Ваш адрес электронной почты и контактный телефон для возможности оперативного уведомления Вас об изменениях в мероприятии, на которые Вы приобрели билеты. Введенные Вами данные остаются конфиденциальными.</li></font>
+    </body>]]></string>
+
 
 </resources>
